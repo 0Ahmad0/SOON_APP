@@ -6,7 +6,6 @@ class Controllert{
         if(state.contains(statusReport[i]['name'][0])){
           return i;
         }
-
       }return 4;
   }
 }

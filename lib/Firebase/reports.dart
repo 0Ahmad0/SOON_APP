@@ -1,4 +1,5 @@
 class Report{
+  String email="";
   String beneficiary="";
   String headquarters="";
   String building="";
@@ -15,5 +16,6 @@ class Report{
    String nameServices="";
    String replayServices="";
    String causeCancelServices="";
+   static String reportNumber="";
    var time;
 }
