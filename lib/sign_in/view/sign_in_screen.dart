@@ -11,8 +11,10 @@ import 'package:roofa/user_profile/view/user_profile_screen.dart';
 import 'package:roofa/widgets/background.dart';
 import 'package:roofa/widgets/custom_text_field.dart';
 import 'package:roofa/widgets/gradient_fab.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Firebase/firebase.dart';
+import '../../const/text_app.dart';
 import '../../customer/home_page/view/home_screen.dart';
 import '../../customer_services/home_page/view/home_page.dart';
 import '../../department_manager/home_page/view/home_page.dart';
@@ -168,26 +170,29 @@ class SignInScreen extends StatelessWidget {
                     ),
                     child: TextButton(
                         onPressed: () async {
-                          Get.to(RecoveryPasswordScreen());
+                          if(! await launch(urlUniversity)){
+                            Get.snackbar("Error", "Check your Internet");
+                          }
+                          // Get.to(RecoveryPasswordScreen());
                         },
                         child: Text(
                           'نسيت كلمة المرور',
                           style: TextStyle(color: Color(0xff28A2CF)),
                         )),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      right: 15.0
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          Get.to(NewUserSignUpScreen());
-                        },
-                        child: Text(
-                          'ليس لدي حساب',
-                          style: TextStyle(color: Color(0xff28A2CF)),
-                        )),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(
+                  //     right: 15.0
+                  //   ),
+                  //   child: TextButton(
+                  //       onPressed: () {
+                  //         Get.to(NewUserSignUpScreen());
+                  //       },
+                  //       child: Text(
+                  //         'ليس لدي حساب',
+                  //         style: TextStyle(color: Color(0xff28A2CF)),
+                  //       )),
+                  // ),
                 ],
               )
             ],

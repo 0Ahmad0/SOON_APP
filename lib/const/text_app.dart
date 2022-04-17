@@ -1060,3 +1060,6 @@ List<String> typeMoveTechnical = [
   'ازالة /فك',
   'إحالة لقسم الصيانة',
 ];
+
+//------------------
+const String  urlUniversity = 'https://uqu.edu.sa/Sso/Password';
