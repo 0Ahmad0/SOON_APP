@@ -17,6 +17,7 @@ import 'package:roofa/widgets/material_text.dart';
 import 'package:select_dialog/select_dialog.dart';
 import 'package:roofa/const/text_app.dart';
 
+import '../../../Firebase/reports.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../controller/supervise_controller.dart';
 
@@ -194,6 +195,7 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
                                      break;
                                    case "فرز على حسب المقر":
                                      contrller.headquartersFilter=selected.toString();
+                                     print(contrller.headquartersFilter);
                                      break;
                                  }
                                  //await contrller.fetchDataReportUser();
@@ -225,6 +227,7 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
                         itemBuilder: (ctx, index) {
                           return GestureDetector(
                             onTap: () {
+                              Report.reportNumber=contrller.listReport[index]['رقم البلاغ'];
                               Get.to(()=>DetailsTicketScreen(color:  statusReport[index]['الاسم'],));
                             },
                             child: Container(
@@ -293,7 +296,7 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
                                                             FirebaseController.formatTimestamp(contrller.listReport[index]["Time"]),
                                                           // '${intl.DateFormat.yMEd().add_jm().format(DateTime.now())}',//contrller.listReport[index]['Time']
                                                           style: TextStyle(
-                                                              color: colorShadowSearch),
+                                                              color: colorShadowSearch,fontSize: 10),
                                                         )),
                                                   ],
                                                 ),

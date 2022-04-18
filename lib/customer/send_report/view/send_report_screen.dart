@@ -147,7 +147,7 @@ class SendReportScreen extends StatelessWidget {
 List<Map<dynamic, dynamic>> sendReport = [
   {
     'type_sort_name': {
-      'name': 'المقر',
+      'name': 'الجهة المستفيدة',
       'type_sort_value': [
         'الإدارة العليا',
         'المستفيد',
@@ -159,7 +159,7 @@ List<Map<dynamic, dynamic>> sendReport = [
   },
   {
     'type_sort_name': {
-      'name': 'الجهة المستفيدة',
+      'name': 'المقر',
       'type_sort_value': [
         'العابدية -طلاب',
         'الزاهر -طالبات',

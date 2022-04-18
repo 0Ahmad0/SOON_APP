@@ -79,7 +79,10 @@ class FirebaseController{
         List.generate(lenNum, (index) => _numbers[r.nextInt(_numbers.length)]).join();
   }
   static String formatTimestamp(Timestamp timestamp) {
-    var format = new DateFormat('yMEd'); // <- use skeleton here
-    return format.format(timestamp.toDate());
+    var format =  new DateFormat('yMMMMd'); // <- use skeleton here
+    //return format.format(timestamp.toDate());
+    return DateFormat.yMMMMd()
+        .add_jms()
+        .format(timestamp.toDate());
   }
 }
