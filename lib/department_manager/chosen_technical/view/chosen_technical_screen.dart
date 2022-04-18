@@ -160,7 +160,8 @@ class ChosenTechnicalDMScreen extends StatelessWidget {
                     ));
                   },
                   child: Container(
-                    height: Get.width * 0.4,
+                    height: ticketSelectionTechnical
+                    [index]['report_status']?Get.width * 0.28:Get.width * 0.4,
                     margin: EdgeInsets.all(8.r),
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -197,89 +198,98 @@ class ChosenTechnicalDMScreen extends StatelessWidget {
                             child: Column(
                               children: [
 
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                   Row(
-                                     children: [
-                                       Text('رقم البلاغ : ',style: TextStyle(
-                                           color: mainColor,
-                                           fontSize: 15.sp,
-                                           fontWeight: FontWeight.bold
-                                       ),),
-                                       Text('${ticketSelectionTechnical
-                                       [index]['report_number']}',style: TextStyle(
-                                           color: mainColor
-                                       ),),
-                                     ],
-                                   ),
-                                    Text('${
-                                        intl.DateFormat
-                                            .yMEd()
-                                            .add_jm()
-                                            .format(
-                                            ticketSelectionTechnical
-                                            [index]['report_date_time']
-                                        )
-                                    }',style: TextStyle(
-                                      color: colorShadowSearch
-                                    ),),
-                                  ],
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                     Row(
+                                       children: [
+                                         Text('رقم البلاغ : ',style: TextStyle(
+                                             color: mainColor,
+                                             fontSize: 15.sp,
+                                             fontWeight: FontWeight.bold
+                                         ),),
+                                         Text('${ticketSelectionTechnical
+                                         [index]['report_number']}',style: TextStyle(
+                                             color: mainColor
+                                         ),),
+                                       ],
+                                     ),
+                                      Text('${
+                                          intl.DateFormat
+                                              .yMEd()
+                                              .add_jm()
+                                              .format(
+                                              ticketSelectionTechnical
+                                              [index]['report_date_time']
+                                          )
+                                      }',style: TextStyle(
+                                        color: colorShadowSearch
+                                      ),),
+                                    ],
+                                  ),
                                 ),
-                                Row(
-                                  children: [
-                                   Text('الجهة : ',style: TextStyle(
-                                       color: mainColor,
-                                       fontSize: 15.sp,
-                                       fontWeight: FontWeight.bold
-                                   ),),
-                                   Text('${ticketSelectionTechnical
-                                   [index]['report_target']}',style: TextStyle(
-                                       color: mainColor
-                                   ),),
-                                  ],
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                     Text('الجهة : ',style: TextStyle(
+                                         color: mainColor,
+                                         fontSize: 15.sp,
+                                         fontWeight: FontWeight.bold
+                                     ),),
+                                     Text('${ticketSelectionTechnical
+                                     [index]['report_target']}',style: TextStyle(
+                                         color: mainColor
+                                     ),),
+                                    ],
+                                  ),
                                 ),
-                                Row(
-                                  children: [
-                                   Text('المقر : ',style: TextStyle(
-                                       color: mainColor,
-                                       fontSize: 15.sp,
-                                       fontWeight: FontWeight.bold
-                                   ),),
-                                   Text('${ticketSelectionTechnical
-                                   [index]['report_position']}',style: TextStyle(
-                                       color: mainColor
-                                   ),),
-                                  ],
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                     Text('المقر : ',style: TextStyle(
+                                         color: mainColor,
+                                         fontSize: 15.sp,
+                                         fontWeight: FontWeight.bold
+                                     ),),
+                                     Text('${ticketSelectionTechnical
+                                     [index]['report_position']}',style: TextStyle(
+                                         color: mainColor
+                                     ),),
+                                    ],
+                                  ),
                                 ),
                                 ticketSelectionTechnical
                                 [index]['report_status']?
                                 SizedBox() :
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: (){
-                                        Get.to(()=>ChosenTechnicalForTicketDMScreen(
-                                          map: ticketSelectionTechnical[index],
-                                        ));
-                                      },
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        width: Get.width * 0.35,
-                                        height: Get.width* 0.1,
-                                        decoration: BoxDecoration(
-                                          color: mainColor,
-                                          borderRadius: BorderRadius.circular(50.r),
+                                Expanded(
+                                  flex: 2,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: (){
+                                          Get.to(()=>ChosenTechnicalForTicketDMScreen(
+                                            map: ticketSelectionTechnical[index],
+                                          ));
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          width: Get.width * 0.35,
+                                          height: Get.width* 0.1,
+                                          decoration: BoxDecoration(
+                                            color: mainColor,
+                                            borderRadius: BorderRadius.circular(50.r),
+                                          ),
+                                          child: Text('تعيين فني',style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15.sp
+                                          ),),
                                         ),
-                                        child: Text('تعيين فني',style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15.sp
-                                        ),),
-                                      ),
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 )
                               ],
                             ),

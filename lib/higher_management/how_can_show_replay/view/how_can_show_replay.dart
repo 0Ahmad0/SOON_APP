@@ -101,9 +101,7 @@ class HowCanShowReplayScreen extends StatelessWidget {
                 ),
                   onPressed: (){
                   Get.off(()=>DetailsTicketHMPage());
-                    showCustomDialog(
-                        text: 'تم إضافة رد على التذكرة'
-                    );
+
                   },
                 color: mainColor,
                 child: Text('إضافة',style: TextStyle(

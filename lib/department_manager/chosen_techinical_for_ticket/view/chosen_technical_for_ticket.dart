@@ -449,130 +449,155 @@ class ChosenTechnicalForTicketDMScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                         children: [
-                            Row(
-                              children: [
-                                Text('رقم التذكرة : ',style: TextStyle(
-                                    color: mainColor,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold
-                                ),),
-                                Text('${map!['report_number']}',style: TextStyle(
-                                    color: mainColor
-                                ),),
-                              ],
+                          Text('بيانات التذكرة',style: TextStyle(
+                            color: mainColor,
+                            fontSize: 15.sp,
+                          ),),
+                            Divider(
+                              thickness: 1.5,
                             ),
-                            Row(
-                              children: [
-                                Text('تاريخ التذكرة : ',style: TextStyle(
-                                    color: mainColor,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold
-                                ),),
-                                Text('${
-                                    intl.DateFormat
-                                        .yMEd()
-                                        .add_jm()
-                                        .format(
-                                        map!['report_date_time']
-                                    )
-                                }',style: TextStyle(
-                                    color: colorShadowSearch
-                                ),),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text('رقم التذكرة : ',style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                                  Text('${map!['report_number']}',style: TextStyle(
+                                      color: mainColor
+                                  ),),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text('تاريخ التذكرة : ',style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                                  Text('${
+                                      intl.DateFormat
+                                          .yMEd()
+                                          .add_jm()
+                                          .format(
+                                          map!['report_date_time']
+                                      )
+                                  }',style: TextStyle(
+                                      color: colorShadowSearch
+                                  ),),
 
-                              ],
+                                ],
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Text('الجهة/القسم : ',style: TextStyle(
-                                    color: mainColor,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold
-                                ),),
-                                Text('${map!['report_target']}',style: TextStyle(
-                                    color: mainColor
-                                ),),
-                              ],
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text('الجهة/القسم : ',style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                                  Text('${map!['report_target']}',style: TextStyle(
+                                      color: mainColor
+                                  ),),
+                                ],
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Text('المقر : ',style: TextStyle(
-                                    color: mainColor,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold
-                                ),),
-                                Text('${map!['report_position']}',style: TextStyle(
-                                    color: mainColor
-                                ),),
-                              ],
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text('المقر : ',style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                                  Text('${map!['report_position']}',style: TextStyle(
+                                      color: mainColor
+                                  ),),
+                                ],
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Text('رقم القاعة : ',style: TextStyle(
-                                    color: mainColor,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold
-                                ),),
-                                Text('${map!['ticket_room_number']}',style: TextStyle(
-                                    color: mainColor
-                                ),),
-                              ],
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text('رقم القاعة : ',style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                                  Text('${map!['ticket_room_number']}',style: TextStyle(
+                                      color: mainColor
+                                  ),),
+                                ],
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Text('المبنى : ',style: TextStyle(
-                                    color: mainColor,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold
-                                ),),
-                                Text('${map!['ticket_building']}',style: TextStyle(
-                                    color: mainColor
-                                ),),
-                              ],
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text('المبنى : ',style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                                  Text('${map!['ticket_building']}',style: TextStyle(
+                                      color: mainColor
+                                  ),),
+                                ],
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Text('الدور : ',style: TextStyle(
-                                    color: mainColor,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold
-                                ),),
-                                Text('${map!['ticket_floor']}',style: TextStyle(
-                                    color: mainColor
-                                ),),
-                              ],
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text('الدور : ',style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                                  Text('${map!['ticket_floor']}',style: TextStyle(
+                                      color: mainColor
+                                  ),),
+                                ],
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Text('الحالة : ',style: TextStyle(
-                                    color: mainColor,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold
-                                ),),
-                                CircleAvatar(
-                                  radius: 5.r,
-                                  backgroundColor: map!['report_status']
-                                      ?Color(0xff30D852).withOpacity(.5)
-                                      :Color(0xffBFBFBF),
-                                ),
-                                SizedBox(width: 5.w,),
-                                Text('${map!['ticket_status']}',style: TextStyle(
-                                    color: map!['report_status']
-                                        ?Color(0xff30D852)
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text('الحالة : ',style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                                  CircleAvatar(
+                                    radius: 5.r,
+                                    backgroundColor: map!['report_status']
+                                        ?Color(0xff30D852).withOpacity(.5)
                                         :Color(0xffBFBFBF),
-                                ),),
-                              ],
+                                  ),
+                                  SizedBox(width: 5.w,),
+                                  Text('${map!['ticket_status']}',style: TextStyle(
+                                      color: map!['report_status']
+                                          ?Color(0xff30D852)
+                                          :Color(0xffBFBFBF),
+                                  ),),
+                                ],
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Text('رقم الجوال : ',style: TextStyle(
-                                    color: mainColor,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold
-                                ),),
-                                Text('${map!['ticket_phone_number']}',style: TextStyle(
-                                    color: mainColor
-                                ),),
-                              ],
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text('رقم الجوال : ',style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                                  Text('${map!['ticket_phone_number']}',style: TextStyle(
+                                      color: mainColor
+                                  ),),
+                                ],
+                              ),
                             ),
                             Row(
                               children: [
@@ -583,7 +608,9 @@ class ChosenTechnicalForTicketDMScreen extends StatelessWidget {
                                 ),),
                               ],
                             ),
-                            Expanded(child: Container(
+                            Expanded(
+                                flex: 2,
+                                child: Container(
                               alignment: Alignment.center,
                               padding: EdgeInsets.all(5.r),
                               decoration: BoxDecoration(
@@ -674,14 +701,17 @@ class ChosenTechnicalForTicketDMScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8.h,),
-                Row(
-                  children: [
-                    Text('ادخل التاريخ والفترة لإنجاز المهمة',style: TextStyle(
-                      color: mainColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.sp
-                    ),)
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text('ادخل التاريخ :',style: TextStyle(
+                        color: mainColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.sp
+                      ),)
+                    ],
+                  ),
                 ),
                 SizedBox(height: 8.h,),
                 Obx(
@@ -689,17 +719,23 @@ class ChosenTechnicalForTicketDMScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
                         children: [
+                          Text('من:',style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.sp
+                          ),),
+                          SizedBox(width: 15.w,),
                           Expanded(
                             flex:2,
                             child: GestureDetector(
                               onTap: ()async{
                                final DateTime? date = await showDatePicker(
                                    context: context,
-                                   initialDate: controller.expectedTime.value,
+                                   initialDate: controller.expectedTime1.value,
                                    firstDate: DateTime(1990),
                                    lastDate: DateTime(2030));
-                               if (date != null && date != controller.expectedTime.value){
-                                 controller.expectedTime.value = date;
+                               if (date != null && date != controller.expectedTime1.value){
+                                 controller.expectedTime1.value = date;
                                }
                               },
                               child: Container(
@@ -718,7 +754,7 @@ class ChosenTechnicalForTicketDMScreen extends StatelessWidget {
                                 ),
                                 child: Text('${
                                 intl.DateFormat.yMd().format(
-                                    controller.expectedTime.value
+                                    controller.expectedTime1.value
                                 )
                                 }',style: TextStyle(
                                   color: mainColor,
@@ -728,79 +764,143 @@ class ChosenTechnicalForTicketDMScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 15.w,),
+                          Text('إلى:',style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.sp
+                          ),),
+                          SizedBox(width: 15.w,),
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  border: Border.all(
-                                    color: mainColor,
-                                  ),
+                            flex:2,
+                            child: GestureDetector(
+                              onTap: ()async{
+                               final DateTime? date = await showDatePicker(
+                                   context: context,
+                                   initialDate: controller.expectedTime2.value,
+                                   firstDate: DateTime(1990),
+                                   lastDate: DateTime(2030));
+                               if (date != null && date != controller.expectedTime2.value){
+                                 controller.expectedTime2.value = date;
+                               }
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(12.r),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(8.r),
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.black.withOpacity(.23),
-                                        offset: Offset(0,4),
-                                        blurRadius: 10
+                                      color: Colors.black.withOpacity(.23),
+                                      offset: Offset(0,4),
+                                      blurRadius: 10
                                     )
-                                  ],
-                                  borderRadius: BorderRadius.circular(8.r)
+                                  ]
+                                ),
+                                child: Text('${
+                                intl.DateFormat.yMd().format(
+                                    controller.expectedTime2.value
+                                )
+                                }',style: TextStyle(
+                                  color: mainColor,
+                                  fontWeight: FontWeight.bold,
+                                ),),
                               ),
-                              child: Obx(()=>Row(
-                                children: [
-                                  Expanded(child: GestureDetector(
-                                    onTap: (){
-                                      controller.changeDayTime(0);
-                                    },
-                                    child: AnimatedContainer(
-                                      padding: EdgeInsets.all(8.r),
-                                      alignment: Alignment.center,
-                                      duration: Duration(milliseconds: 500),
-                                      decoration: BoxDecoration(
-                                          color: controller.dayTime==0
-                                              ?mainColor:Colors.transparent,
-                                          borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(8.r),
-                                            bottomRight: Radius.circular(8.r),
-                                          )
-                                      ),
-                                      child: Text('PM',style: TextStyle(
-                                          color: controller.dayTime==0
-                                              ?Colors.white:mainColor,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15.sp
-                                      ),),
-                                    ),
-                                  )),
-                                  Expanded(child: GestureDetector(
-                                    onTap: (){
-                                      controller.changeDayTime(1);
-                                    },
-                                    child: AnimatedContainer(
-                                      padding: EdgeInsets.all(8.r),
-                                      alignment: Alignment.center,
-                                      duration: Duration(milliseconds: 500),
-                                      decoration: BoxDecoration(
-                                          color: controller.dayTime==1
-                                              ?mainColor:Colors.transparent,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(8.r),
-                                            bottomLeft: Radius.circular(8.r),
-                                          )
-                                      ),
-                                      child: Text('AM',style: TextStyle(
-                                          color: controller.dayTime==1
-                                              ?Colors.white:mainColor,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15.sp
-                                      ),),
-                                    ),
-                                  )),
-                                ],
-                              ))
                             ),
-                          )
+                          ),
+                          SizedBox(width: 15.w,),
                         ],
                       ),
                     )
+                ),
+                SizedBox(height: 15.h,),
+                Row(
+                  children: [
+                    Text('اختيار الفترة لإنجاز المهمة:',style: TextStyle(
+                      color: mainColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold
+                    ),)
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                border: Border.all(
+                                  color: mainColor,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(.23),
+                                      offset: Offset(0,4),
+                                      blurRadius: 10
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(8.r)
+                            ),
+                            child: Obx(()=>Row(
+                              children: [
+                                Expanded(child: GestureDetector(
+                                  onTap: (){
+                                    controller.changeDayTime(0);
+                                  },
+                                  child: AnimatedContainer(
+                                    padding: EdgeInsets.all(8.r),
+                                    alignment: Alignment.center,
+                                    duration: Duration(milliseconds: 500),
+                                    decoration: BoxDecoration(
+                                        color: controller.dayTime==0
+                                            ?mainColor:Colors.transparent,
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(8.r),
+                                          bottomRight: Radius.circular(8.r),
+                                        )
+                                    ),
+                                    child: Text('PM',style: TextStyle(
+                                        color: controller.dayTime==0
+                                            ?Colors.white:mainColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.sp
+                                    ),),
+                                  ),
+                                )),
+                                Expanded(child: GestureDetector(
+                                  onTap: (){
+                                    controller.changeDayTime(1);
+                                  },
+                                  child: AnimatedContainer(
+                                    padding: EdgeInsets.all(8.r),
+                                    alignment: Alignment.center,
+                                    duration: Duration(milliseconds: 500),
+                                    decoration: BoxDecoration(
+                                        color: controller.dayTime==1
+                                            ?mainColor:Colors.transparent,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8.r),
+                                          bottomLeft: Radius.circular(8.r),
+                                        )
+                                    ),
+                                    child: Text('AM',style: TextStyle(
+                                        color: controller.dayTime==1
+                                            ?Colors.white:mainColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.sp
+                                    ),),
+                                  ),
+                                )),
+                              ],
+                            ))
+                        ),
+                      ),
+                      Expanded(child: SizedBox()),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 15.h,),
                 Obx(()=>GestureDetector(

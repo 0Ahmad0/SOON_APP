@@ -147,6 +147,7 @@ List<Map<dynamic, dynamic>> statusSort = [
         statusReport[2]['name'][0],
         statusReport[3]['name'][0],
         statusReport[4]['name'][0],
+        statusReport[5]['name'][0],
       ]
     },
   },
@@ -218,6 +219,9 @@ List<Map> statusReport = [
   {
     'name': ['جديدة', Color(0xffBFBFBF)]
   },
+  {
+    'name': ['مرفوضة', Color(0xff000000)]
+  },
 ];
 
 List<Map<dynamic, dynamic>> allreports = [
@@ -260,6 +264,14 @@ List<Map<dynamic, dynamic>> allreports = [
     'report_position': 'العابدية - طالبات',
     'reporter_name': 'عبدالعزيز الأحمدي',
     'report_status': 'جديدة'
+  },
+  {
+    'report_num': 'EIRK744',
+    'report_date_time': DateTime.now(),
+    'report_sender': 'الإدارة العامة للخدمات التعلمية',
+    'report_position': 'العابدية - طالبات',
+    'reporter_name': 'عبدالعزيز الأحمدي',
+    'report_status': 'مرفوضة'
   },
 ];
 //**********************
@@ -385,6 +397,7 @@ List<Map<dynamic, dynamic>> statusSortDM = [
         statusReport[2]['name'][0],
         statusReport[3]['name'][0],
         statusReport[4]['name'][0],
+        statusReport[5]['name'][0],
       ]
     },
   },
@@ -1063,3 +1076,10 @@ List<String> typeMoveTechnical = [
 
 //------------------
 const String  urlUniversity = 'https://uqu.edu.sa/Sso/Password';
+//------------------
+Map<String,bool> howCanShowReplay = {
+  'الكل':false,
+  'خدمة العملاء':false,
+  'رئيس القسم':false,
+  'الفنيين':false,
+};

@@ -15,15 +15,15 @@ import 'package:roofa/widgets/material_text.dart';
 import 'package:roofa/const/text_app.dart';
 
 
+
+
 class DetailsTicketHMPage extends StatelessWidget {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text("تفاصيل التذكرة"),
           centerTitle: true,
@@ -43,11 +43,11 @@ class DetailsTicketHMPage extends StatelessWidget {
           ],
         ),
 
-        body: Column(
-          children: [
-            Expanded(
-              flex: 4,
-              child: Container(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: Get.height * 0.63,
                 margin:
                 EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                 decoration: BoxDecoration(
@@ -82,51 +82,8 @@ class DetailsTicketHMPage extends StatelessWidget {
                               child: Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          Get.dialog(Center(
-                                            child: Container(
-                                              padding: EdgeInsets.all(15.r),
-                                              width: Get.width,
-                                              height: Get.height / 10,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    15.r),
-                                              ),
-                                              child: Column(
-                                                children: [
-                                                  MaterialText(
-                                                    text:
-                                                    'تم إغلاق التذكرة',
-                                                    color: Colors.red,
-                                                    fontSize: 20.sp,
-                                                    fontWeight:
-                                                    FontWeight.bold,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ));
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 12.w),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(50.0),
-                                              border: Border.all(
-                                                  color: Colors.red)),
-                                          child: Text(
-                                            'إغلاق التذكرة',
-                                            style: TextStyle(fontSize: 10.sp,color: Colors.red),
-                                          ),
-                                        ),
-                                      ),
-
                                       GestureDetector(
                                         onTap: () {
                                           Get.dialog(
@@ -134,7 +91,7 @@ class DetailsTicketHMPage extends StatelessWidget {
                                             child: Container(
                                               padding: EdgeInsets.all(15.r),
                                               width: Get.width,
-                                              height: Get.height / 2.5,
+                                              height: Get.height / 1.2,
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius:
@@ -143,6 +100,7 @@ class DetailsTicketHMPage extends StatelessWidget {
                                               ),
                                               child: Column(
                                                 children: [
+
                                                   MaterialText(
                                                     text:
                                                     'إضافة رد على التذكرة',
@@ -152,7 +110,7 @@ class DetailsTicketHMPage extends StatelessWidget {
                                                     FontWeight.bold,
                                                   ),
                                                   SizedBox(height: 25.h,),
-
+                                                  BuildCheckBox(),
                                                   Expanded(
                                                     flex: 5,
                                                     child: Container(
@@ -251,7 +209,12 @@ class DetailsTicketHMPage extends StatelessWidget {
                                                     GestureDetector(
                                                       onTap: () {
                                                         Get.back();
-                                                        Get.to(()=>HowCanShowReplayScreen());
+                                                        showCustomDialog(
+                                                            text: 'تم إضافة رد على التذكرة'
+                                                        );
+                                                        Timer(Duration(milliseconds: 2500), (){
+                                                          Get.back();
+                                                        });
                                                       },
                                                       child:
                                                       Container(
@@ -577,140 +540,139 @@ class DetailsTicketHMPage extends StatelessWidget {
                   },
                 ),
               ),
-            ),
-            Expanded(
-                child: ListView.builder(
-                  itemCount: 2,
-                  itemBuilder: (ctx, index) {
-                    return Slidable(
-                      child: Container(
-                        margin:
-                        EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
-                        padding: EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                          color: Color(0xffF3F3F3),
-                          borderRadius: BorderRadius.circular(15.r),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Wrap(
-                                      children: [
-                                        Text(
-                                          '${intl.DateFormat.yMMMMd()
-                                              .add_jms()
-                                              .format(DateTime.now())}',
-                                          style: TextStyle(
-                                              fontSize: 9.sp,
-                                              color: Colors.grey),
-                                        ),
-                                        Text(
-                                          ' | من قسم',
-                                          style: TextStyle(
-                                              fontSize: 9.sp,
-                                              color: Colors.grey),
-                                        ),
-                                        Text(
-                                          ' الصيانة ',
-                                          style: TextStyle(
-                                              fontSize: 9.sp,
-                                              color: Colors.grey),
-                                        ),
-                                        Text(
-                                          ' | الحالة',
-                                          style: TextStyle(
-                                              fontSize: 9.sp,
-                                              color: Colors.grey),
-                                        ),
-                                        Text(
-                                          ' مغلقة ',
-                                          style: TextStyle(
-                                              fontSize: 9.sp,
-                                              color: Colors.red),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Text(
-                                      'نسعد بتواصلكم معنا عبر التذاكر الالكترونية',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: mainColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جديد ',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Color(0xff28A2CF),
-                                          fontSize: 8.sp),
-                                    ),
-                                    Text(
-                                      'نسعى لخدمتكم دوماً',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Color(0xff28A2CF),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'وحدة خدمة الصيانةً',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Color(0xff28A2CF),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )),
-                            Expanded(
+              Column(
+                children: List.generate(2, (index) {
+                  return  Slidable(
+                    child: Container(
+                      margin:
+                      EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
+                      padding: EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                        color: Color(0xffF3F3F3),
+                        borderRadius: BorderRadius.circular(15.r),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              flex: 3,
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SvgPicture.asset('images/user-circle.svg'),
+                                  Wrap(
+                                    children: [
+                                      Text(
+                                        '${intl.DateFormat.yMMMMd()
+                                            .add_jms()
+                                            .format(DateTime.now())}',
+                                        style: TextStyle(
+                                            fontSize: 9.sp,
+                                            color: Colors.grey),
+                                      ),
+                                      Text(
+                                        ' | من قسم',
+                                        style: TextStyle(
+                                            fontSize: 9.sp,
+                                            color: Colors.grey),
+                                      ),
+                                      Text(
+                                        ' الصيانة ',
+                                        style: TextStyle(
+                                            fontSize: 9.sp,
+                                            color: Colors.grey),
+                                      ),
+                                      Text(
+                                        ' | الحالة',
+                                        style: TextStyle(
+                                            fontSize: 9.sp,
+                                            color: Colors.grey),
+                                      ),
+                                      Text(
+                                        ' مغلقة ',
+                                        style: TextStyle(
+                                            fontSize: 9.sp,
+                                            color: Colors.red),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
                                   Text(
-                                    'أحمد بن عفيف',
+                                    'نسعد بتواصلكم معنا عبر التذاكر الالكترونية',
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: mainColor,
-                                        fontSize: 13.sp,
                                         fontWeight: FontWeight.bold),
-                                  )
+                                  ),
+                                  Text(
+                                    'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جديد ',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color(0xff28A2CF),
+                                        fontSize: 8.sp),
+                                  ),
+                                  Text(
+                                    'نسعى لخدمتكم دوماً',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color(0xff28A2CF),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'وحدة خدمة الصيانةً',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Color(0xff28A2CF),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      startActionPane: ActionPane(
-                        // A motion is a widget used to control how the pane animates.
-                        motion: const ScrollMotion(),
-
-                        // A pane can dismiss the Slidable.
-
-                        // All actions are defined in the children parameter.
-                        children: const [
-                          // A SlidableAction can have an icon and/or a label.
-                          SlidableAction(
-                            backgroundColor: Color(0xFFFE4A49),
-                            foregroundColor: Colors.white,
-                            icon: Icons.delete,
-                            label: 'Delete',
-                            onPressed:null,
-                          ),
+                              )),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                SvgPicture.asset('images/user-circle.svg'),
+                                Text(
+                                  'أحمد بن عفيف',
+                                  style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                    );
-                  },
-                ))
-          ],
+                    ),
+                    startActionPane: ActionPane(
+                      // A motion is a widget used to control how the pane animates.
+                      motion: const ScrollMotion(),
+
+                      // A pane can dismiss the Slidable.
+
+                      // All actions are defined in the children parameter.
+                      children: const [
+                        // A SlidableAction can have an icon and/or a label.
+                        SlidableAction(
+                          backgroundColor: Color(0xFFFE4A49),
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Delete',
+                          onPressed:null,
+                        ),
+                      ],
+                    ),
+                  );
+                } ),
+              )
+
+            ],
+          ),
         ),
       ),
     );
@@ -912,3 +874,37 @@ class ReportsLogPage extends StatelessWidget {
 }
 
 
+
+class BuildCheckBox extends StatefulWidget {
+  const BuildCheckBox({Key? key}) : super(key: key);
+
+  @override
+  _BuildCheckBoxState createState() => _BuildCheckBoxState();
+}
+
+class _BuildCheckBoxState extends State<BuildCheckBox> {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Column(
+        children: howCanShowReplay.keys.map((e) {
+          return CheckboxListTile(
+            title: Text(e,
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                color: mainColor,
+                fontWeight: FontWeight.bold,
+              ),),
+            value: howCanShowReplay[e],
+            onChanged: (value) {
+              setState(() {
+                howCanShowReplay[e] = value!;
+              });
+            },
+          );
+        }).toList(),
+      ),
+    );
+
+  }
+}

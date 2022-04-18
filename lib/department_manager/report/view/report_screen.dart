@@ -288,7 +288,7 @@ List<dynamic> c =  reportInformation
                                           color: mainColor.withOpacity(.5),
                                         ),
                                       ),
-                                      Text('سجل البلاغ',
+                                      Text('تتبع التذكرة',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color: mainColor,

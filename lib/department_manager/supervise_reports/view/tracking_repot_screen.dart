@@ -209,6 +209,7 @@ class TrackingRepotDMScreen extends StatelessWidget {
                                     padding: EdgeInsets.all(5.r),
                                     decoration: BoxDecoration(),
                                     child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
                                           flex: 2,
@@ -302,7 +303,8 @@ class TrackingRepotDMScreen extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
                                               Text(
                           '${intl.DateFormat.yMEd().add_jm().format(allreportsDM[index]['report_date_time'])}',style: TextStyle(
@@ -333,79 +335,7 @@ class TrackingRepotDMScreen extends StatelessWidget {
                                                   )
                                                 ],
                                               ),
-                                              index==0?Container(
-                                                margin: EdgeInsets.only(
-                                                  bottom: 5.h
-                                                ),
-                                                alignment: Alignment.center,
-                                                width: double.infinity,
-                                                height: Get.width * 0.07,
-                                                decoration: BoxDecoration(
-                                                  color: statusReport[index]['name'][1].withOpacity(.3),
-                                                  borderRadius: BorderRadius.circular(50.r),
-                                                  border: Border.all(
-                                                    color: statusReport[index]
-                                                    ['name'][1],
-                                                    width: 1.2
-                                                  )
-                                                ),
-                                                child: Text('تم الإنجاز',style: TextStyle(
-                                                  color: mainColor,
-                                                  fontWeight: FontWeight.bold
-                                                ),),
-                                              ):SizedBox(),
-                                              index==2?Container(
-                                                margin: EdgeInsets.only(
-                                                    bottom: 5.h
-                                                ),
-                                                alignment: Alignment.center,
-                                                width: double.infinity,
-                                                height: Get.width * 0.07,
-                                                decoration: BoxDecoration(
-                                                    color: statusReport[3]['name'][1].withOpacity(.3),
-                                                    borderRadius: BorderRadius.circular(50.r),
-                                                    border: Border.all(
-                                                        color: statusReport[3]
-                                                        ['name'][1],
-                                                        width: 1.2
-                                                    )
-                                                ),
-                                                child: Text('لم يتم الإنجاز',style: TextStyle(
-                                                    color: mainColor,
-                                                    fontWeight: FontWeight.bold
-                                                ),),
-                                              ):SizedBox(),
-                                              GestureDetector(
-                                                onTap: (){
-                                                  Get.toNamed('/DM_show_ticket_report_screen');
-                                                },
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  width: double.infinity,
-                                                  height: Get.width*0.08,
-                                                  decoration: BoxDecoration(
-                                                    color: mainColor,
-                                                    borderRadius: BorderRadius.circular(50.r)
-                                                  ),
-                                                  child: Text('عرض التقارير',style: TextStyle(color: Colors.white),),
-                                                ),
-                                              ),
-                                              SizedBox(height: 5.h,),
-                                              GestureDetector(
-                                                onTap: (){
-                                                  Get.toNamed('/DM_report_log_screen');
-                                                },
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  width: double.infinity,
-                                                  height: Get.width*0.08,
-                                                  decoration: BoxDecoration(
-                                                    color: mainColor,
-                                                    borderRadius: BorderRadius.circular(50.r)
-                                                  ),
-                                                  child: Text('سجل اليلاغ',style: TextStyle(color: Colors.white),),
-                                                ),
-                                              ),
+
                                             ],
                                           ),
                                         ),

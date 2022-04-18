@@ -170,6 +170,7 @@ class ReportLateHMScreen extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.builder(
+                  shrinkWrap: true,
                   itemCount: allreports.length,
                   itemBuilder: (ctx, index) {
                     return GestureDetector(
@@ -318,8 +319,8 @@ class ReportLateHMScreen extends StatelessWidget {
                                                 child: Row(
                                                   children: [
                                                     CircleAvatar(
-                                                      radius: 6.r,
-                                                      backgroundColor: colorpurple
+                                                        radius: 6.r,
+                                                        backgroundColor: colorpurple
                                                     ),
                                                     SizedBox(
                                                       width: 10.w,
@@ -327,7 +328,7 @@ class ReportLateHMScreen extends StatelessWidget {
                                                     Text(
                                                       'متأخرة',
                                                       style: TextStyle(
-                                                        color: colorpurple
+                                                          color: colorpurple
                                                       ),
                                                     )
                                                   ],

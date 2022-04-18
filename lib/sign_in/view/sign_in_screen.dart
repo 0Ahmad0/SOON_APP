@@ -170,6 +170,7 @@ class SignInScreen extends StatelessWidget {
                     ),
                     child: TextButton(
                         onPressed: () async {
+
                           if(! await launch(urlUniversity)){
                             Get.snackbar("Error", "Check your Internet");
                           }

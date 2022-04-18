@@ -166,7 +166,7 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
                           */
                           return  ListTile(
                               textColor: mainColor,
-                              leading: Icon(Icons.download_done_rounded),
+                              leading: Icon(Icons.keyboard_arrow_down),
                               title: Text(
                                 '${statusSort[index]['type_sort_name']['name']}',
                                 style:

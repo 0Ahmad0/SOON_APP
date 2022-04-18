@@ -8,7 +8,8 @@ class ChosenTechnicalForTicketDMController extends GetxController{
   var technicalName = ''.obs;
   var  helperTechnical = ''.obs;
 
-  var expectedTime = DateTime.now().obs;
+  var expectedTime1 = DateTime.now().obs;
+  var expectedTime2 = DateTime.now().obs;
 
   var dayTime = 0.obs;
 

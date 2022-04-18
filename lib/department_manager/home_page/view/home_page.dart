@@ -136,7 +136,7 @@ class HomeScreenDM extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      controller.name,
+                      'controller.name',
                       //'سلطان الحربي',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -145,7 +145,7 @@ class HomeScreenDM extends StatelessWidget {
                           color: Color(0xff447A78)),
                     ),
                     Text(
-                      controller.typeUser,
+                      'controller.typeUser',
                       //'رئيس قسم',
                       textAlign: TextAlign.center,
                       style: TextStyle(

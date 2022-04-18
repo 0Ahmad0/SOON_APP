@@ -89,8 +89,8 @@ class ShowReportsDMScreen extends StatelessWidget {
               },
               child: Container(
                 alignment: AlignmentDirectional.center,
-                margin: EdgeInsets.all(Get.width / 10.w),
-                height: Get.width / 5.w,
+                margin: EdgeInsets.all(Get.width / 6.w),
+                height: Get.width / 7.w,
                 decoration: BoxDecoration(
                     color: mainColor,
                   borderRadius: BorderRadius.circular(

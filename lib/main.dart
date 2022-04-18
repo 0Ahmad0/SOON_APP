@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:roofa/const/const_color.dart';
+import 'package:roofa/department_manager/supervise_reports/controller/supervise_repot_controller.dart';
 import 'package:roofa/temp/temp.dart';
 import '/customer_services/new_report/view/new_report_screen.dart';
 import 'package:roofa/department_manager/achievement_of_technicians/view/achievement_of_technicians_screen.dart';
@@ -31,17 +32,15 @@ import '/technical/home_screen/view/home_screen.dart';
 import '/technical/superviser_reports/view/superviser_screen.dart';
 import 'package:roofa/user_profile/view/user_profile_screen.dart';
 
-import '/Customer/connection_customer_services/view/conection_customer_services_screen.dart';
-import '/Customer/details_problem/view/details_problem_screen.dart';
-import '/Customer/details_ticket/view/details_ticket.dart';
-import '/Customer/send_report/view/send_report_screen.dart';
-import '/Customer/supervise_reports/view/superviser_report_screen.dart';
+import 'Customer/connection_customer_services/view/conection_customer_services_screen.dart';
+import 'Customer/send_report/view/send_report_screen.dart';
+import 'Customer/supervise_reports/view/superviser_report_screen.dart';
 import 'const/pattel.dart';
-import '/customer/home_page/view/home_screen.dart';
-import '/customer_services/details_ticket/view/details_ticket_screen.dart';
-import '/customer_services/home_page/view/home_page.dart';
-import '/customer_services/reports_screen/view/reports_screen.dart';
-import '/customer_services/supervise_report/view/supervise_report_screen.dart';
+import 'customer/details_ticket/view/details_ticket.dart';
+import 'customer_services/details_ticket/view/details_ticket_screen.dart';
+import 'customer_services/home_page/view/home_page.dart';
+import 'customer_services/reports_screen/view/reports_screen.dart';
+import 'customer_services/supervise_report/view/supervise_report_screen.dart';
 import 'department_manager/chosen_techinical_for_ticket/view/chosen_technical_for_ticket.dart';
 import 'department_manager/chosen_technical/view/chosen_technical_screen.dart';
 import 'department_manager/report_log/view/report_log_screen.dart';
@@ -89,7 +88,7 @@ class MyApp extends StatelessWidget {
                 )
               ),
               //Colors for all App
-              home: SignInScreen(),
+              home: HomeScreenDM(),
               //Start Screen Show
               getPages: [
                 //routs  all Screens in my app

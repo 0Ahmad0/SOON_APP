@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
@@ -174,11 +175,11 @@ class DetailsTicketPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 4,
-          child: Container(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            height: Get.height * 0.63,
             margin:
             EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
             decoration: BoxDecoration(
@@ -199,7 +200,7 @@ class DetailsTicketPage extends StatelessWidget {
                     Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                              color: color,
+                              color: color??Colors.black,
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(15.r),
                                 bottomRight: Radius.circular(15.r),
@@ -212,7 +213,7 @@ class DetailsTicketPage extends StatelessWidget {
                           decoration: BoxDecoration(),
                           child: Column(
                             children: [
-                              Row(
+                              ticketInformation['ticket_status']!="مرفوضة"?Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   GestureDetector(
@@ -396,7 +397,7 @@ class DetailsTicketPage extends StatelessWidget {
                                     ),
                                   )
                                 ],
-                              ),
+                              ):SizedBox(),
                               Text(
                                 'بيانات التذكرة',
                                 style: TextStyle(
@@ -671,12 +672,14 @@ class DetailsTicketPage extends StatelessWidget {
               },
             ),
           ),
-        ),
-        Expanded(
-            child: ListView.builder(
-              itemCount: 2,
-              itemBuilder: (ctx, index) {
-                return Container(
+          //هنا يجب أنا تشيك إذا كانت مرفوضة بس يطلع له سبب الرفض واذا كانت غير شي يطلع له الردود
+          //ticketInformation['ticket_status']!="مرفوضة"?
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: 2,
+            itemBuilder: (ctx, index) {
+              return Slidable(
+                child: Container(
                   margin:
                   EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
                   padding: EdgeInsets.all(12.0),
@@ -781,10 +784,30 @@ class DetailsTicketPage extends StatelessWidget {
                       )
                     ],
                   ),
-                );
-              },
-            ))
-      ],
+                ),
+                startActionPane: ActionPane(
+                  // A motion is a widget used to control how the pane animates.
+                  motion: const ScrollMotion(),
+
+                  // A pane can dismiss the Slidable.
+
+                  // All actions are defined in the children parameter.
+                  children: const [
+                    // A SlidableAction can have an icon and/or a label.
+                    SlidableAction(
+                      backgroundColor: Color(0xFFFE4A49),
+                      foregroundColor: Colors.white,
+                      icon: Icons.delete,
+                      label: 'Delete',
+                      onPressed:null,
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
+        ],
+      ),
     );
   }
 }
