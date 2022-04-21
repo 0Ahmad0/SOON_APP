@@ -162,7 +162,7 @@ class HomeScreenHM extends StatelessWidget {
                  ),
                  GridViewHomeActionScreen(
                    map: homeScreenGridViewHigherManagementText,
-                   numAction: 3,
+                   numAction: 2,
                  ),
                ],
              ),

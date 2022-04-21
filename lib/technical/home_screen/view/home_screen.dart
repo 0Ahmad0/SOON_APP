@@ -135,7 +135,7 @@ class HomeScreenT extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        controller.name,
+                        'controller.name',
                         //'عبدالعزيز الأحمدي',
                         textAlign: TextAlign.center,
                         style: TextStyle(

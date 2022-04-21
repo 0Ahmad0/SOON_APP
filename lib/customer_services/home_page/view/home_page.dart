@@ -135,7 +135,7 @@ class HomeScreenCS extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      controller.name,
+                      'controller.name',
                      // 'أحمد الغامدي',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -144,7 +144,7 @@ class HomeScreenCS extends StatelessWidget {
                           color: Color(0xff447A78)),
                     ),
                     Text(
-                      controller.typeUser,
+                      'controller.typeUser',
                      // 'خدمة العملاء',
                       textAlign: TextAlign.center,
                       style: TextStyle(

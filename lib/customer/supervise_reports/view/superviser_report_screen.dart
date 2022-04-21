@@ -18,6 +18,7 @@ import 'package:select_dialog/select_dialog.dart';
 import 'package:roofa/const/text_app.dart';
 
 import '../../../Firebase/reports.dart';
+import '../../../rating/view/rating_screen.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../controller/supervise_controller.dart';
 
@@ -37,7 +38,12 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
           appBar: AppBar(
             title: Text("متابعة البلاغات"),
             centerTitle: true,
-            leading: Icon(Icons.arrow_back_ios),
+            leading: IconButton(
+              onPressed: (){
+                Get.back();
+              },
+              icon: Icon(Icons.arrow_back_ios),
+            ),
             actions: [
               Stack(
                 alignment: Alignment.topLeft,
@@ -407,12 +413,11 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
                                                         ],
                                                       ),
                                                     ),
-                                                    Expanded(
+                                                    contrller.listReport[index]['الحالة'] == "مغلقة"
+                                                        ?Expanded(
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                          Get.to(()=>DetailsTicketScreen(
-                                                            color: statusReport[index]['name'][1],
-                                                          ));
+                                                          Get.to(()=>RatingScreen());
                                                         },
                                                         child: Container(
                                                           alignment:
@@ -426,16 +431,23 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
                                                               BorderRadius
                                                                   .circular(
                                                                   50.r)),
-                                                          child: Text(
-                                                            'سجل البلاغ',
-                                                            style: TextStyle(
-                                                                color: Colors.white,
-                                                                fontWeight:
-                                                                FontWeight.bold),
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                            children: [
+                                                              Icon(Icons.star,color: Colors.white,),
+                                                              Text(
+                                                                'تقييم الخدمة',
+                                                                style: TextStyle(
+                                                                    color: Colors.white,
+                                                                    fontWeight:
+                                                                    FontWeight.bold),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ),
                                                     )
+                                                        :SizedBox()
                                                   ],
                                                 )
                                               ],

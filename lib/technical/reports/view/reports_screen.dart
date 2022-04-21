@@ -36,7 +36,7 @@ Map map = {
         appBar: AppBar(
           title: Obx(()=>Text(
             controller.index==0
-                ? "التقارير"
+                ? "حركات التذكرة"
                 :map['report_move_type']
           )),
           centerTitle: true,
@@ -52,98 +52,9 @@ Map map = {
             SizedBox(
               height: 20.h,
             ),
-            Obx(() => Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Container(
-                        padding: EdgeInsets.all(5.r),
-                        margin: EdgeInsets.symmetric(horizontal: 20.w),
-                        width: 235.w,
-                        height: 35.h,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(50.r),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: colorShadowSearch.withOpacity(.23),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 4))
-                            ]),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: GestureDetector(
-                              onTap: () {
-                                controller.onClickButton(0);
-                                controller.controllerPageView!.animateToPage(0,
-                                    duration: Duration(milliseconds: 800),
-                                    curve: Curves.decelerate);
-                              },
-                              child: AnimatedContainer(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: controller.index.value == 0
-                                        ? mainColor
-                                        : Colors.white,
-                                    borderRadius: BorderRadius.circular(50.r)),
-                                child: Text(
-                                  'تعبئة التقرير',
-                                  style: TextStyle(
-                                    color: controller.index.value == 0
-                                        ? controller.textButtonActive
-                                        : mainColor,
-                                  ),
-                                ),
-                                duration: Duration(milliseconds: 800),
-                              ),
-                            )),
-                            Expanded(
-                                child: GestureDetector(
-                              onTap: () {
-                                controller.onClickButton(1);
-                                controller.controllerPageView!.animateToPage(1,
-                                    duration: Duration(milliseconds: 800),
-                                    curve: Curves.decelerate);
-                              },
-                              child: AnimatedContainer(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: controller.index.value == 1
-                                        ? mainColor
-                                        : Colors.white,
-                                    borderRadius: BorderRadius.circular(50.r)),
-                                child: Text(
-                                  'عرض التقرير',
-                                  style: TextStyle(
-                                    color: controller.index.value == 1
-                                        ? controller.textButtonActive
-                                        : mainColor,
-                                  ),
-                                ),
-                                duration: Duration(milliseconds: 800),
-                              ),
-                            )),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
             Expanded(
-              child: PageView(
-                controller: controller.controllerPageView,
-                onPageChanged: (val) {
-                  controller.index.value = val;
-                },
-                children: [
-                  FillReportTScreen(
-                    controller: controller,
-                  ),
-                  ShowReportsTScreen(map: map,
-                    ticketStatus: 'جديدة',),
-                ],
+              child:  FillReportTScreen(
+                controller: controller,
               ),
             ),
           ],
@@ -232,16 +143,11 @@ class FillReportTScreen extends StatelessWidget {
               value: e
             )).toList(),
             onChanged: (val){
-              if(val == 'إحالة لقسم الصيانة'||val == 'تم الإنجاز'){
-                controller.onClickButton(1);
-                controller.controllerPageView!.animateToPage(1,
-                    duration: Duration(milliseconds: 800),
-                    curve: Curves.decelerate);
+              if(val == 'لم يتم الإنجاز'||val == 'تم الإنجاز'||val == 'معاينة'){
+
                 ///لازم تبعث الداتا هنا عشان نفس بعض بس يختلف اللون
               }
-              if(val == 'معاينة'||val == 'لم يتم الإنجاز'){
-                Get.to(()=>ShowAndNotFinish());
-              }
+
               if(val == 'إضافة تركيبات وتبديلات'){
                 print('Yees');print('tarkeb');
                 Get.to(()=>AddChangesTReport());

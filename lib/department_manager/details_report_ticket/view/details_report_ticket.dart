@@ -643,6 +643,38 @@ class CompositionAndChangesDM extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ListView.builder(
+      itemCount: 4,
+      itemBuilder: (_,index){
+        return Container(
+          margin: EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(12.0),
+          height: Get.width *0.5,
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(12.0),
+                          bottomRight: Radius.circular(12.0)
+                        )
+                    ),
+
+              )),
+              Expanded(
+                  flex: 18,
+                  child: Container(
+
+                  )),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

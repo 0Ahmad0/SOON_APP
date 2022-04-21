@@ -12,7 +12,7 @@ import 'package:select_dialog/select_dialog.dart';
 import 'package:intl/intl.dart' as intl;
 
 class ReportLateHMScreen extends StatelessWidget {
-
+// هنا تظهر البلاغات المتأخرة وغير المنجزة فقط
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -21,7 +21,11 @@ class ReportLateHMScreen extends StatelessWidget {
           appBar: AppBar(
             title: Text("البلاغات المتأخرة"),
             centerTitle: true,
-            leading: Icon(Icons.arrow_back_ios),
+            leading: IconButton(
+                onPressed: (){
+                  Get.back();
+                },
+                icon: Icon(Icons.arrow_back_ios),),
             actions: [
               Stack(
                 alignment: Alignment.topLeft,
@@ -138,15 +142,15 @@ class ReportLateHMScreen extends StatelessWidget {
                 ]),
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: statusSort.length,
+                  itemCount: statusSortHM.length,
                   itemBuilder: (ctx,index){
-                    List c = statusSort[index]['type_sort_name']
+                    List c = statusSortHM[index]['type_sort_name']
                     ['type_sort_value'];
                     return ListTile(
                       textColor: mainColor,
                       trailing: Icon(Icons.arrow_drop_down),
                       title: Text(
-                        '${statusSort[index]['type_sort_name']['name']}',
+                        '${statusSortHM[index]['type_sort_name']['name']}',
                         style:
                         TextStyle(fontWeight: FontWeight.bold),
                       ),

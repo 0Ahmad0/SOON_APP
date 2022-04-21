@@ -39,18 +39,19 @@ class DetailsTicketTScreen extends StatelessWidget {
                   position: RelativeRect.fromLTRB(0.0, 0.0, 0.0, 0.0),
                   items: [
                     PopupMenuItem<String>(
-                        child: GestureDetector(
-                          onTap: (){
-                            Navigator.pop(context);
-                            Get.to(()=>ReportsTScreen());
-                          },
-                          child: Center(
-                              child: const Text('التقارير')
-                          ),
-                        ), value: '1',
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context);
+                          Get.to(()=>ReportsTScreen());
+                        },
+                        child: Center(
+                            child: const Text('حركات التذكرة')
+                        ),
+                      ), value: '1',
                     ),
                   ]);
             }, icon: Icon(Icons.menu))
+
           ],
         ),
         body: ListView(

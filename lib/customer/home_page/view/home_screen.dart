@@ -136,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'controller.name',
+                              controller.name,
                               //'رهف أمين المتولي',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -145,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                                   color: Color(0xff447A78)),
                             ),
                             Text(
-                              'controller.typeStudent',
+                              controller.typeStudent,
                               //'كلية الحاسب الالي ونظم المعلومات',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -153,7 +153,7 @@ class HomeScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff447A78)),
                             ),   Text(
-                             ' controller.typeUser',//'مستفيد',
+                              controller.typeUser,//'مستفيد',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 13.sp,

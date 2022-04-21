@@ -19,7 +19,6 @@ class RatingScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text("التقييم"),
           centerTitle: true,
-          leading: SizedBox(),
         ),
         body: Obx(() => ListView(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),

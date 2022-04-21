@@ -121,7 +121,7 @@ class DetailsTicketScreen extends StatelessWidget {
                                               : Colors.white,
                                           borderRadius: BorderRadius.circular(50.r)),
                                       child: Text(
-                                        'سجل البلاغ',
+                                        'تتبع التذكرة',
                                         style: TextStyle(
                                           color: controller.index.value == 1
                                               ? controller.textButtonActive
@@ -819,187 +819,34 @@ class ReportsLogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: allreports.length,
-      itemBuilder: (ctx, index) {
-        return GestureDetector(
-          onTap: () {
-            Get.to(()=>DetailsTicketScreen(color:  statusReport[index]['name'][1],));
-          },
-          child: Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: 12.w, vertical: 10.h),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: colorShadowSearch.withOpacity(.23),
-                    blurRadius: 10,
-                    offset: Offset(0, 9),
-                  )
-                ]),
-            child: LayoutBuilder(
-              builder: (context, constrains) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                        child: Container(
-                          height: constrains.maxWidth/1.8,
-                          decoration: BoxDecoration(
-                              color: allreports[index]['report_status']
-                              [0] !=
-                                  statusReport[index]['name']
-                                  ? statusReport[index]['name'][1]
-                                  : Colors.green,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(15.r),
-                                bottomRight: Radius.circular(15.r),
-                              )),
-                        )),
-                    Expanded(
-                        flex: 18,
-                        child: Container(
-                          padding: EdgeInsets.all(10.r),
-                          decoration: BoxDecoration(),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: Wrap(
-                                        children: [
-                                          Text(
-                                            'رقم التذكرة: ',
-                                            style: TextStyle(
-                                                color: mainColor,
-                                                fontWeight:
-                                                FontWeight.bold,
-                                                fontSize: 15.sp),
-                                          ),
-                                          Text(
-                                            '[${allreports[index]
-                                            ['report_num']}]',
-                                            style: TextStyle(
-                                                color: mainColor,
-                                                height: 1.5),
-                                          ),
-                                        ],
-                                      )),
+      itemCount: 4,
+      itemBuilder: (_,index){
+        return Container(
+          margin: EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(12.0),
+          height: Get.width *0.5,
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(12.0),
+                            bottomRight: Radius.circular(12.0)
+                        )
+                    ),
 
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      flex: 2,
-                                      child: Wrap(
-                                        children: [
-                                          Text(
-                                            'التاريخ: ',
-                                            style: TextStyle(
-                                                color: mainColor,
-                                                fontWeight:
-                                                FontWeight.bold,
-                                                fontSize: 15.sp),
-                                          ),
-                                          Text(
-                                            '${intl.DateFormat.yMEd().add_jm().format(allreports[index]['report_date_time'])}',
-                                            style: TextStyle(
-                                              height: 1.6,
-                                                color: colorShadowSearch),
-                                          ),
-                                        ],
-                                      )),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Wrap(
-                                    children: [
-                                      Text(
-                                        'نوع الحركة: ',
-                                        style: TextStyle(
-                                            color: mainColor,
-                                            fontWeight:
-                                            FontWeight
-                                                .bold,
-                                            fontSize: 15.sp),
-                                      ),
-                                      Text(
-                                        'إحالة لقسم الصيانة',
-                                        style: TextStyle(
-                                            color: mainColor,
-                                            height: 1.5),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                             index.isEven? Row(
-                                children: [
-                                  Wrap(
-                                    direction: Axis.vertical,
-                                    children: [
-                                      Text(
-                                        'الوصف: ',
-                                        style: TextStyle(
-                                            color: mainColor,
-                                            fontWeight:
-                                            FontWeight
-                                                .bold,
-                                            fontSize: 15.sp),
-                                      ),
-                                      Container(
-                                        alignment:
-                                        AlignmentDirectional.center,
-                                        padding: EdgeInsets.all(12.r),
-                                        decoration: BoxDecoration(
-                                            color: Color(0xffF3F3F3),
-                                            borderRadius:
-                                            BorderRadius.circular(15.r)),
-                                        child: Text(
-                                          '${ticketInformation['ticket_problem_description']}',
-                                          style: TextStyle(
-                                              color: mainColor, height: 1.5),
-                                        ),
-                                      ),
+                  )),
+              Expanded(
+                  flex: 18,
+                  child: Container(
 
-                                    ],
-                                  ),
-                                ],
-                              ):SizedBox(),
-                              Row(
-                                children: [
-                                  Wrap(
-                                    children: [
-                                      Text(
-                                        'مدخل التقرير: ',
-                                        style: TextStyle(
-                                            color: mainColor,
-                                            fontWeight:
-                                            FontWeight
-                                                .bold,
-                                            fontSize: 15.sp),
-                                      ),
-                                      Text(
-                                        'عبدالله الزهراني',
-                                        style: TextStyle(
-                                            color: mainColor,
-                                            height: 1.5),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-
-                            ],
-                          ),
-                        )),
-                  ],
-                );
-              },
-            ),
+                  )),
+            ],
           ),
         );
       },

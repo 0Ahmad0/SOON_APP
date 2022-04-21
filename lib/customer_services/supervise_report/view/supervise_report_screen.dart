@@ -197,195 +197,138 @@ class SuperviseReportCSScreen extends StatelessWidget {
                                 )),
                             Expanded(
                                 flex: 18,
-                                child: Container(
-                                  padding: EdgeInsets.all(5.r),
-                                  decoration: BoxDecoration(),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text('${allreportsDM[index]['report_title']}',style: TextStyle(
+                                child: GestureDetector(
+                                  onTap: (){
+                                    Get.to(()=>ReportsScreen());
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(5.r),
+                                    decoration: BoxDecoration(),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text('رقم البلاغ : ',style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold
+                                                  ),),
+                                                  Text(
+                                                    '${
+                                                        allreportsDM[index]['report_num']
+                                                    }'
+                                                    ,style: TextStyle(
                                                     color: mainColor,
-                                                    fontWeight: FontWeight.bold
-                                                ),)
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text('رقم البلاغ : ',style: TextStyle(
+                                                  ),)
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text('الجهة : ',style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold
+                                                  ),),
+                                                  Text(
+                                                    '${
+                                                        allreportsDM[index]['report_sender']
+                                                    }'
+                                                    ,style: TextStyle(
                                                     color: mainColor,
-                                                    fontWeight: FontWeight.bold
-                                                ),),
-                                                Text(
-                                                  '${
-                                                      allreportsDM[index]['report_num']
-                                                  }'
-                                                  ,style: TextStyle(
-                                                  color: mainColor,
-                                                ),)
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text('الجهة : ',style: TextStyle(
+                                                  ),)
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text('المقر : ',style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold
+                                                  ),),
+                                                  Text(
+                                                    '${
+                                                        allreportsDM[index]['report_position']
+                                                    }'
+                                                    ,style: TextStyle(
                                                     color: mainColor,
-                                                    fontWeight: FontWeight.bold
-                                                ),),
-                                                Text(
-                                                  '${
-                                                      allreportsDM[index]['report_sender']
-                                                  }'
-                                                  ,style: TextStyle(
-                                                  color: mainColor,
-                                                ),)
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text('المقر : ',style: TextStyle(
+                                                  ),)
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text('الفني المسؤول : ',style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold
+                                                  ),),
+                                                  Text(
+                                                    '${
+                                                        allreportsDM[index]['reporter_name']
+                                                    }'
+                                                    ,style: TextStyle(
                                                     color: mainColor,
-                                                    fontWeight: FontWeight.bold
-                                                ),),
-                                                Text(
-                                                  '${
-                                                      allreportsDM[index]['report_position']
-                                                  }'
-                                                  ,style: TextStyle(
-                                                  color: mainColor,
-                                                ),)
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text('الفني المسؤول : ',style: TextStyle(
-                                                    color: mainColor,
-                                                    fontWeight: FontWeight.bold
-                                                ),),
-                                                Text(
-                                                  '${
-                                                      allreportsDM[index]['reporter_name']
-                                                  }'
-                                                  ,style: TextStyle(
-                                                  color: mainColor,
-                                                ),)
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text('الفنيين المساعدين : ',style: TextStyle(
-                                                    color: mainColor,
-                                                    fontWeight: FontWeight.bold
-                                                ),),
-                                                Row(
-                                                  children: c.map((e) =>
-                                                      Text('$e,',style: TextStyle(
-                                                          fontSize: 9.sp,
-                                                          color: mainColor
-                                                      ),)).toList(),
-                                                )
-                                              ],
-                                            ),
-                                          ],
+                                                  ),)
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text('الفنيين المساعدين : ',style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold
+                                                  ),),
+                                                  Row(
+                                                    children: c.map((e) =>
+                                                        Text('$e,',style: TextStyle(
+                                                            fontSize: 9.sp,
+                                                            color: mainColor
+                                                        ),)).toList(),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              '${intl.DateFormat.yMEd().add_jm().format(allreportsDM[index]['report_date_time'])}',style: TextStyle(
-                                                color: grayColor,
-                                                fontSize: 10.sp
-                                            ),),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                CircleAvatar(
-                                                  radius: 5.r,
-                                                  backgroundColor: allreportsDM[index]['report_status']
-                                                  [0] !=
-                                                      statusReport[index]['name']
-                                                      ? statusReport[index]['name'][1]
-                                                      : Colors.green,
-                                                ),
-                                                Text(
-                                                  '  ${allreportsDM[index]
-                                                  ['report_status']}',
-                                                  style: TextStyle(
-                                                    color: allreportsDM[index]['report_status']
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                '${intl.DateFormat.yMEd().add_jm().format(allreportsDM[index]['report_date_time'])}',style: TextStyle(
+                                                  color: grayColor,
+                                                  fontSize: 10.sp
+                                              ),),
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: 5.r,
+                                                    backgroundColor: allreportsDM[index]['report_status']
                                                     [0] !=
                                                         statusReport[index]['name']
                                                         ? statusReport[index]['name'][1]
                                                         : Colors.green,
                                                   ),
-                                                )
-                                              ],
-                                            ),
-                                            index==0?Container(
-                                              margin: EdgeInsets.only(
-                                                  bottom: 5.h
-                                              ),
-                                              alignment: Alignment.center,
-                                              width: double.infinity,
-                                              height: Get.width * 0.07,
-                                              decoration: BoxDecoration(
-                                                  color: statusReport[index]['name'][1].withOpacity(.3),
-                                                  borderRadius: BorderRadius.circular(50.r),
-                                                  border: Border.all(
-                                                      color: statusReport[index]
-                                                      ['name'][1],
-                                                      width: 1.2
+                                                  Text(
+                                                    '  ${allreportsDM[index]
+                                                    ['report_status']}',
+                                                    style: TextStyle(
+                                                      color: allreportsDM[index]['report_status']
+                                                      [0] !=
+                                                          statusReport[index]['name']
+                                                          ? statusReport[index]['name'][1]
+                                                          : Colors.green,
+                                                    ),
                                                   )
+                                                ],
                                               ),
-                                              child: Text('تم الإنجاز',style: TextStyle(
-                                                  color: mainColor,
-                                                  fontWeight: FontWeight.bold
-                                              ),),
-                                            ):SizedBox(),
-                                            index==2?Container(
-                                              margin: EdgeInsets.only(
-                                                  bottom: 5.h
-                                              ),
-                                              alignment: Alignment.center,
-                                              width: double.infinity,
-                                              height: Get.width * 0.07,
-                                              decoration: BoxDecoration(
-                                                  color: statusReport[3]['name'][1].withOpacity(.3),
-                                                  borderRadius: BorderRadius.circular(50.r),
-                                                  border: Border.all(
-                                                      color: statusReport[3]
-                                                      ['name'][1],
-                                                      width: 1.2
-                                                  )
-                                              ),
-                                              child: Text('لم يتم الإنجاز',style: TextStyle(
-                                                  color: mainColor,
-                                                  fontWeight: FontWeight.bold
-                                              ),),
-                                            ):SizedBox(),
-                                            GestureDetector(
-                                              onTap: (){
-                                                Get.to(()=>ReportsScreen());
-                                              },
-                                              child: Container(
-                                                alignment: Alignment.center,
-                                                width: double.infinity,
-                                                height: Get.width*0.08,
-                                                decoration: BoxDecoration(
-                                                    color: mainColor,
-                                                    borderRadius: BorderRadius.circular(50.r)
-                                                ),
-                                                child: Text('سجل اليلاغ',style: TextStyle(color: Colors.white),),
-                                              ),
-                                            ),
-                                          ],
+
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 )),
                           ],

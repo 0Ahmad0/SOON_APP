@@ -7,8 +7,11 @@ import 'package:roofa/const/const_color.dart';
 import 'package:roofa/department_manager/home_page/controller/home_page_controller.dart';
 import 'package:roofa/widgets/home_screen_actions.dart';
 import 'package:roofa/const/text_app.dart';
+
+
 class HomeScreenDM extends StatelessWidget {
   final controller = Get.put(HomePageDMController());
+  //state managment getx
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -22,44 +25,46 @@ class HomeScreenDM extends StatelessWidget {
           leading: GestureDetector(
             onTap: () {
               Get.dialog(
-                  Column(
-                children: List.generate(5, (index) => Container(
-                  padding: EdgeInsets.all(10.0),
-                  margin:
-                  EdgeInsets.only(top: 15.h, right: 12.w, left: 12.w),
-                  width: Get.width,
-                  height: 90.h,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.r)),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          flex: 4,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: Text(
-                              'يوجد لديك  ${index+2} بلاغات متأخرة',
-                              textDirection: TextDirection.rtl,
-                              style: TextStyle(
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: mainColor),
-                            ),
-                          )),
-                      Container(
-                        margin: EdgeInsets.only(left: 12.w),
-                        width: .5,
-                        color: Colors.black.withOpacity(.5),
-                      ),
-                      Expanded(child: SvgPicture.asset(
-                        'images/logo.svg',
-                        fit: BoxFit.cover,
-                      )),
-                    ],
-                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                children: List.generate(15, (index) => Container(
+                    padding: EdgeInsets.all(10.0),
+                    margin:
+                    EdgeInsets.only(top: 15.h, right: 12.w, left: 12.w),
+                    width: Get.width,
+                    height: 90.h,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12.r)),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 4,
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Text(
+                                'يوجد لديك  ${index+2} بلاغات متأخرة',
+                                textDirection: TextDirection.rtl,
+                                style: TextStyle(
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: mainColor),
+                              ),
+                            )),
+                        Container(
+                          margin: EdgeInsets.only(left: 12.w),
+                          width: .5,
+                          color: Colors.black.withOpacity(.5),
+                        ),
+                        Expanded(child: SvgPicture.asset(
+                          'images/logo.svg',
+                          fit: BoxFit.cover,
+                        )),
+                      ],
+                    ),
                 ))
-              ));
+              ),
+                  ));
             },
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -104,6 +109,7 @@ class HomeScreenDM extends StatelessWidget {
             ),
           ],
         ),
+
         body:FutureBuilder(
         future: controller.fetchDataProfile(),
         builder: (context,snapShot){
@@ -156,13 +162,15 @@ class HomeScreenDM extends StatelessWidget {
                   ],
                 ),
               ),
+
               SizedBox(
                 height: 70.h,
               ),
+
               Expanded(
                 child: GridViewHomeActionScreen(
                   map: homeScreenGridViewDepartmentManagerText,
-                  numAction: 2,
+                  numAction: 3,
                 ),
               ),
             ],

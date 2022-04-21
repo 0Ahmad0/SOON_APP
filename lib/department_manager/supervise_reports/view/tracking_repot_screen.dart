@@ -217,14 +217,6 @@ class TrackingRepotDMScreen extends StatelessWidget {
                                             children: [
                                               Row(
                                                 children: [
-                                                  Text('${allreportsDM[index]['report_title']}',style: TextStyle(
-                                                    color: mainColor,
-                                                    fontWeight: FontWeight.bold
-                                                  ),)
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
                                                   Text('رقم البلاغ : ',style: TextStyle(
                                                     color: mainColor,
                                                     fontWeight: FontWeight.bold

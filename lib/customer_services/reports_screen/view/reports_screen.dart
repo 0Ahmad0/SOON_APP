@@ -120,7 +120,7 @@ class ReportsScreen extends StatelessWidget {
                                             : Colors.white,
                                         borderRadius: BorderRadius.circular(50.r)),
                                     child: Text(
-                                      'سجل البلاغ',
+                                      'تتبع التذكرة',
                                       style: TextStyle(
                                         color: controller.index.value == 1
                                             ? controller.textButtonActive
@@ -213,188 +213,8 @@ class DetailsTicketCSPage extends StatelessWidget {
                         child: Column(
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.dialog(Center(
-                                      child: Container(
-                                        padding: EdgeInsets.all(15.r),
-                                        width: Get.width,
-                                        height: Get.height / 1.5,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                          BorderRadius.circular(
-                                              15.r),
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            MaterialText(
-                                              text:
-                                              'سبب إغلاق التذكرة',
-                                              color: mainColor,
-                                              fontSize: 20.sp,
-                                              fontWeight:
-                                              FontWeight.bold,
-                                            ),
-                                            SizedBox(height: 25.h,),
-
-                                            Expanded(
-                                              flex: 5,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Color(
-                                                        0xffF3F3F3),
-                                                    borderRadius: BorderRadius
-                                                        .only(
-                                                        bottomRight: Radius
-                                                            .circular(
-                                                            15.r),
-                                                        bottomLeft: Radius
-                                                            .circular(
-                                                            15.r)),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                          color: colorShadowSearch
-                                                              .withOpacity(
-                                                              .65),
-                                                          blurRadius:
-                                                          10,
-                                                          offset:
-                                                          Offset(0,
-                                                              4)),
-                                                    ]),
-                                                child: Column(
-                                                  children: [
-                                                    Expanded(
-                                                        child: Card(
-                                                          shadowColor: Colors
-                                                              .transparent,
-                                                          margin: EdgeInsets
-                                                              .zero,
-                                                          elevation: 0.0,
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                            children: [
-                                                              IconButton(
-                                                                  onPressed:
-                                                                      () {},
-                                                                  icon: Icon(
-                                                                      Icons
-                                                                          .delete_forever_outlined)),
-                                                              IconButton(
-                                                                  onPressed:
-                                                                      () {},
-                                                                  icon: Icon(
-                                                                      Icons
-                                                                          .attach_file_outlined)),
-                                                              IconButton(
-                                                                  onPressed:
-                                                                      () {},
-                                                                  icon: Icon(
-                                                                      Icons
-                                                                          .camera_alt_outlined)),
-                                                            ],
-                                                          ),
-                                                        )),
-                                                    Expanded(
-                                                      flex: 4,
-                                                      child: Card(
-                                                        shadowColor: Colors
-                                                            .transparent,
-                                                        elevation: 0.0,
-                                                        color: Colors
-                                                            .transparent,
-                                                        child: Padding(
-                                                          padding:
-                                                          EdgeInsets
-                                                              .all(10
-                                                              .r),
-                                                          child:
-                                                          TextFormField(
-                                                            maxLines: 3,
-                                                            textDirection:
-                                                            TextDirection
-                                                                .rtl,
-                                                            decoration:
-                                                            InputDecoration(
-                                                              border: InputBorder
-                                                                  .none,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: 15.h,),
-                                            Expanded(
-                                              child:
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Get.back();
-                                                  showCustomDialog(
-                                                      text: 'تم إرسال سبب إغلاق التذكرة'
-                                                  );
-                                                  Timer(Duration(
-                                                      seconds: 1),
-                                                          (){
-                                                        Get.back();
-                                                      });
-                                                },
-                                                child:
-                                                Container(
-                                                  alignment:
-                                                  Alignment
-                                                      .center,
-                                                  width: 206.w,
-                                                  height: 60.h,
-                                                  decoration: BoxDecoration(
-                                                      color:
-                                                      mainColor,
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(
-                                                          50.r)),
-                                                  child:
-                                                  MaterialText(
-                                                    text:
-                                                    'ارسال',
-                                                    fontWeight:
-                                                    FontWeight
-                                                        .bold,
-                                                    fontSize:
-                                                    15.sp,
-                                                    color: Colors
-                                                        .white,
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ));
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 12.w),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(50.0),
-                                        border: Border.all(
-                                            color: Colors.red)),
-                                    child: Text(
-                                      'إغلاق التذكرة',
-                                      style: TextStyle(fontSize: 10.sp,color: Colors.red),
-                                    ),
-                                  ),
-                                ),
                                 GestureDetector(
                                   onTap: () {
                                     Get.dialog(Center(
@@ -795,27 +615,7 @@ class DetailsTicketCSPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Row(
-                              children: [
-                                Wrap(
-                                  children: [
-                                    Text(
-                                      'رقم الجوال : ',
-                                      style: TextStyle(
-                                          color: mainColor,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15.sp),
-                                    ),
-                                    Text(
-                                      '${ticketInformation['ticket_phone_number']}',
-                                      style: TextStyle(
-                                          color: mainColor,
-                                          height: 1.5),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+
                             Column(
                               crossAxisAlignment:
                               CrossAxisAlignment.stretch,
@@ -862,22 +662,7 @@ class ReportsLogCsPage extends StatelessWidget {
     final c = logTicketCustomerServices;
     return ListView(
       children:[
-        _buildContainer(
-            height: Get.width * 0.4,
-            color: c[0]['color'],
-            child: Column(
-              children: [
-                _buildInfoTicket(label: 'رقم  التذكرة',
-                    value: c[0]['report_number']),
-                _buildInfoTicket(label: 'التاريخ',
-                    value: intl.DateFormat.yMEd().add_jm().format(c[0]['report_date_time'])),
-                _buildInfoTicket(label: 'نوع الحركة',
-                    value: c[0]['type_des']),
-                _buildInfoTicket(label: 'مدخل التقرير',
-                    value: c[0]['reporter_name']),
-              ],
-            )
-        ),
+
         _buildContainer(
             height: Get.width * 0.8,
             color: c[1]['color'],
