@@ -12,6 +12,7 @@ class FirebaseController{
   static late String typeStudent;
   static late String phoneNumber;
   static late String firstEmail,lastEmail;
+  static var report;
   static Future<void> fetchDataUser1() async {
     user = await FirebaseAuth.instance.currentUser!;
     await fetchDataUser2(user);
@@ -84,5 +85,16 @@ class FirebaseController{
     return DateFormat.yMMMMd()
         .add_jms()
         .format(timestamp.toDate());
+  }
+  static Future<bool> getReport(String numberReport) async {
+    report=null;
+    await FirebaseFirestore.instance.collection("reports").
+    where('رقم البلاغ',isEqualTo: numberReport).get().then((value){
+      if(value.docs.isNotEmpty) {
+        report = value.docs[0];
+        return true;
+      }
+    });
+    return false;
   }
 }

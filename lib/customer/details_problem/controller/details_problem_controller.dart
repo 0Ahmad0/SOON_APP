@@ -44,10 +44,11 @@ class DetailsProblemController extends GetxController{
         String generateRandomString= FirebaseController.generateRandomString2(4,3);
         final req=await FirebaseFirestore.instance.collection("reports").add({
           'email':FirebaseController.email,
+          'phone':FirebaseController.phoneNumber,
          // 'المستفيد':{
             'الاسم':FirebaseController.name,
-            'الجهة المستفيدة':sendReportVal.beneficiary,
-            'المقر':sendReportVal.headquarters,
+            'الجهة المستفيدة':sendReportVal.headquarters,
+            'المقر':sendReportVal.beneficiary,
             'المبنى':sendReportVal.building,
             'الطابق':sendReportVal.floor,
             'نوع الغرفة':sendReportVal.roomType,
@@ -61,13 +62,16 @@ class DetailsProblemController extends GetxController{
           //},
           'نوع الحركة':"",
           'الحالة':"جديدة",
-
+          'القسم':"",
+          'tracking':[
+          ],
+          'reply':[],
         }).then((value) =>
         {
           print("confirm : [ email : "+FirebaseController.email+","+
               'الاسم : '+FirebaseController.name+","+
-              'الجهة المستفيدة: '+sendReportVal.beneficiary+","+
-              'المقر: '+sendReportVal.headquarters+","+
+              'الجهة المستفيدة: '+sendReportVal.headquarters+","+
+              'المقر: '+sendReportVal.beneficiary+","+
               'المبنى: '+sendReportVal.building+","+
               'الطابق: '+sendReportVal.floor+","+
               'نوع الغرفة : '+sendReportVal.roomType+","+

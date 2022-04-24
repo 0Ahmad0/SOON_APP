@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -232,9 +233,10 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
                         itemCount: contrller.listReport.length,//allreports.length,
                         itemBuilder: (ctx, index) {
                           return GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               Report.reportNumber=contrller.listReport[index]['رقم البلاغ'];
-                              Get.to(()=>DetailsTicketScreen(color:  statusReport[index]['الاسم'],));
+                              //print(contrller.listReport[index]["tracking"].length);
+                              Get.to(()=>DetailsTicketScreen(color:  statusReport[Controllert.colorState("${contrller.listReport[index]['الحالة']}")]['name'][1],));
                             },
                             child: Container(
                               margin: EdgeInsets.symmetric(
