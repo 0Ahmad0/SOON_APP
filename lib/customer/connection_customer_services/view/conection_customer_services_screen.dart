@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:roofa/Customer/connection_customer_services/controller/conection_customer_services_controller.dart';
 import 'package:roofa/Firebase/chatting.dart';
 import 'package:roofa/Firebase/firebase.dart';
@@ -152,12 +153,29 @@ class _ConectionCustomerServicesScreenState extends State<ConectionCustomerServi
                                       ),
                                       padding: EdgeInsets.all(12.r),
                                       margin: EdgeInsets.only(
-                                      left:  (msg[index].message!="المتسفيد")/*index.isEven*/?35.w:0,
+                                      left:  (msg[index].message!="المتسفيد")/*index.isEven*/?35.w:40,
                                       right:  (msg[index].message=="المتسفيد")/*!index.isEven*/?35.w:0,
                                       top: 8.r,
                                       bottom: 8.r
                                       ),
-                                        child: Text('${msg[index].message}'),
+                                        //child: Text('${msg[index].message}'),
+                                        child: Column(
+                                        children: [
+                                          Text("    "+'${msg[index].message}'),
+                                        SizedBox(height: 5,),
+                                        Text(
+                                          '${
+                                              intl.DateFormat().add_jm().format(
+                                                  msg[index].date_message!
+                                              )
+                                          }',
+                                          textAlign: TextAlign.end,
+                                          style: TextStyle(fontSize: 8.0,color: Colors.black),
+
+                                        )
+                                      ],
+                                        ),
+                                       // child: Text('${msg[index].message}'),
                                       //child: Text('${controller.listMessages[index]}'),
                                       ),
                                       ],
