@@ -158,7 +158,12 @@ class _ConectionCustomerServicesScreenState extends State<ConectionCustomerServi
                                       ?Color(0xffB3EFE1)
                                           :Color(0xffF3F3F3)
                                       ),
-                                      padding: EdgeInsets.all(12.r),
+                                      padding: EdgeInsets.only(
+                                        left: 8.r,
+                                        right: 8.r,
+                                        top: 6.r,
+                                        bottom: 6.r
+                                      ),
                                       margin: EdgeInsets.only(
                                       left:  (msg[index].sender_type!=/*"المتسفيد"*/Chatting.TYPE_USER)/*index.isEven*/?0.w:0,
                                       right:  (msg[index].sender_type==/*"المتسفيد"*/Chatting.TYPE_USER)/*!index.isEven*/?0.w:0,
@@ -176,7 +181,7 @@ class _ConectionCustomerServicesScreenState extends State<ConectionCustomerServi
                                                   msg[index].date_message!
                                               )
                                           }',
-                                          textAlign: TextAlign.end,
+                                          textAlign: TextAlign.start,
                                           style: TextStyle(fontSize: 8.0,color: Colors.black),
 
                                         )
