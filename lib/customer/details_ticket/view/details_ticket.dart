@@ -16,6 +16,8 @@ import 'package:roofa/widgets/material_text.dart';
 import 'package:roofa/const/text_app.dart';
 
 import '../../../Firebase/firebase.dart';
+import '../../../technical/report_screen/view/report_screen.dart';
+import '../../../widgets/super_viser.dart';
 
 class DetailsTicketScreen extends StatelessWidget {
   final controller = Get.put(DetailsTicketController());
@@ -699,138 +701,134 @@ class DetailsTicketPage extends StatelessWidget {
           ),
           //هنا يجب أنا تشيك إذا كانت مرفوضة بس يطلع له سبب الرفض واذا كانت غير شي يطلع له الردود
           //ticketInformation['ticket_status']!="مرفوضة"?
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: 2,
-            itemBuilder: (ctx, index) {
-              return Slidable(
-                child: Container(
-                  margin:
-                  EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
-                  padding: EdgeInsets.all(12.0),
-                  decoration: BoxDecoration(
-                    color: Color(0xffF3F3F3),
-                    borderRadius: BorderRadius.circular(15.r),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Wrap(
-                                children: [
-                                  Text(
-                                    '${intl.DateFormat.yMMMMd()
-                                        .add_jms()
-                                        .format(DateTime.now())}',
-                                    style: TextStyle(
-                                        fontSize: 9.sp,
-                                        color: Colors.grey),
-                                  ),
-                                  Text(
-                                    ' | من قسم',
-                                    style: TextStyle(
-                                        fontSize: 9.sp,
-                                        color: Colors.grey),
-                                  ),
-                                  Text(
-                                    ' الصيانة ',
-                                    style: TextStyle(
-                                        fontSize: 9.sp,
-                                        color: Colors.grey),
-                                  ),
-                                  Text(
-                                    ' | الحالة',
-                                    style: TextStyle(
-                                        fontSize: 9.sp,
-                                        color: Colors.grey),
-                                  ),
-                                  Text(
-                                    ' مغلقة ',
-                                    style: TextStyle(
-                                        fontSize: 9.sp,
-                                        color: Colors.red),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              Text(
-                                'نسعد بتواصلكم معنا عبر التذاكر الالكترونية',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: mainColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جديد ',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color(0xff28A2CF),
-                                    fontSize: 8.sp),
-                              ),
-                              Text(
-                                'نسعى لخدمتكم دوماً',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Color(0xff28A2CF),
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'وحدة خدمة الصيانةً',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Color(0xff28A2CF),
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                      Expanded(
+          ...List.generate(2, (index)  {
+            return Slidable(
+              child: Container(
+                margin:
+                EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
+                padding: EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  color: Color(0xffF3F3F3),
+                  borderRadius: BorderRadius.circular(15.r),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                        flex: 3,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SvgPicture.asset('images/user-circle.svg'),
+                            Wrap(
+                              children: [
+                                Text(
+                                  '${intl.DateFormat.yMMMMd()
+                                      .add_jms()
+                                      .format(DateTime.now())}',
+                                  style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: Colors.grey),
+                                ),
+                                Text(
+                                  ' | من قسم',
+                                  style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: Colors.grey),
+                                ),
+                                Text(
+                                  ' الصيانة ',
+                                  style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: Colors.grey),
+                                ),
+                                Text(
+                                  ' | الحالة',
+                                  style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: Colors.grey),
+                                ),
+                                Text(
+                                  ' مغلقة ',
+                                  style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: Colors.red),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
                             Text(
-                              'أحمد بن عفيف',
+                              'نسعد بتواصلكم معنا عبر التذاكر الالكترونية',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: mainColor,
-                                  fontSize: 13.sp,
                                   fontWeight: FontWeight.bold),
-                            )
+                            ),
+                            Text(
+                              'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جديد ',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Color(0xff28A2CF),
+                                  fontSize: 8.sp),
+                            ),
+                            Text(
+                              'نسعى لخدمتكم دوماً',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Color(0xff28A2CF),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'وحدة خدمة الصيانةً',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Color(0xff28A2CF),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
                           ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                startActionPane: ActionPane(
-                  // A motion is a widget used to control how the pane animates.
-                  motion: const ScrollMotion(),
-
-                  // A pane can dismiss the Slidable.
-
-                  // All actions are defined in the children parameter.
-                  children: const [
-                    // A SlidableAction can have an icon and/or a label.
-                    SlidableAction(
-                      backgroundColor: Color(0xFFFE4A49),
-                      foregroundColor: Colors.white,
-                      icon: Icons.delete,
-                      label: 'Delete',
-                      onPressed:null,
-                    ),
+                        )),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          SvgPicture.asset('images/user-circle.svg'),
+                          Text(
+                            'أحمد بن عفيف',
+                            style: TextStyle(
+                                color: mainColor,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    )
                   ],
                 ),
-              );
-            },
-          )
+              ),
+              startActionPane: ActionPane(
+                // A motion is a widget used to control how the pane animates.
+                motion: const ScrollMotion(),
+
+                // A pane can dismiss the Slidable.
+
+                // All actions are defined in the children parameter.
+                children: const [
+                  // A SlidableAction can have an icon and/or a label.
+                  SlidableAction(
+                    backgroundColor: Color(0xFFFE4A49),
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete,
+                    label: 'Delete',
+                    onPressed:null,
+                  ),
+                ],
+              ),
+            );
+          }),
         ],
       ),
     );
@@ -843,38 +841,134 @@ class ReportsLogPage extends StatelessWidget {
   const ReportsLogPage({Key? key, this.color}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 1,
-      itemBuilder: (_,index){
-        return Container(
-          margin: EdgeInsets.all(12.0),
-          padding: EdgeInsets.all(12.0),
-          height: Get.width *0.5,
-          decoration: BoxDecoration(
-            color: Colors.white,
+    return ListView(
+        children:[
+          buildContainer(
+              height: Get.width * 0.8,
+              color: c[1]['color'],
+              child: Column(
+                children: [
+                  buildInfoTicket(label: 'رقم  التذكرة',
+                      value: c[1]['report_number']),
+                  buildInfoTicket(label: 'التاريخ',
+                      value: intl.DateFormat.yMEd().add_jm().format(c[1]['report_date_time'])),
+                  buildInfoTicket(label: 'نوع الحركة',
+                      value: c[1]['type_des']),
+                  buildInfoTicket(label: 'الوصف',
+                      value: ''),
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              color: Color(0xffF3F3F3),
+                              borderRadius: BorderRadius.
+                              circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: colorShadowSearch.
+                                    withOpacity(.16),
+                                    offset: Offset(0,9),
+                                    blurRadius: 10
+                                )
+                              ]
+                          ),
+                          child: Text('${c[1]['ticket_problem_description']}',style: TextStyle(
+                              color: mainColor
+                          ),)
+                      )),
+                  buildInfoTicket(label: 'مدخل التقرير',
+                      value: c[1]['reporter_name']),
+                ],
+              )
           ),
-          child: Row(
-            children: [
-              Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(12.0),
-                            bottomRight: Radius.circular(12.0)
-                        )
-                    ),
-
-                  )),
-              Expanded(
-                  flex: 18,
-                  child: Container(
-
-                  )),
-            ],
+          buildContainer(
+              height: Get.width * 0.9,
+              color: c[2]['color'],
+              child: Column(
+                children: [
+                  buildInfoTicket(label: 'رقم  التذكرة',
+                      value: c[2]['report_number']),
+                  buildInfoTicket(label: 'التاريخ',
+                      value: intl.DateFormat.yMEd().add_jm().format(c[2]['report_date_time'])),
+                  buildInfoTicket(label: 'نوع الحركة',
+                      value: c[2]['type_des']),
+                  buildInfoTicket(label: 'اسم الجهاز',
+                      value: c[2]['device_name']),
+                  buildInfoTicket(label: 'نوع الجهاز',
+                      value: c[2]['device_type']),
+                  buildInfoTicket(label: 'الوصف',
+                      value: ''),
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              color: Color(0xffF3F3F3),
+                              borderRadius: BorderRadius.
+                              circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: colorShadowSearch.
+                                    withOpacity(.16),
+                                    offset: Offset(0,9),
+                                    blurRadius: 10
+                                )
+                              ]
+                          ),
+                          child: Text('${c[2]['ticket_problem_description']}',style: TextStyle(
+                              color: mainColor
+                          ),)
+                      )),
+                  buildInfoTicket(label: 'مدخل التقرير',
+                      value: c[2]['reporter_name']),
+                ],
+              )
           ),
-        );
-      },
+          buildContainer(
+              height: Get.width * 0.7,
+              color: c[3]['color'],
+              child: Column(
+                children: [
+                  buildInfoTicket(label: 'رقم  التذكرة',
+                      value: c[3]['report_number']),
+                  buildInfoTicket(label: 'التاريخ',
+                      value: intl.DateFormat.yMEd().add_jm()
+                          .format(c[3]['report_date_time'])),
+                  buildInfoTicket(label: 'نوع الحركة',
+                      value: c[3]['type_des']),
+                  buildInfoTicket(label: 'الوصف',
+                      value: ''),
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              color: Color(0xffF3F3F3),
+                              borderRadius: BorderRadius.
+                              circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: colorShadowSearch.
+                                    withOpacity(.16),
+                                    offset: Offset(0,9),
+                                    blurRadius: 10
+                                )
+                              ]
+                          ),
+                          child: Text('${c[3]['ticket_problem_description']}',style: TextStyle(
+                              color: mainColor
+                          ),)
+                      )),
+                  buildInfoTicket(label: 'مدخل التقرير',
+                      value: c[3]['reporter_name']),
+                ],
+              )
+          ),
+        ]
     );
   }
 }

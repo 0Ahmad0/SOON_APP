@@ -9,8 +9,10 @@ import 'package:roofa/department_manager/details_report_ticket/controller/detail
 
 import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
+import '../../../technical/report_screen/view/report_screen.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../../../widgets/material_text.dart';
+import '../../../widgets/super_viser.dart';
 import '../../home_page/view/home_page.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -643,38 +645,134 @@ class CompositionAndChangesDM extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 4,
-      itemBuilder: (_,index){
-        return Container(
-          margin: EdgeInsets.all(12.0),
-          padding: EdgeInsets.all(12.0),
-          height: Get.width *0.5,
-          decoration: BoxDecoration(
-            color: Colors.white,
+    return ListView(
+        children:[
+          buildContainer(
+              height: Get.width * 0.8,
+              color: c[1]['color'],
+              child: Column(
+                children: [
+                  buildInfoTicket(label: 'رقم  التذكرة',
+                      value: c[1]['report_number']),
+                  buildInfoTicket(label: 'التاريخ',
+                      value: intl.DateFormat.yMEd().add_jm().format(c[1]['report_date_time'])),
+                  buildInfoTicket(label: 'نوع الحركة',
+                      value: c[1]['type_des']),
+                  buildInfoTicket(label: 'الوصف',
+                      value: ''),
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              color: Color(0xffF3F3F3),
+                              borderRadius: BorderRadius.
+                              circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: colorShadowSearch.
+                                    withOpacity(.16),
+                                    offset: Offset(0,9),
+                                    blurRadius: 10
+                                )
+                              ]
+                          ),
+                          child: Text('${c[1]['ticket_problem_description']}',style: TextStyle(
+                              color: mainColor
+                          ),)
+                      )),
+                  buildInfoTicket(label: 'مدخل التقرير',
+                      value: c[1]['reporter_name']),
+                ],
+              )
           ),
-          child: Row(
-            children: [
-              Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(12.0),
-                          bottomRight: Radius.circular(12.0)
-                        )
-                    ),
-
-              )),
-              Expanded(
-                  flex: 18,
-                  child: Container(
-
-                  )),
-            ],
+          buildContainer(
+              height: Get.width * 0.9,
+              color: c[2]['color'],
+              child: Column(
+                children: [
+                  buildInfoTicket(label: 'رقم  التذكرة',
+                      value: c[2]['report_number']),
+                  buildInfoTicket(label: 'التاريخ',
+                      value: intl.DateFormat.yMEd().add_jm().format(c[2]['report_date_time'])),
+                  buildInfoTicket(label: 'نوع الحركة',
+                      value: c[2]['type_des']),
+                  buildInfoTicket(label: 'اسم الجهاز',
+                      value: c[2]['device_name']),
+                  buildInfoTicket(label: 'نوع الجهاز',
+                      value: c[2]['device_type']),
+                  buildInfoTicket(label: 'الوصف',
+                      value: ''),
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              color: Color(0xffF3F3F3),
+                              borderRadius: BorderRadius.
+                              circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: colorShadowSearch.
+                                    withOpacity(.16),
+                                    offset: Offset(0,9),
+                                    blurRadius: 10
+                                )
+                              ]
+                          ),
+                          child: Text('${c[2]['ticket_problem_description']}',style: TextStyle(
+                              color: mainColor
+                          ),)
+                      )),
+                  buildInfoTicket(label: 'مدخل التقرير',
+                      value: c[2]['reporter_name']),
+                ],
+              )
           ),
-        );
-      },
+          buildContainer(
+              height: Get.width * 0.7,
+              color: c[3]['color'],
+              child: Column(
+                children: [
+                  buildInfoTicket(label: 'رقم  التذكرة',
+                      value: c[3]['report_number']),
+                  buildInfoTicket(label: 'التاريخ',
+                      value: intl.DateFormat.yMEd().add_jm()
+                          .format(c[3]['report_date_time'])),
+                  buildInfoTicket(label: 'نوع الحركة',
+                      value: c[3]['type_des']),
+                  buildInfoTicket(label: 'الوصف',
+                      value: ''),
+                  Expanded(
+                      flex: 2,
+                      child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              color: Color(0xffF3F3F3),
+                              borderRadius: BorderRadius.
+                              circular(20.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: colorShadowSearch.
+                                    withOpacity(.16),
+                                    offset: Offset(0,9),
+                                    blurRadius: 10
+                                )
+                              ]
+                          ),
+                          child: Text('${c[3]['ticket_problem_description']}',style: TextStyle(
+                              color: mainColor
+                          ),)
+                      )),
+                  buildInfoTicket(label: 'مدخل التقرير',
+                      value: c[3]['reporter_name']),
+                ],
+              )
+          ),
+        ]
     );
   }
 }

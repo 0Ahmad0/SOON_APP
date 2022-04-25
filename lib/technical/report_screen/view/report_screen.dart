@@ -13,6 +13,7 @@ import '../../../widgets/custom_dialog.dart';
 import '../../../widgets/material_text.dart';
 import 'package:intl/intl.dart' as intl;
 
+import '../../../widgets/super_viser.dart';
 import '../../home_screen/view/home_screen.dart';
 import '../../reports/view/reports_screen.dart';
 
@@ -690,26 +691,26 @@ class DetailsTicketTPage extends StatelessWidget {
     );
   }
 }
-
+final c = logTicketCustomerServices;
 class ReportsLogTPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final c = logTicketCustomerServices;
+
     return ListView(
         children:[
 
-          _buildContainer(
+          buildContainer(
               height: Get.width * 0.8,
               color: c[1]['color'],
               child: Column(
                 children: [
-                  _buildInfoTicket(label: 'رقم  التذكرة',
+                  buildInfoTicket(label: 'رقم  التذكرة',
                       value: c[1]['report_number']),
-                  _buildInfoTicket(label: 'التاريخ',
+                  buildInfoTicket(label: 'التاريخ',
                       value: intl.DateFormat.yMEd().add_jm().format(c[1]['report_date_time'])),
-                  _buildInfoTicket(label: 'نوع الحركة',
+                  buildInfoTicket(label: 'نوع الحركة',
                       value: c[1]['type_des']),
-                  _buildInfoTicket(label: 'الوصف',
+                  buildInfoTicket(label: 'الوصف',
                       value: ''),
                   Expanded(
                       flex: 2,
@@ -733,27 +734,27 @@ class ReportsLogTPage extends StatelessWidget {
                               color: mainColor
                           ),)
                       )),
-                  _buildInfoTicket(label: 'مدخل التقرير',
+                  buildInfoTicket(label: 'مدخل التقرير',
                       value: c[1]['reporter_name']),
                 ],
               )
           ),
-          _buildContainer(
+          buildContainer(
               height: Get.width * 0.9,
               color: c[2]['color'],
               child: Column(
                 children: [
-                  _buildInfoTicket(label: 'رقم  التذكرة',
+                  buildInfoTicket(label: 'رقم  التذكرة',
                       value: c[2]['report_number']),
-                  _buildInfoTicket(label: 'التاريخ',
+                  buildInfoTicket(label: 'التاريخ',
                       value: intl.DateFormat.yMEd().add_jm().format(c[2]['report_date_time'])),
-                  _buildInfoTicket(label: 'نوع الحركة',
+                  buildInfoTicket(label: 'نوع الحركة',
                       value: c[2]['type_des']),
-                  _buildInfoTicket(label: 'اسم الجهاز',
+                  buildInfoTicket(label: 'اسم الجهاز',
                       value: c[2]['device_name']),
-                  _buildInfoTicket(label: 'نوع الجهاز',
+                  buildInfoTicket(label: 'نوع الجهاز',
                       value: c[2]['device_type']),
-                  _buildInfoTicket(label: 'الوصف',
+                  buildInfoTicket(label: 'الوصف',
                       value: ''),
                   Expanded(
                       flex: 2,
@@ -777,24 +778,24 @@ class ReportsLogTPage extends StatelessWidget {
                               color: mainColor
                           ),)
                       )),
-                  _buildInfoTicket(label: 'مدخل التقرير',
+                  buildInfoTicket(label: 'مدخل التقرير',
                       value: c[2]['reporter_name']),
                 ],
               )
           ),
-          _buildContainer(
+          buildContainer(
               height: Get.width * 0.7,
               color: c[3]['color'],
               child: Column(
                 children: [
-                  _buildInfoTicket(label: 'رقم  التذكرة',
+                  buildInfoTicket(label: 'رقم  التذكرة',
                       value: c[3]['report_number']),
-                  _buildInfoTicket(label: 'التاريخ',
+                  buildInfoTicket(label: 'التاريخ',
                       value: intl.DateFormat.yMEd().add_jm()
                           .format(c[3]['report_date_time'])),
-                  _buildInfoTicket(label: 'نوع الحركة',
+                  buildInfoTicket(label: 'نوع الحركة',
                       value: c[3]['type_des']),
-                  _buildInfoTicket(label: 'الوصف',
+                  buildInfoTicket(label: 'الوصف',
                       value: ''),
                   Expanded(
                       flex: 2,
@@ -818,7 +819,7 @@ class ReportsLogTPage extends StatelessWidget {
                               color: mainColor
                           ),)
                       )),
-                  _buildInfoTicket(label: 'مدخل التقرير',
+                  buildInfoTicket(label: 'مدخل التقرير',
                       value: c[3]['reporter_name']),
                 ],
               )
@@ -826,64 +827,6 @@ class ReportsLogTPage extends StatelessWidget {
         ]
     );
   }
-  Widget _buildInfoTicket({required label,required value}){
-    return Expanded(
-      child: Row(
-        children: [
-          Text('$label: ',style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: mainColor,
-              fontSize: 16.sp
-          ),),
-          Text('$value',style: TextStyle(
-              color: mainColor
-          ),),
-        ],
-      ),
-    );
-
-  }
-  Widget _buildContainer({
-    required height,
-    required color,
-    required child
-  }){
-    return Container(
-        height: height,
-        margin:
-        EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15.r),
-            boxShadow: [
-              BoxShadow(
-                color: colorShadowSearch.withOpacity(.23),
-                blurRadius: 10,
-                offset: Offset(0, 9),
-              )
-            ]),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                      color:color,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(15.r),
-                        bottomRight: Radius.circular(15.r),
-                      )),
-                )),
-            Expanded(
-                flex: 18,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: child,
-                )),
-          ],
-        )
-    );
-
-  }
+ 
 }
 
