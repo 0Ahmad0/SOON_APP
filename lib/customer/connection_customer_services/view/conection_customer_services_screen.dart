@@ -22,10 +22,17 @@ class _ConectionCustomerServicesScreenState extends State<ConectionCustomerServi
 
   @override
   Widget build(BuildContext context) {
-    Chatting.TYPE_USER="المستفيد";
+    Chatting.TYPE_USER=FirebaseController.typeUser;//"المستفيد";
     Chatting.EMAIL=FirebaseController.email;
-    Chatting.CUSTOMER_EMAIL=FirebaseController.email;
-    Chatting.CUSTOMER_NAME=FirebaseController.name;
+    if(Chatting.TYPE_USER=="المستفيد"){
+      Chatting.CUSTOMER_EMAIL=FirebaseController.email;
+      Chatting.CUSTOMER_NAME=FirebaseController.name;
+    }else{
+      Chatting.CUSTOMER_EMAIL="ahmad1@st.uqu.edu.sa";
+      Chatting.SERVICE_EMAIL=FirebaseController.email;
+      Chatting.SERVICE_NAME=FirebaseController.name;
+    }
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -138,7 +145,7 @@ class _ConectionCustomerServicesScreenState extends State<ConectionCustomerServi
                                       itemCount: msg.length,//controller.listMessages.length,
                                       itemBuilder: (ctx,index){
                                       return Directionality(
-                                      textDirection: (msg[index].message!="المتسفيد")//index.isEven
+                                      textDirection: (msg[index].sender_type==/*"المتسفيد"*/Chatting.TYPE_USER)//index.isEven
                                       ?TextDirection.rtl
                                           :TextDirection.ltr,
                                       child: Column(
@@ -147,14 +154,14 @@ class _ConectionCustomerServicesScreenState extends State<ConectionCustomerServi
                                       Container(
                                       decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8.r),
-                                      color:  (msg[index].message=="المتسفيد")//index.isOdd
+                                      color:  (msg[index].sender_type!=/*"المتسفيد"*/Chatting.TYPE_USER)//index.isOdd
                                       ?Color(0xffB3EFE1)
                                           :Color(0xffF3F3F3)
                                       ),
                                       padding: EdgeInsets.all(12.r),
                                       margin: EdgeInsets.only(
-                                      left:  (msg[index].message!="المتسفيد")/*index.isEven*/?35.w:40,
-                                      right:  (msg[index].message=="المتسفيد")/*!index.isEven*/?35.w:0,
+                                      left:  (msg[index].sender_type!=/*"المتسفيد"*/Chatting.TYPE_USER)/*index.isEven*/?0.w:0,
+                                      right:  (msg[index].sender_type==/*"المتسفيد"*/Chatting.TYPE_USER)/*!index.isEven*/?0.w:0,
                                       top: 8.r,
                                       bottom: 8.r
                                       ),
