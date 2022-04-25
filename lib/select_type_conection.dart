@@ -328,6 +328,7 @@ class _TypeProblemSreenState extends State<TypeProblemSreen> {
               GestureDetector(
                 onTap: () async{
                   if(
+
                   await controller.send()
                   &&
                   controller.keyForm.currentState!.validate()
