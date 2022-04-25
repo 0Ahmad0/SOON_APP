@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:roofa/customer_services/home_page/view/home_page.dart';
 import 'package:select_dialog/select_dialog.dart';
 
+import '../../../Firebase/firebase.dart';
 import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
 import '../../../department_manager/home_page/view/home_page.dart';
@@ -13,7 +14,12 @@ import '../../details_ticket/view/details_ticket_screen.dart';
 import '../controller/new_report_controller.dart';
 import 'package:intl/intl.dart' as intl;
 
-class NewReportCSScreen extends StatelessWidget {
+class NewReportCSScreen extends StatefulWidget {
+  @override
+  State<NewReportCSScreen> createState() => _NewReportCSScreenState();
+}
+
+class _NewReportCSScreenState extends State<NewReportCSScreen> {
   final controller = Get.put(NewReportCSController());
 
   @override
@@ -92,6 +98,11 @@ class NewReportCSScreen extends StatelessWidget {
                                 Icons.search,
                                 color: mainColor,
                               )),
+                              onChanged: (val) {
+                                controller.searchFilter = val;
+                                controller.update();
+                                setState(() {});
+                              }
                         ),
                       )),
                   Expanded(
@@ -141,7 +152,24 @@ class NewReportCSScreen extends StatelessWidget {
                               items: c,
                               onChange: (selected) {
                                 controller.selectedText.value = selected.toString();
+                                //controller.update();
+                                //=======//
+                                controller.headquartersFilter="";
+                                controller.beneficiaryFilter="";
+                                switch("${chosenTechnicalSortDM[index]['type_sort_name']['name']}"){
+                                  case "فرز على حسب الجهة":
+                                    controller.beneficiaryFilter=selected.toString();
+                                    break;
+                                  case "فرز على حسب المقر":
+                                    controller.headquartersFilter=selected.toString();
+                                    print(controller.headquartersFilter);
+                                    break;
+                                }
+                                //await controller.fetchDataReportUser();
                                 controller.update();
+                                setState((){
+                                });
+                                //=======
                               },
                             );
                           },
@@ -152,144 +180,161 @@ class NewReportCSScreen extends StatelessWidget {
                   },
                 )),
             Expanded(
-              child: ListView.builder(
-                itemCount: ticketSelectionTechnical.length,
-                itemBuilder: (_,index)=>GestureDetector(
-                  onTap: (){
-                    Get.to(DetailsTicketCSScreen());
-                  },
-                  child: Container(
-                    height: Get.width * 0.35,
-                    margin: EdgeInsets.all(8.r),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15.r),
-                        boxShadow: [
-                          BoxShadow(
-                              color: colorShadowSearch.withOpacity(.34),
-                              offset: Offset(0,4),
-                              blurRadius: 10
-                          )
-                        ]
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
+              child: FutureBuilder(
+                  future: controller.fetchDataReportUser(),
+                  builder: (context,snapShot) {
+                    if (!snapShot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return ListView.builder(
+                        itemCount: controller.listReport.length,
+                        itemBuilder: (_,index)=>GestureDetector(
+                          onTap: (){
+                            Get.to(DetailsTicketCSScreen());
+                          },
                           child: Container(
+                            height: Get.width * 0.35,
+                            margin: EdgeInsets.all(8.r),
+                            width: double.infinity,
                             decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(15.r),
-                                  bottomRight: Radius.circular(15.r),
-                                )
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: colorShadowSearch.withOpacity(.34),
+                                      offset: Offset(0,4),
+                                      blurRadius: 10
+                                  )
+                                ]
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 18,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Row(
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
+                                Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(15.r),
+                                          bottomRight: Radius.circular(15.r),
+                                        )
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 18,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text('رقم البلاغ : ',style: TextStyle(
-                                            color: mainColor,
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold
-                                        ),),
-                                        Text('${ticketForCustomerServices
-                                        [index]['report_number']}',style: TextStyle(
-                                            color: mainColor
-                                        ),),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text('رقم البلاغ : ',style: TextStyle(
+                                                    color: mainColor,
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold
+                                                ),),
+                                                Text(
+                                                  controller.listReport[index]["رقم البلاغ"],
+                                                  //'${ticketForCustomerServices[index]['report_number']}'
+                                                  style: TextStyle(
+                                                    color: mainColor
+                                                ),),
+                                              ],
+                                            ),
+                                            Text(
+                                                FirebaseController.formatTimestamp(controller.listReport[index]["Time"]),
+                                              /*'${
+                                                intl.DateFormat
+                                                    .yMEd()
+                                                    .add_jm()
+                                                    .format(
+                                                    ticketForCustomerServices
+                                                    [index]['report_date_time']
+                                                )}'*/
+                                              style: TextStyle(
+                                                color: colorShadowSearch,
+                                                fontSize: 11,
+                                            ),),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 4,
+                                              child: Row(
+                                                children: [
+                                                  Text('الجهة : ',style: TextStyle(
+                                                      color: mainColor,
+                                                      fontSize: 15.sp,
+                                                      fontWeight: FontWeight.bold
+                                                  ),),
+                                                  Text(
+                                                      controller.listReport[index]["الجهة المستفيدة"],
+                                                    //'${ticketForCustomerServices[index]['report_target']}',
+                                                    style: TextStyle(
+                                                      color: mainColor
+                                                  ),),
+                                                ],
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Row(
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: 5.r,
+                                                    backgroundColor: Colors.grey,
+                                                  ),
+                                                  SizedBox(width: 5.w,),
+                                                  Text('جديدة',style: TextStyle(
+                                                      color: Colors.grey
+                                                  ),)
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text('المقر : ',style: TextStyle(
+                                                color: mainColor,
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.bold
+                                            ),),
+                                            Text(controller.listReport[index]["المقر"]
+                                                //'${ticketForCustomerServices[index]['report_position']}'
+                                              ,style: TextStyle(
+                                                color: mainColor
+                                            ),),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text('الاسم : ',style: TextStyle(
+                                                color: mainColor,
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.bold
+                                            ),),
+                                            Text('${controller.listReport
+                                            [index]['الاسم']}',style: TextStyle(
+                                                color: mainColor
+                                            ),),
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                    Text('${
-                                        intl.DateFormat
-                                            .yMEd()
-                                            .add_jm()
-                                            .format(
-                                            ticketForCustomerServices
-                                            [index]['report_date_time']
-                                        )
-                                    }',style: TextStyle(
-                                        color: colorShadowSearch
-                                    ),),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 4,
-                                      child: Row(
-                                        children: [
-                                          Text('الجهة : ',style: TextStyle(
-                                              color: mainColor,
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.bold
-                                          ),),
-                                          Text('${ticketForCustomerServices
-                                          [index]['report_target']}',style: TextStyle(
-                                              color: mainColor
-                                          ),),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Row(
-                                        children: [
-                                          CircleAvatar(
-                                            radius: 5.r,
-                                            backgroundColor: Colors.grey,
-                                          ),
-                                          SizedBox(width: 5.w,),
-                                          Text('جديدة',style: TextStyle(
-                                            color: Colors.grey
-                                          ),)
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text('المقر : ',style: TextStyle(
-                                        color: mainColor,
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold
-                                    ),),
-                                    Text('${ticketForCustomerServices
-                                    [index]['report_position']}',style: TextStyle(
-                                        color: mainColor
-                                    ),),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text('الاسم : ',style: TextStyle(
-                                        color: mainColor,
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold
-                                    ),),
-                                    Text('${ticketForCustomerServices
-                                    [index]['reporter_name']}',style: TextStyle(
-                                        color: mainColor
-                                    ),),
-                                  ],
-                                ),
+                                  ),
+                                )
                               ],
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                        ),
+                      );
+                    }
+                  }
               ),
             )
           ],

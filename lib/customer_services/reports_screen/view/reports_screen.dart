@@ -16,7 +16,9 @@ import 'package:intl/intl.dart' as intl;
 
 class ReportsScreen extends StatelessWidget {
   final controller = Get.put(ReportsController());
+  Color? color;
 
+  ReportsScreen({this.color});
   @override
   Widget build(BuildContext context) {
     return Directionality(
