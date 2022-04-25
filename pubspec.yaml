@@ -34,6 +34,9 @@ dependencies:
   firebase_core_web:
   cloud_firestore:
   url_launcher:
+  image_picker:
+  file_picker:
+  firebase_analytics:
 
 dev_dependencies:
   flutter_test:

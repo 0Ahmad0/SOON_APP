@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/utils.dart';
 import 'package:get/get.dart';
 import 'package:roofa/const/const_color.dart';
+import 'package:roofa/const/picker.dart';
 import 'package:roofa/widgets/custom_dialog.dart';
 import 'package:roofa/widgets/material_text.dart';
 
@@ -252,19 +253,28 @@ class _TypeProblemSreenState extends State<TypeProblemSreen> {
                             children: [
                               IconButton(
                                   onPressed:
-                                      () {},
+                                      () {
+                                        setState(() {
+                                          controller.description.clear();
+                                          print(controller.description);
+                                        });
+                                      },
                                   icon: Icon(
                                       Icons
                                           .delete_forever_outlined)),
                               IconButton(
                                   onPressed:
-                                      () {},
+                                      () {
+                                    Picker.pickerFile();
+                                      },
                                   icon: Icon(
                                       Icons
                                           .attach_file_outlined)),
                               IconButton(
                                   onPressed:
-                                      () {},
+                                      () {
+                                      Picker.showChoiceDialog(context);
+                                      },
                                   icon: Icon(
                                       Icons
                                           .camera_alt_outlined)),
@@ -285,18 +295,24 @@ class _TypeProblemSreenState extends State<TypeProblemSreen> {
                               .all(10
                               .r),
                           child:
-                          TextFormField(
-                            onChanged: (val){
-                              controller.description=val;
-                            },
-                            maxLines: 3,
-                            textDirection:
-                            TextDirection
-                                .rtl,
-                            decoration:
-                            InputDecoration(
-                              border: InputBorder
-                                  .none,
+                          Form(
+                            key: controller.keyForm,
+                            child: TextFormField(
+                              validator: (val){
+                                return val!.trim().isEmpty
+                                    ?"الرجاء كتابة اقتراح أو شكوى.."
+                                    :null;
+                              },
+                             controller: controller.description,
+                              maxLines: 3,
+                              textDirection:
+                              TextDirection
+                                  .rtl,
+                              decoration:
+                              InputDecoration(
+                                border: InputBorder
+                                    .none,
+                              ),
                             ),
                           ),
                         ),
@@ -311,7 +327,11 @@ class _TypeProblemSreenState extends State<TypeProblemSreen> {
               child:
               GestureDetector(
                 onTap: () async{
-                  if(await controller.send()){
+                  if(
+                  await controller.send()
+                  &&
+                  controller.keyForm.currentState!.validate()
+                  ){
                     Get.back();
                     showCustomDialog(
                         text: 'تم إرسال ال$problemType'
@@ -380,18 +400,19 @@ class ProblemList {
 }
 class SelectTypeConectionScreenController extends GetxController{
   String? type="Suggestion";
-  String? description="";
+  final  description = TextEditingController();
   String? problemType="اقتراح";
   bool check=false;
+  final keyForm = GlobalKey<FormState>();
   Future<bool> send() async {
-    if(FirebaseController.email.isNotEmpty){
+    if(FirebaseController.email.isNotEmpty||description.text.trim().isNotEmpty){
       try{
         String generateRandomString= FirebaseController.generateRandomString2(4,3);
         await FirebaseFirestore.instance.collection(type!).add({
           'email':FirebaseController.email,
           'الاسم':FirebaseController.name,
           'نوع المشكلة':problemType,
-          'الوصف':description,
+          'الوصف':description.text,
           'رقم البلاغ': generateRandomString,
           'Time':DateTime.now(),
         }).then((value) =>
@@ -399,7 +420,7 @@ class SelectTypeConectionScreenController extends GetxController{
           print("confirm : [ email : "+FirebaseController.email+","+
               'الاسم : '+FirebaseController.name+","+
               'نوع المشكلة : '+problemType!+","+
-              'الوصف : '+description!+","+
+              'الوصف : '+description.text+","+
               'رقم البلاغ : '+generateRandomString+","+
               'Time :'+"${DateTime.now()}"+" ]"),
         });
