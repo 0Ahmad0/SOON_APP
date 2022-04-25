@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/utils.dart';
@@ -272,8 +274,15 @@ class _TypeProblemSreenState extends State<TypeProblemSreen> {
                                           .attach_file_outlined)),
                               IconButton(
                                   onPressed:
-                                      () {
-                                      Picker.showChoiceDialog(context);
+                                      () async {
+                                      await Picker.showChoiceDialog(context);
+                                      print("image"+Picker.image!.path);
+                                    /*  await Picker.showChoiceDialog(context);
+                                      print("image"+Picker.image!.path);
+                                      String fileName =(Picker.image!.path);
+                                      File imageFile=File(Picker.image!.path);
+                                      await FirebaseStorage.instance.ref().child('uploads/$fileName').putFile(imageFile).then((p0) => print(p0.storage),);
+                                      print("done");*/
                                       },
                                   icon: Icon(
                                       Icons
@@ -403,6 +412,8 @@ class SelectTypeConectionScreenController extends GetxController{
   String? type="Suggestion";
   final  description = TextEditingController();
   String? problemType="اقتراح";
+  String? image="";
+  String? file="";
   bool check=false;
   final keyForm = GlobalKey<FormState>();
   Future<bool> send() async {
