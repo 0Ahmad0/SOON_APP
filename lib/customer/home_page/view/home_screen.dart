@@ -230,7 +230,7 @@ List<Map> homeScreenGridViewCustomerText = [
   {
     'page_to': '/select_type_conection_screen',
     'svg_picture': 'images/contant.svg',
-    'text': 'التواصل مع خدمة العملاء'
+    'text': 'التواصل مع الدعم'
   },
   {
     'page_to': '/superviser_report_screen',
@@ -240,7 +240,7 @@ List<Map> homeScreenGridViewCustomerText = [
   {
     'page_to': '/send_report_screen',
     'svg_picture': 'images/square-plus.svg',
-    'text': 'إنشاء البلاغات الجديدة'
+    'text': 'إنشاء بلاغ جديد'
   },
 ];
 
