@@ -7,7 +7,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:roofa/Customer/details_ticket/controller/detalis_ticket_controller.dart';
 import 'package:roofa/Customer/supervise_reports/view/superviser_report_screen.dart';
 import 'package:roofa/Firebase/reports.dart';
 import 'package:roofa/const/const_color.dart';
@@ -15,13 +14,15 @@ import 'package:roofa/widgets/custom_dialog.dart';
 import 'package:roofa/widgets/material_text.dart';
 import 'package:roofa/const/text_app.dart';
 
+import '../../../Firebase/controller.dart';
 import '../../../Firebase/firebase.dart';
 import '../../../technical/report_screen/view/report_screen.dart';
 import '../../../widgets/super_viser.dart';
+import '../controller/detalis_ticket_controller.dart';
 
-class DetailsTicketScreen extends StatelessWidget {
-  final controller = Get.put(DetailsTicketController());
-  Color? color;
+    class DetailsTicketScreen extends StatelessWidget {
+      final controller = Get.put(DetailsTicketController());
+      Color? color;
 
   DetailsTicketScreen({this.color});
 
@@ -230,6 +231,7 @@ class DetailsTicketPage extends StatelessWidget {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
+                                            controller.sendReply();
                                             Get.dialog(Center(
                                               child: Container(
                                                 padding: EdgeInsets.all(15.r),
@@ -329,6 +331,9 @@ class DetailsTicketPage extends StatelessWidget {
                                                                   child:
                                                                   TextFormField(
                                                                     maxLines: 3,
+                                                                    onChanged: (val){
+                                                                      controller.textReply=val;
+                                                                    },
                                                                     textDirection:
                                                                     TextDirection
                                                                         .rtl,
@@ -350,6 +355,7 @@ class DetailsTicketPage extends StatelessWidget {
                                                       child:
                                                       GestureDetector(
                                                         onTap: () {
+
                                                           Get.back();
                                                           showCustomDialog(
                                                               text: 'تم إضافة رد على التذكرة'
@@ -701,7 +707,7 @@ class DetailsTicketPage extends StatelessWidget {
           ),
           //هنا يجب أنا تشيك إذا كانت مرفوضة بس يطلع له سبب الرفض واذا كانت غير شي يطلع له الردود
           //ticketInformation['ticket_status']!="مرفوضة"?
-          ...List.generate(2, (index)  {
+          ...List.generate(FirebaseController.report["reply"].length, (index)  {
             return Slidable(
               child: Container(
                 margin:
@@ -736,7 +742,10 @@ class DetailsTicketPage extends StatelessWidget {
                                       color: Colors.grey),
                                 ),
                                 Text(
-                                  ' الصيانة ',
+                                  (FirebaseController.report["reply"][index]["القسم"]!=null)
+                                      ?"${FirebaseController.report["reply"][index]["القسم"]}"
+                                      :' ',
+                                  //' الصيانة ',
                                   style: TextStyle(
                                       fontSize: 9.sp,
                                       color: Colors.grey),
@@ -748,10 +757,11 @@ class DetailsTicketPage extends StatelessWidget {
                                       color: Colors.grey),
                                 ),
                                 Text(
-                                  ' مغلقة ',
+                                    FirebaseController.report["reply"][index]["الحالة"],
+                                  //' مغلقة ',
                                   style: TextStyle(
                                       fontSize: 9.sp,
-                                      color: Colors.red),
+                                      color: statusReport[Controllert.colorState("${FirebaseController.report['الحالة']}")]['name'][1],),
                                 ),
                               ],
                             ),
@@ -766,7 +776,8 @@ class DetailsTicketPage extends StatelessWidget {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جديد ',
+                              FirebaseController.report["reply"][index]["الوصف"],
+                              //'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جدي ',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Color(0xff28A2CF),
@@ -782,7 +793,8 @@ class DetailsTicketPage extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  'وحدة خدمة الصيانةً',
+                                  'وحدةً'+'${FirebaseController.report["reply"][index]["الوحدة"]}',
+                                  //'وحدة خدمة الصيانةً',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Color(0xff28A2CF),
@@ -797,7 +809,8 @@ class DetailsTicketPage extends StatelessWidget {
                         children: [
                           SvgPicture.asset('images/user-circle.svg'),
                           Text(
-                            'أحمد بن عفيف',
+                              FirebaseController.report["reply"][index]["الاسم"],
+                            //'أحمد بن عفيف',
                             style: TextStyle(
                                 color: mainColor,
                                 fontSize: 13.sp,

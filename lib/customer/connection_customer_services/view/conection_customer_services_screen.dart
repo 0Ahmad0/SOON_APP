@@ -27,19 +27,24 @@ class _ConectionCustomerServicesScreenState
     Chatting.TYPE_USER = FirebaseController.typeUser; //"المستفيد";
     Chatting.EMAIL = FirebaseController.email;
     if (Chatting.TYPE_USER == "المستفيد") {
+      Chatting.TYPE_USER2="خدمة العملاء";
       Chatting.CUSTOMER_EMAIL = FirebaseController.email;
       Chatting.CUSTOMER_NAME = FirebaseController.name;
     } else {
       Chatting.CUSTOMER_EMAIL = "ahmad1@st.uqu.edu.sa";
       Chatting.SERVICE_EMAIL = FirebaseController.email;
       Chatting.SERVICE_NAME = FirebaseController.name;
+      if(Chatting.TYPE_USER == "خدمة العملاء") Chatting.TYPE_USER2="المستفيد";
+      else if(Chatting.TYPE_USER == "مدير القسم") Chatting.TYPE_USER2="الإدارة العليا";
+      else if(Chatting.TYPE_USER == "الإدارة العليا") Chatting.TYPE_USER2="مدير القسم";
+      else Chatting.TYPE_USER2="";
     }
 
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
           appBar: AppBar(
-            title: Text("التواصل مع خدمة العملاء"),
+            title: Text("التواصل مع "+"${Chatting.TYPE_USER2}"),
             centerTitle: true,
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),

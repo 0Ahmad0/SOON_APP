@@ -21,25 +21,45 @@ class Chatting {
   
   static Future<bool> getIdMessages() async {
     try {
-      await FirebaseFirestore.instance
-          .collection('messages')
-          //.where("SERVICE_email", isEqualTo: "SERVICE@gmail.com")
-          //.where("SERVICE_email", isEqualTo: "${SERVICE_EMAIL}")
-          //.where("CUSTOMER_email", isEqualTo: "CUSTOMER@gmail.com")
-           .where("customer_email", isEqualTo: "${CUSTOMER_EMAIL}")
-          .get()
-          .then((value) {
-        if (value.docs.isNotEmpty) {
-          print("id : " + value.docs[0].id);
-          ID_CHAT = value.docs[0].id;
-          return true;
-        } else {
-          ID_CHAT ="null";
-         addChat();
-          return false;
-        }
-     // print('Heelllo');
-      });
+      if(TYPE_USER=="خدمة العملاء"||TYPE_USER=="المستفيد"){
+        await FirebaseFirestore.instance
+            .collection('messages')
+        //.where("SERVICE_email", isEqualTo: "SERVICE@gmail.com")
+        //.where("SERVICE_email", isEqualTo: "${SERVICE_EMAIL}")
+        //.where("CUSTOMER_email", isEqualTo: "CUSTOMER@gmail.com")
+            .where("customer_email", isEqualTo: "${CUSTOMER_EMAIL}")
+            .get()
+            .then((value) {
+          if (value.docs.isNotEmpty) {
+            print("id : " + value.docs[0].id);
+            ID_CHAT = value.docs[0].id;
+            return true;
+          } else {
+            ID_CHAT ="null";
+            addChat();
+            return false;
+          }
+          // print('Heelllo');
+        });
+      }else{
+        await FirebaseFirestore.instance
+            .collection('messages')
+            .where("type1", isEqualTo:"مدير القسم")
+            .get()
+            .then((value) {
+          if (value.docs.isNotEmpty) {
+            print("id : " + value.docs[0].id);
+            ID_CHAT = value.docs[0].id;
+            return true;
+          } else {
+            ID_CHAT ="null";
+            addChat();
+            return false;
+          }
+          // print('Heelllo');
+        });
+      }
+
     } on FirebaseException catch (e) {
       print(e.message);
   }
@@ -73,21 +93,42 @@ class Chatting {
 
   static Future<void> addChat() async {
     try {
+      if(TYPE_USER=="خدمة العملاء"||TYPE_USER=="المستفيد"){
+        await FirebaseFirestore.instance.collection('messages').add({
+          // "SERVICE_email": "SERVICE3@gmail.com",
+          //"SERVICE_email": "${SERVICE_EMAIL}",
+          // "CUSTOMER_email": "CUSTOMER3@gmail.com",
+          "customer_email": "${CUSTOMER_EMAIL}",
+          "type1":"المستفيد",
+          "type2":"خدمة العملاء",
+        }).then((value) => value.collection("chat").add({
+          "date_message": DateTime.now(),
+          "sender_email": "",
+          "sender_type": "",
+          "text": "create",
+        }).then((value) => {
+          print("Done Add Chat!"),
+          getIdMessages(),
+        }));
+      }else{
+        await FirebaseFirestore.instance.collection('messages').add({
+          // "SERVICE_email": "SERVICE3@gmail.com",
+          //"SERVICE_email": "${SERVICE_EMAIL}",
+          // "CUSTOMER_email": "CUSTOMER3@gmail.com",
+          "customer_email": "${CUSTOMER_EMAIL}",
+          "type1":"مدير القسم",
+          "type2":"الإدارة العليا",
+        }).then((value) => value.collection("chat").add({
+          "date_message": DateTime.now(),
+          "sender_email": "",
+          "sender_type": "",
+          "text": "create",
+        }).then((value) => {
+          print("Done Add Chat!"),
+          getIdMessages(),
+        }));
+      }
 
-      await FirebaseFirestore.instance.collection('messages').add({
-        // "SERVICE_email": "SERVICE3@gmail.com",
-        //"SERVICE_email": "${SERVICE_EMAIL}",
-        // "CUSTOMER_email": "CUSTOMER3@gmail.com",
-        "customer_email": "${CUSTOMER_EMAIL}",
-      }).then((value) => value.collection("chat").add({
-            "date_message": DateTime.now(),
-            "sender_email": "",
-            "sender_type": "",
-            "text": "create",
-          }).then((value) => {
-                print("Done Add Chat!"),
-                getIdMessages(),
-              }));
     } on FirebaseException catch (e) {
       print(e.message);
     }
