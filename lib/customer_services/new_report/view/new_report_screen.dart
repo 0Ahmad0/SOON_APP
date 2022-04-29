@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:roofa/Firebase/reports.dart';
 import 'package:roofa/customer_services/home_page/view/home_page.dart';
 import 'package:select_dialog/select_dialog.dart';
 
@@ -190,6 +191,7 @@ class _NewReportCSScreenState extends State<NewReportCSScreen> {
                         itemCount: controller.listReport.length,
                         itemBuilder: (_,index)=>GestureDetector(
                           onTap: (){
+                            Report.reportNumber=controller.listReport[index]['رقم البلاغ'];
                             Get.to(DetailsTicketCSScreen());
                           },
                           child: Container(
