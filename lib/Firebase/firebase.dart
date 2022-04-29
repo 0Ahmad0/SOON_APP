@@ -87,10 +87,11 @@ class FirebaseController{
         .format(timestamp.toDate());
   }
   static Future<bool> getReport(String numberReport) async {
-    report=null;
+
     await FirebaseFirestore.instance.collection("reports").
     where('رقم البلاغ',isEqualTo: numberReport).get().then((value){
       if(value.docs.isNotEmpty) {
+        report=null;
         report = value.docs[0];
         return true;
       }

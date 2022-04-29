@@ -20,11 +20,18 @@ import '../../../technical/report_screen/view/report_screen.dart';
 import '../../../widgets/super_viser.dart';
 import '../controller/detalis_ticket_controller.dart';
 
-    class DetailsTicketScreen extends StatelessWidget {
-      final controller = Get.put(DetailsTicketController());
+    class DetailsTicketScreen extends StatefulWidget {
       Color? color;
 
   DetailsTicketScreen({this.color});
+
+  @override
+  State<DetailsTicketScreen> createState() => _DetailsTicketScreenState();
+}
+
+class _DetailsTicketScreenState extends State<DetailsTicketScreen> {
+      final controller = Get.put(DetailsTicketController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -159,8 +166,8 @@ import '../controller/detalis_ticket_controller.dart';
                     controller.index.value = val;
                   },
                   children: [
-                    DetailsTicketPage(controller: controller, color: color),
-                    ReportsLogPage(color: color),
+                    DetailsTicketPage(controller: controller, color: widget.color),
+                    ReportsLogPage(color: widget.color),
                   ],
                 ),
               ),
@@ -170,7 +177,7 @@ import '../controller/detalis_ticket_controller.dart';
   }
 }
 
-class DetailsTicketPage extends StatelessWidget {
+class DetailsTicketPage extends StatefulWidget {
   const DetailsTicketPage({
     Key? key,
     required this.controller,
@@ -180,10 +187,26 @@ class DetailsTicketPage extends StatelessWidget {
   final DetailsTicketController controller;
   final Color? color;
 
+
+  @override
+  State<DetailsTicketPage> createState() => _DetailsTicketPageState();
+}
+
+class _DetailsTicketPageState extends State<DetailsTicketPage> {
+  String? actionSend;
+  Future<void> sendReply() async {
+    actionSend=await widget.controller.sendReply();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
+      child:FutureBuilder(
+        future:FirebaseController.getReport(Report.reportNumber),
+    builder: (context,snapShot){
+    if(!snapShot.hasData){
+    return Center(child: CircularProgressIndicator());
+    }else{
+      return Column(
         children: [
           Container(
             height: Get.height * 0.63,
@@ -207,7 +230,7 @@ class DetailsTicketPage extends StatelessWidget {
                     Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                              color: color??Colors.black,
+                              color: widget.color??Colors.black,
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(15.r),
                                 bottomRight: Radius.circular(15.r),
@@ -216,489 +239,492 @@ class DetailsTicketPage extends StatelessWidget {
                     Expanded(
                         flex: 18,
                         child: Container(
-                          padding: EdgeInsets.all(10.r),
-                          decoration: BoxDecoration(),
-                          child: FutureBuilder(
-                              future:FirebaseController.getReport(Report.reportNumber),
-                              builder: (context,snapShot){
-                              if(!snapShot.hasData){
-                              return Center(child: CircularProgressIndicator());
-                              }else{
-                                return Column(
-                                  children: [
-                                    ticketInformation['ticket_status']!="مرفوضة"?Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                            padding: EdgeInsets.all(10.r),
+                            decoration: BoxDecoration(),
+                            child: FutureBuilder(
+                                future:FirebaseController.getReport(Report.reportNumber),
+                                builder: (context,snapShot){
+                                  if(!snapShot.hasData){
+                                    return Center(child: CircularProgressIndicator());
+                                  }else{
+                                    return Column(
                                       children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            controller.sendReply();
-                                            Get.dialog(Center(
-                                              child: Container(
-                                                padding: EdgeInsets.all(15.r),
-                                                width: Get.width,
-                                                height: Get.height / 2.5,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      15.r),
-                                                ),
-                                                child: Column(
-                                                  children: [
-                                                    MaterialText(
-                                                      text:
-                                                      'إضافة رد على التذكرة',
-                                                      color: mainColor,
-                                                      fontSize: 20.sp,
-                                                      fontWeight:
-                                                      FontWeight.bold,
+                                        ticketInformation['ticket_status']!="مرفوضة"?Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.dialog(Center(
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(15.r),
+                                                    width: Get.width,
+                                                    height: Get.height / 2.5,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.r),
                                                     ),
-                                                    SizedBox(height: 25.h,),
+                                                    child: Column(
+                                                      children: [
+                                                        MaterialText(
+                                                          text:
+                                                          'إضافة رد على التذكرة',
+                                                          color: mainColor,
+                                                          fontSize: 20.sp,
+                                                          fontWeight:
+                                                          FontWeight.bold,
+                                                        ),
+                                                        SizedBox(height: 25.h,),
 
-                                                    Expanded(
-                                                      flex: 5,
-                                                      child: Container(
-                                                        decoration: BoxDecoration(
-                                                            color: Color(
-                                                                0xffF3F3F3),
-                                                            borderRadius: BorderRadius
-                                                                .only(
-                                                                bottomRight: Radius
-                                                                    .circular(
-                                                                    15.r),
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                    15.r)),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                  color: colorShadowSearch
-                                                                      .withOpacity(
-                                                                      .65),
-                                                                  blurRadius:
-                                                                  10,
-                                                                  offset:
-                                                                  Offset(0,
-                                                                      4)),
-                                                            ]),
-                                                        child: Column(
-                                                          children: [
-                                                            Expanded(
-                                                                child: Card(
-                                                                  shadowColor: Colors
-                                                                      .transparent,
-                                                                  margin: EdgeInsets
-                                                                      .zero,
-                                                                  elevation: 0.0,
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                    children: [
-                                                                      IconButton(
-                                                                          onPressed:
-                                                                              () {},
-                                                                          icon: Icon(
-                                                                              Icons
-                                                                                  .delete_forever_outlined)),
-                                                                      IconButton(
-                                                                          onPressed:
-                                                                              () {},
-                                                                          icon: Icon(
-                                                                              Icons
-                                                                                  .attach_file_outlined)),
-                                                                      IconButton(
-                                                                          onPressed:
-                                                                              () {},
-                                                                          icon: Icon(
-                                                                              Icons
-                                                                                  .camera_alt_outlined)),
-                                                                    ],
-                                                                  ),
-                                                                )),
-                                                            Expanded(
-                                                              flex: 4,
-                                                              child: Card(
-                                                                shadowColor: Colors
-                                                                    .transparent,
-                                                                elevation: 0.0,
-                                                                color: Colors
-                                                                    .transparent,
-                                                                child: Padding(
-                                                                  padding:
-                                                                  EdgeInsets
-                                                                      .all(10
-                                                                      .r),
-                                                                  child:
-                                                                  TextFormField(
-                                                                    maxLines: 3,
-                                                                    onChanged: (val){
-                                                                      controller.textReply=val;
-                                                                    },
-                                                                    textDirection:
-                                                                    TextDirection
-                                                                        .rtl,
-                                                                    decoration:
-                                                                    InputDecoration(
-                                                                      border: InputBorder
-                                                                          .none,
+                                                        Expanded(
+                                                          flex: 5,
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                                color: Color(
+                                                                    0xffF3F3F3),
+                                                                borderRadius: BorderRadius
+                                                                    .only(
+                                                                    bottomRight: Radius
+                                                                        .circular(
+                                                                        15.r),
+                                                                    bottomLeft: Radius
+                                                                        .circular(
+                                                                        15.r)),
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                      color: colorShadowSearch
+                                                                          .withOpacity(
+                                                                          .65),
+                                                                      blurRadius:
+                                                                      10,
+                                                                      offset:
+                                                                      Offset(0,
+                                                                          4)),
+                                                                ]),
+                                                            child: Column(
+                                                              children: [
+                                                                Expanded(
+                                                                    child: Card(
+                                                                      shadowColor: Colors
+                                                                          .transparent,
+                                                                      margin: EdgeInsets
+                                                                          .zero,
+                                                                      elevation: 0.0,
+                                                                      child: Row(
+                                                                        mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceAround,
+                                                                        children: [
+                                                                          IconButton(
+                                                                              onPressed:
+                                                                                  () {},
+                                                                              icon: Icon(
+                                                                                  Icons
+                                                                                      .delete_forever_outlined)),
+                                                                          IconButton(
+                                                                              onPressed:
+                                                                                  () {},
+                                                                              icon: Icon(
+                                                                                  Icons
+                                                                                      .attach_file_outlined)),
+                                                                          IconButton(
+                                                                              onPressed:
+                                                                                  () {},
+                                                                              icon: Icon(
+                                                                                  Icons
+                                                                                      .camera_alt_outlined)),
+                                                                        ],
+                                                                      ),
+                                                                    )),
+                                                                Expanded(
+                                                                  flex: 4,
+                                                                  child: Card(
+                                                                    shadowColor: Colors
+                                                                        .transparent,
+                                                                    elevation: 0.0,
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    child: Padding(
+                                                                      padding:
+                                                                      EdgeInsets
+                                                                          .all(10
+                                                                          .r),
+                                                                      child:
+                                                                      TextFormField(
+                                                                        maxLines: 3,
+                                                                        onChanged: (val){
+                                                                          widget.controller.textReply=val;
+                                                                        },
+                                                                        textDirection:
+                                                                        TextDirection
+                                                                            .rtl,
+                                                                        decoration:
+                                                                        InputDecoration(
+                                                                          border: InputBorder
+                                                                              .none,
+                                                                        ),
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
+                                                              ],
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 15.h,),
-                                                    Expanded(
-                                                      child:
-                                                      GestureDetector(
-                                                        onTap: () {
-
-                                                          Get.back();
-                                                          showCustomDialog(
-                                                              text: 'تم إضافة رد على التذكرة'
-                                                          );
-                                                          Timer(Duration(
-                                                              seconds: 1),
-                                                                  (){
-                                                                Get.back();
-                                                              });
-                                                        },
-                                                        child:
-                                                        Container(
-                                                          alignment:
-                                                          Alignment
-                                                              .center,
-                                                          width: 206.w,
-                                                          height: 60.h,
-                                                          decoration: BoxDecoration(
-                                                              color:
-                                                              mainColor,
-                                                              borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                  50.r)),
-                                                          child:
-                                                          MaterialText(
-                                                            text:
-                                                            'ارسال',
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold,
-                                                            fontSize:
-                                                            15.sp,
-                                                            color: Colors
-                                                                .white,
                                                           ),
                                                         ),
-                                                      ),
-                                                    )
-                                                  ],
+                                                        SizedBox(height: 15.h,),
+                                                        Expanded(
+                                                          child:
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              actionSend="";
+                                                              sendReply();
+                                                              Get.back();
+                                                             showCustomDialog(
+                                                                  text: (actionSend!="")?actionSend:'تم إضافة رد على التذكرة',
+                                                              );
+                                                              Timer(Duration(
+                                                                  seconds: 1),
+                                                                      (){
+                                                                    Get.back();
+                                                                    setState(() {
+
+                                                                    });
+                                                                  });
+                                                            },
+                                                            child:
+                                                            Container(
+                                                              alignment:
+                                                              Alignment
+                                                                  .center,
+                                                              width: 206.w,
+                                                              height: 60.h,
+                                                              decoration: BoxDecoration(
+                                                                  color:
+                                                                  mainColor,
+                                                                  borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                      50.r)),
+                                                              child:
+                                                              MaterialText(
+                                                                text:
+                                                                'ارسال',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .bold,
+                                                                fontSize:
+                                                                15.sp,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ));
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 12.w),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                                    border: Border.all(
+                                                        color: mainColor)),
+                                                child: Text(
+                                                  'إضافة رد',
+                                                  style: TextStyle(fontSize: 10.sp),
                                                 ),
                                               ),
-                                            ));
-                                          },
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 12.w),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(50.0),
-                                                border: Border.all(
-                                                    color: mainColor)),
-                                            child: Text(
-                                              'إضافة رد',
-                                              style: TextStyle(fontSize: 10.sp),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ):SizedBox(),
-                                    Text(
-                                      'بيانات التذكرة',
-                                      style: TextStyle(
-                                          color: mainColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Divider(
-                                      color: Colors.grey,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                            child: Wrap(
-                                              children: [
-                                                Text(
-                                                  'رقم  التذكرة: ',
-                                                  style: TextStyle(
-                                                      color: mainColor,
-                                                      fontWeight: FontWeight
-                                                          .bold,
-                                                      fontSize: 15.sp),
-                                                ),
-                                                Text(
-                                                  "${FirebaseController.report["رقم البلاغ"]}",
-                                                  //'${ticketInformation['ticket_id']}',
-                                                  style: TextStyle(
-                                                      color: mainColor,
-                                                      height: 1.5),
-                                                ),
-                                              ],
-                                            )),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                            flex: 2,
-                                            child: Wrap(
-                                              children: [
-                                                Text(
-                                                  'تاريخ التذكرة: ',
-                                                  style: TextStyle(
-                                                      color: mainColor,
-                                                      fontWeight:
-                                                      FontWeight.bold,
-                                                      fontSize: 15.sp),
-                                                ),
-                                                Text(
-                                                FirebaseController.formatTimestamp(FirebaseController.report["Time"]),
-                                                  /* '${intl.DateFormat.yMEd()
+                                            )
+                                          ],
+                                        ):SizedBox(),
+                                        Text(
+                                          'بيانات التذكرة',
+                                          style: TextStyle(
+                                              color: mainColor,
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Divider(
+                                          color: Colors.grey,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                child: Wrap(
+                                                  children: [
+                                                    Text(
+                                                      'رقم  التذكرة: ',
+                                                      style: TextStyle(
+                                                          color: mainColor,
+                                                          fontWeight: FontWeight
+                                                              .bold,
+                                                          fontSize: 15.sp),
+                                                    ),
+                                                    Text(
+                                                      "${FirebaseController.report["رقم البلاغ"]}",
+                                                      //'${ticketInformation['ticket_id']}',
+                                                      style: TextStyle(
+                                                          color: mainColor,
+                                                          height: 1.5),
+                                                    ),
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                flex: 2,
+                                                child: Wrap(
+                                                  children: [
+                                                    Text(
+                                                      'تاريخ التذكرة: ',
+                                                      style: TextStyle(
+                                                          color: mainColor,
+                                                          fontWeight:
+                                                          FontWeight.bold,
+                                                          fontSize: 15.sp),
+                                                    ),
+                                                    Text(
+                                                      FirebaseController.formatTimestamp(FirebaseController.report["Time"]),
+                                                      /* '${intl.DateFormat.yMEd()
                                                       .add_jms()
                                                       .format(
                                                       ticketInformation['ticket_date'])}',*/
+                                                      style: TextStyle(
+                                                          color: mainColor,
+                                                          height: 1.5),
+                                                    ),
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Wrap(
+                                              children: [
+                                                Text(
+                                                  'الجهة/القسم : ',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15.sp),
+                                                ),
+                                                Text(
+                                                  //"${FirebaseController.report["القسم"]}",
+                                                  '${ticketInformation['ticket_target']}',
                                                   style: TextStyle(
                                                       color: mainColor,
                                                       height: 1.5),
                                                 ),
                                               ],
-                                            )),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Wrap(
-                                          children: [
-                                            Text(
-                                              'الجهة/القسم : ',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15.sp),
-                                            ),
-                                            Text(
-                                              //"${FirebaseController.report["القسم"]}",
-                                              '${ticketInformation['ticket_target']}',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  height: 1.5),
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Wrap(
+                                        Row(
                                           children: [
-                                            Text(
-                                              'الحالة: ',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15.sp),
-                                            ),
-                                            Row(
+                                            Wrap(
                                               children: [
-                                                CircleAvatar(
-                                                  radius: 6.r,
-                                                  backgroundColor: color,
-                                                ),
-                                                SizedBox(
-                                                  width: 10.w,
-                                                ),
                                                 Text(
-                                                  '${FirebaseController.report['الحالة']}',
+                                                  'الحالة: ',
                                                   style: TextStyle(
-                                                    color: color,
-                                                    /*'${ticketInformation['ticket_status']}',
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15.sp),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 6.r,
+                                                      backgroundColor: widget.color,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10.w,
+                                                    ),
+                                                    Text(
+                                                      '${FirebaseController.report['الحالة']}',
+                                                      style: TextStyle(
+                                                        color: widget.color,
+                                                        /*'${ticketInformation['ticket_status']}',
                                                   style: TextStyle(
                                                     color: color,*/
-                                                  ),
+                                                      ),
+                                                    )
+                                                  ],
                                                 )
                                               ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Wrap(
-                                          children: [
-                                            Text(
-                                              'حالة الأهمية : ',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15.sp),
-                                            ),
-                                            Text(
-                                              '${FirebaseController.report["مدى الضرر"]}',
-                                              //'${ticketInformation['ticket_priority']}',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  height: 1.5),
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Wrap(
+                                        Row(
                                           children: [
-                                            Text(
-                                              'المبنى : ',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15.sp),
-                                            ),
-                                            Text(
-                                "${FirebaseController.report["المبنى"]}",
-                                              //'${ticketInformation['ticket_building']}',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  height: 1.5),
+                                            Wrap(
+                                              children: [
+                                                Text(
+                                                  'حالة الأهمية : ',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15.sp),
+                                                ),
+                                                Text(
+                                                  '${FirebaseController.report["مدى الضرر"]}',
+                                                  //'${ticketInformation['ticket_priority']}',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      height: 1.5),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Wrap(
+                                        Row(
                                           children: [
-                                            Text(
-                                              'الطابق : ',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15.sp),
-                                            ),
-                                            Text(
-                                              "${FirebaseController.report["الطابق"]}",
-                                              //'${ticketInformation['ticket_floor']}',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  height: 1.5),
+                                            Wrap(
+                                              children: [
+                                                Text(
+                                                  'المبنى : ',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15.sp),
+                                                ),
+                                                Text(
+                                                  "${FirebaseController.report["المبنى"]}",
+                                                  //'${ticketInformation['ticket_building']}',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      height: 1.5),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Wrap(
+                                        Row(
                                           children: [
-                                            Text(
-                                              'نوع الغرفة : ',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15.sp),
-                                            ),
-                                            Text(
-                                              "${FirebaseController.report["نوع الغرفة"]}",
-                                             // '${ticketInformation['ticket_room_type']}',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  height: 1.5),
+                                            Wrap(
+                                              children: [
+                                                Text(
+                                                  'الطابق : ',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15.sp),
+                                                ),
+                                                Text(
+                                                  "${FirebaseController.report["الطابق"]}",
+                                                  //'${ticketInformation['ticket_floor']}',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      height: 1.5),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Wrap(
+                                        Row(
                                           children: [
-                                            Text(
-                                              'رقم  الغرفة : ',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15.sp),
-                                            ),
-                                            Text(
-                                              "${FirebaseController.report["رقم الغرفة"]}",
-                                              //'${ticketInformation['ticket_room_number']}',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  height: 1.5),
+                                            Wrap(
+                                              children: [
+                                                Text(
+                                                  'نوع الغرفة : ',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15.sp),
+                                                ),
+                                                Text(
+                                                  "${FirebaseController.report["نوع الغرفة"]}",
+                                                  // '${ticketInformation['ticket_room_type']}',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      height: 1.5),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Wrap(
+                                        Row(
                                           children: [
-                                            Text(
+                                            Wrap(
+                                              children: [
+                                                Text(
+                                                  'رقم  الغرفة : ',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15.sp),
+                                                ),
+                                                Text(
+                                                  "${FirebaseController.report["رقم الغرفة"]}",
+                                                  //'${ticketInformation['ticket_room_number']}',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      height: 1.5),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Wrap(
+                                              children: [
+                                                Text(
 
-                                              'رقم الجوال : ',
+                                                  'رقم الجوال : ',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15.sp),
+                                                ),
+                                                Text(
+                                                  //"${FirebaseController.report["phone"]}",
+                                                  '${ticketInformation['ticket_phone_number']}',
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      height: 1.5),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                          children: [
+                                            Text(
+                                              'وصف المشكلة : ',
                                               style: TextStyle(
                                                   color: mainColor,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 15.sp),
                                             ),
-                                            Text(
-                                              //"${FirebaseController.report["phone"]}",
-                                              '${ticketInformation['ticket_phone_number']}',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  height: 1.5),
+                                            Container(
+                                              alignment:
+                                              AlignmentDirectional.center,
+                                              padding: EdgeInsets.all(12.r),
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xffF3F3F3),
+                                                  borderRadius:
+                                                  BorderRadius.circular(15.r)),
+                                              child: Text(
+                                                "${FirebaseController.report["الوصف"]}",
+                                                // '${ticketInformation['ticket_problem_description']}',
+                                                style: TextStyle(
+                                                    color: mainColor, height: 1.5),
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                      children: [
-                                        Text(
-                                          'وصف المشكلة : ',
-                                          style: TextStyle(
-                                              color: mainColor,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15.sp),
-                                        ),
-                                        Container(
-                                          alignment:
-                                          AlignmentDirectional.center,
-                                          padding: EdgeInsets.all(12.r),
-                                          decoration: BoxDecoration(
-                                              color: Color(0xffF3F3F3),
-                                              borderRadius:
-                                              BorderRadius.circular(15.r)),
-                                          child: Text(
-                                            "${FirebaseController.report["الوصف"]}",
-                                           // '${ticketInformation['ticket_problem_description']}',
-                                            style: TextStyle(
-                                                color: mainColor, height: 1.5),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                );
-                              }})
+                                    );
+                                  }})
                         )),
                   ],
                 );
@@ -757,11 +783,11 @@ class DetailsTicketPage extends StatelessWidget {
                                       color: Colors.grey),
                                 ),
                                 Text(
-                                    FirebaseController.report["reply"][index]["الحالة"],
+                                  FirebaseController.report["reply"][index]["الحالة"],
                                   //' مغلقة ',
                                   style: TextStyle(
-                                      fontSize: 9.sp,
-                                      color: statusReport[Controllert.colorState("${FirebaseController.report['الحالة']}")]['name'][1],),
+                                    fontSize: 9.sp,
+                                    color: statusReport[Controllert.colorState("${FirebaseController.report['الحالة']}")]['name'][1],),
                                 ),
                               ],
                             ),
@@ -809,7 +835,7 @@ class DetailsTicketPage extends StatelessWidget {
                         children: [
                           SvgPicture.asset('images/user-circle.svg'),
                           Text(
-                              FirebaseController.report["reply"][index]["الاسم"],
+                            FirebaseController.report["reply"][index]["الاسم"],
                             //'أحمد بن عفيف',
                             style: TextStyle(
                                 color: mainColor,
@@ -843,7 +869,8 @@ class DetailsTicketPage extends StatelessWidget {
             );
           }),
         ],
-      ),
+      );
+    }}),
     );
   }
 }

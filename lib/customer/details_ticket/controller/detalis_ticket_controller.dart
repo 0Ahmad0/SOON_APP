@@ -12,26 +12,34 @@ class DetailsTicketController extends GetxController{
   String? textReply;
   var listReply;
   PageController? controllerPageView;
-  sendReply() async {
+
+
+  Future<String> sendReply() async {
     listReply=FirebaseController.report["reply"];
     listReply.add({
       "Time":DateTime.now(),
       "email":FirebaseController.email,
       "الاسم":FirebaseController.name,
       "الحالة":FirebaseController.report["الحالة"],
-      "الجهة":FirebaseController.report["الجهة"],
+      "الجهة":FirebaseController.report["الجهة المستفيدة"],
       "الوصف":"${textReply}",
     });
-   // print(FirebaseController.report.id);
-    await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
+   print(FirebaseController.report.id);
+    final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
           "reply":listReply,
         }).then((value){
           print("تم إضافة رد");
           return "تم إضافة رد";
     });
-    print("لم يتم إضافة رد");
-    return "لم يتم إضافة رد";
+    if(send.isEmpty){
+      print("لم يتم إضافة رد");
+      return "لم يتم إضافة رد";
+    }
+    else{
+      return "تم إضافة رد";
+    }
+
   }
   @override
   void onInit() {
