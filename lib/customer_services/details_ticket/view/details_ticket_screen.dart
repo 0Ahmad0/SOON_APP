@@ -223,7 +223,6 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                                                                     TextFormField(
                                                                       onChanged: (val){
                                                                         controller.textReply= val;
-                                                                        print(val);
                                                                       },
                                                                       maxLines: 3,
                                                                       textDirection:
