@@ -58,6 +58,8 @@ class DetailsProblemController extends GetxController{
             'الوصف':description,
             'رقم البلاغ':generateRandomString,
             'Time':DateTime.now(),
+          'TimeTo':DateTime.now(),
+          'TimeFor':DateTime.now(),
           //'time':"${DateTime.now()}",
           //},
           'نوع الحركة':"",

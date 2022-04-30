@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:roofa/customer_services/home_page/view/home_page.dart';
 import 'package:roofa/widgets/custom_dialog.dart';
 
+import '../../../Firebase/controller.dart';
 import '../../../Firebase/firebase.dart';
 import '../../../Firebase/reports.dart';
 import '../../../const/const_color.dart';
@@ -783,7 +784,7 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                     ],
                   ),
                   Column(
-                    children: List.generate(2, (index) => Container(
+                    children: List.generate(FirebaseController.report["reply"].length, (index) => Container(
                       margin:
                       EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
                       padding: EdgeInsets.all(12.0),
@@ -816,7 +817,10 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                                             color: Colors.grey),
                                       ),
                                       Text(
-                                        ' الصيانة ',
+                                        (FirebaseController.report["reply"][index]["القسم"]!=null)
+                                            ?"${FirebaseController.report["reply"][index]["القسم"]}"
+                                            :' ',
+                                       // ' الصيانة ',
                                         style: TextStyle(
                                             fontSize: 9.sp,
                                             color: Colors.grey),
@@ -828,10 +832,11 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                                             color: Colors.grey),
                                       ),
                                       Text(
-                                        ' مغلقة ',
+                                        FirebaseController.report["reply"][index]["الحالة"],
+                                        //' مغلقة ',
                                         style: TextStyle(
                                             fontSize: 9.sp,
-                                            color: Colors.red),
+                                            color: statusReport[Controllert.colorState("${FirebaseController.report['الحالة']}")]['name'][1],),
                                       ),
                                     ],
                                   ),
@@ -846,7 +851,8 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جديد ',
+                                    FirebaseController.report["reply"][index]["الوصف"],
+                                   // 'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جديد ',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Color(0xff28A2CF),
@@ -862,7 +868,8 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                                   Row(
                                     children: [
                                       Text(
-                                        'وحدة خدمة الصيانةً',
+                                        'وحدةً'+'${FirebaseController.report["reply"][index]["الوحدة"]}',
+                                        //'وحدة خدمة الصيانةً',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color: Color(0xff28A2CF),
@@ -877,7 +884,8 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                               children: [
                                 SvgPicture.asset('images/user-circle.svg'),
                                 Text(
-                                  'أحمد بن عفيف',
+                                  FirebaseController.report["reply"][index]["الاسم"],
+                                 // 'أحمد بن عفيف',
                                   style: TextStyle(
                                       color: mainColor,
                                       fontSize: 13.sp,

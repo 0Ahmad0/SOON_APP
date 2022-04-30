@@ -12,7 +12,12 @@ import '../../../widgets/dialog_date_time.dart';
 import '../../home_page/view/home_page.dart';
 import 'package:intl/intl.dart' as intl;
 
-class ChosenTechnicalDMScreen extends StatelessWidget {
+class ChosenTechnicalDMScreen extends StatefulWidget {
+  @override
+  State<ChosenTechnicalDMScreen> createState() => _ChosenTechnicalDMScreenState();
+}
+
+class _ChosenTechnicalDMScreenState extends State<ChosenTechnicalDMScreen> {
   final controller = Get.put(ChosenTechnicalDMController());
 
   @override
