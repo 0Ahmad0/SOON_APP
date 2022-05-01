@@ -424,6 +424,7 @@ class SelectTypeConectionScreenController extends GetxController{
           'email':FirebaseController.email,
           'الاسم':FirebaseController.name,
           'نوع المشكلة':problemType,
+          'القسم':FirebaseController.typeUser,
           'الوصف':description.text,
           'رقم البلاغ': generateRandomString,
           'Time':DateTime.now(),

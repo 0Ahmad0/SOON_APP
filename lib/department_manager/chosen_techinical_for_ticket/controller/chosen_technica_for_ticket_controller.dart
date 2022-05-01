@@ -71,7 +71,7 @@ class ChosenTechnicalForTicketDMController extends GetxController{
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
           "tracking":listReply,
-          //  "الحالة":"تحت الإجراء",
+          "الحالة":"معلقة",
           "نوع الحركة":"إحالة التذكرة لخدمة العملاء",
         }).then((value){
       print("تم تحويل التذكرة  لخدمة العملاء");
@@ -97,17 +97,18 @@ class ChosenTechnicalForTicketDMController extends GetxController{
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
       "الحالة":"معتمدة",
-      "الوصف":"${textReply}",
+      "الوصف":"${causeReply}",
 
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
+
           "tracking":listReply,
-          //  "الحالة":"معتمدة",
+          "الحالة":"معتمدة",
           "نوع الحركة":"إحالة التذكرة لمركز الصيانة",
-          //"TimeTo":expectedTime1,
-          //"TimeFor":expectedTime2,
+          "TimeTo":DateTime.parse(expectedTime1.toString()),
+          "TimeFor":DateTime.parse(expectedTime2.toString()),
         }).then((value){
       print("تم تحويل التذكرة  لمركز الصيانة");
       return "تم تحويل التذكرة  لمركز الصيانة";

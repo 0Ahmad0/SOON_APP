@@ -71,7 +71,7 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
               return ListView(
                 children: [
                   Container(
-                    height: Get.height /1.8,
+                    height: Get.height /1.6,
                     margin:
                     EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                     decoration: BoxDecoration(
@@ -665,6 +665,7 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                                                   TextFormField(
                                                     onChanged: (val){
                                                       controller.causeReply=val;
+
                                                     },
                                                     textDirection:
                                                     TextDirection

@@ -6,6 +6,9 @@ import 'package:roofa/customer/details_ticket/view/details_ticket.dart';
 import 'package:roofa/technical/show_tasks/controller/show_task_controller.dart';
 import 'package:select_dialog/select_dialog.dart';
 
+import '../../../Firebase/controller.dart';
+import '../../../Firebase/firebase.dart';
+import '../../../Firebase/reports.dart';
 import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
 import 'package:intl/intl.dart' as intl;
@@ -13,7 +16,12 @@ import 'package:intl/intl.dart' as intl;
 import '../../../widgets/dialog_date_time.dart';
 import '../../ticket_details/view/ticket_details_screen.dart';
 
-class ShowTasksTScreen extends StatelessWidget {
+class ShowTasksTScreen extends StatefulWidget {
+  @override
+  State<ShowTasksTScreen> createState() => _ShowTasksTScreenState();
+}
+
+class _ShowTasksTScreenState extends State<ShowTasksTScreen> {
   final controller = Get.put(ShowTasksTController());
 
   @override
@@ -117,7 +125,11 @@ class ShowTasksTScreen extends StatelessWidget {
                                 prefixIcon: Icon(
                                   Icons.search,
                                   color: mainColor,
-                                )),
+                                )),onChanged: (val){
+    controller.searchFilter=val;
+    controller.update();
+    setState((){
+    });}
                           ),
                         )),
                     Expanded(
@@ -161,10 +173,29 @@ class ShowTasksTScreen extends StatelessWidget {
                       onTap: (){
                         SelectDialog.showModal(
                           context,
-                          label: 'hello',
-                          selectedValue: 'lol',
+                          label: "${controller.selectedText}",
+                          selectedValue: '${controller.selectedText.value}',
                           items: c,
                           onChange: (selected) {
+                            controller.selectedText.value = selected.toString();
+                            //controller.update();
+                            //=======//
+                            controller.headquartersFilter="";
+                            controller.beneficiaryFilter="";
+                            switch("${statusSortDM[index]['type_sort_name']['name']}"){
+                              case "فرز على حسب الجهة":
+                                controller.beneficiaryFilter=selected.toString();
+                                break;
+                              case "فرز على حسب المقر":
+                                controller.headquartersFilter=selected.toString();
+                                print(controller.headquartersFilter);
+                                break;
+                            }
+                            //await controller.fetchDataReportUser();
+                            controller.update();
+                            setState((){
+                            });
+                            //=======
                           },
                         );
                       },
@@ -177,229 +208,240 @@ class ShowTasksTScreen extends StatelessWidget {
                 height: 20.h,
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: allreportsTechnical.length,
-                  itemBuilder: (ctx, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Get.to(()=>DetailsTicketTScreen(
-                          map: mapDetailsT,
-                        ),transition: Transition.downToUp);
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 10.h),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: colorShadowSearch.withOpacity(.23),
-                                blurRadius: 10,
-                                offset: Offset(0, 9),
-                              )
-                            ]),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                                child: Container(
-                                  height: Get.width * 0.5,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(15.r),
-                                        bottomRight: Radius.circular(15.r),
-                                      )),
-                                )),
-                            Expanded(
-                                flex: 18,
-                                child: Container(
-                                  padding: EdgeInsets.all(10.r),
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    children: [
-                                      Row(
+                child: FutureBuilder(
+                  future: controller.fetchDataReportUser(),
+                  builder: (context,snapShot) {
+                  if (!snapShot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                  } else {
+                    return ListView.builder(
+                      itemCount: controller.listReport.length,
+                      itemBuilder: (ctx, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Report.reportNumber=controller.listReport[index]['رقم البلاغ'];
+                            Get.to(()=>DetailsTicketTScreen(
+                              map: mapDetailsT,
+                            ),transition: Transition.downToUp);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 12.w, vertical: 10.h),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: colorShadowSearch.withOpacity(.23),
+                                    blurRadius: 10,
+                                    offset: Offset(0, 9),
+                                  )
+                                ]),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                    child: Container(
+                                      height: Get.width * 0.5,
+                                      decoration: BoxDecoration(
+                                          color: statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1],//Colors.grey,
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(15.r),
+                                            bottomRight: Radius.circular(15.r),
+                                          )),
+                                    )),
+                                Expanded(
+                                    flex: 18,
+                                    child: Container(
+                                      padding: EdgeInsets.all(10.r),
+                                      decoration: BoxDecoration(),
+                                      child: Column(
                                         children: [
-                                          Text(
-                                            'إحالة إلى مركز الصيانة ',
-                                            style: TextStyle(
-                                                color: mainColor,
-                                                fontWeight:
-                                                FontWeight.bold,
-                                                fontSize: 15.sp),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Text(
-                                              '${
-                                              intl.DateFormat.yMd().
-                                              add_j().format(
-                                                  allreportsTechnical
-                                                  [index]
-                                                  ['report_date']
-                                              )
-                                                 }',
-                                              style: TextStyle(
-                                                  color: mainColor,
-                                                  height: 1.5),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Row(
-                                              children: [
-                                                CircleAvatar(
-                                                  backgroundColor: Colors.grey,
-                                                  radius:  5.r,
-                                                ),
-                                                Text('${
-                                                allreportsTechnical[index]['report_status']
-                                                }'),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text('رقم البلاغ : ',style: TextStyle(
-                                                      color: mainColor,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 15.sp
-                                                    ),),
-                                                    Text('${
-                                                    allreportsTechnical[index]['report_number']
-                                                    }',style: TextStyle(
-                                                      color: mainColor
-                                                    ),)
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Text('الجهة : ',style: TextStyle(
-                                                      color: mainColor,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 15.sp
-                                                    ),),
-                                                    Text('${
-                                                    allreportsTechnical
-                                                    [index]
-                                                    ['report_direction']
-                                                    }',
-                                                      overflow: TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                      color: mainColor
-                                                    ),)
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Column(
+                                          Row(
                                             children: [
-                                              Text('الإنجاز من',
-                                                overflow: TextOverflow.ellipsis,
+                                              Text(
+                                                'إحالة إلى مركز الصيانة ',
                                                 style: TextStyle(
-                                                color: Colors.grey
-                                              ),),
-                                              Row(
+                                                    color: mainColor,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                    fontSize: 15.sp),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Text(
+                                                  FirebaseController.formatTimestamp(controller.listReport[index]["Time"]),
+                                                /*  '${
+                                                      intl.DateFormat.yMd().
+                                                      add_j().format(
+                                                          allreportsTechnical
+                                                          [index]
+                                                          ['report_date']
+                                                      )
+                                                  }',*/
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      height: 1.5),
+                                                ),
+                                              ),
+
+                                              Expanded(
+                                                child: Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      backgroundColor: statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1],//Colors.grey,
+                                                      radius:  5.r,
+                                                    ),
+                                                    Text('${
+                                                        controller.listReport[index]['الحالة']
+                                                    }'),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text('رقم البلاغ : ',style: TextStyle(
+                                                            color: mainColor,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 15.sp
+                                                        ),),
+                                                        Text('${
+                                                            controller.listReport[index]['رقم البلاغ']
+                                                        }',style: TextStyle(
+                                                            color: mainColor
+                                                        ),)
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text('الجهة : ',style: TextStyle(
+                                                            color: mainColor,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 15.sp
+                                                        ),),
+                                                        Text('${
+                                                            controller.listReport[index]['الجهة المستفيدة']
+                                                        }',
+                                                          overflow: TextOverflow.ellipsis,
+                                                          style: TextStyle(
+                                                              color: mainColor
+                                                          ),)
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Column(
                                                 children: [
-                                                  Text('${
-                                             intl.DateFormat.yMd().format( allreportsTechnical[index][
-                                             'report_done_from'
-                                             ])
-                                                  }',
+                                                  Text('الإنجاز من',
                                                     overflow: TextOverflow.ellipsis,
                                                     style: TextStyle(
-                                                    color: Colors.red,
-                                                    fontSize: 10.sp
-                                                  ),),
-                                                  Text('إلى',style: TextStyle(
-                                                      color: Colors.grey
-                                                  ),),
-                                                  Text('${
-                                                      intl.DateFormat.yMd().format( allreportsTechnical[index][
-                                                      'report_done_to'
-                                                      ])
-                                                  }',style: TextStyle(
-                                                      color: Colors.red,
-                                                      fontSize: 10.sp
-                                                  ),),
+                                                        color: Colors.grey
+                                                    ),),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+
+                                                        '${
+                                                          intl.DateFormat.yMd().format(
+                                                              //FirebaseController.formatTimestamp(controller.listReport[index]["TimeTo"]),
+                                                              allreportsTechnical[index]['report_done_from']
+                                                          )
+                                                      }',
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: TextStyle(
+                                                            color: Colors.red,
+                                                            fontSize: 10.sp
+                                                        ),),
+                                                      Text('إلى',style: TextStyle(
+                                                          color: Colors.grey
+                                                      ),),
+                                                      Text('${
+                                                          intl.DateFormat.yMd().format(
+                                                             // FirebaseController.formatTimestamp(controller.listReport[index]["TimeFor"]),
+                                                              allreportsTechnical[index]['report_done_to']
+                                                          )
+                                                      }',style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontSize: 10.sp
+                                                      ),),
+                                                    ],
+                                                  ),
                                                 ],
-                                              ),
+                                              )
                                             ],
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'المقر : ',
-                                            style: TextStyle(
-                                                color: mainColor,
-                                                fontWeight:
-                                                FontWeight.bold,
-                                                fontSize: 15.sp),
                                           ),
-                                          Text('${
-                                              allreportsTechnical[index]
-                                              ['report_position']
-                                          }',style: TextStyle(
-                                            color: mainColor
-                                          ),)
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'الفني المسؤول : ',
-                                            style: TextStyle(
-                                                color: mainColor,
-                                                fontWeight:
-                                                FontWeight.bold,
-                                                fontSize: 15.sp),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'المقر : ',
+                                                style: TextStyle(
+                                                    color: mainColor,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                    fontSize: 15.sp),
+                                              ),
+                                              Text('${
+                                                  controller.listReport[index]['المقر']
+                                              }',style: TextStyle(
+                                                  color: mainColor
+                                              ),)
+                                            ],
                                           ),
-                                          Text('${
-                                              allreportsTechnical[index]
-                                              ['technical_name']
-                                          }',style: TextStyle(
-                                            color: mainColor
-                                          ),)
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'الفنيي المساعدين : ',
-                                            style: TextStyle(
-                                                color: mainColor,
-                                                fontWeight:
-                                                FontWeight.bold,
-                                                fontSize: 15.sp),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'الفني المسؤول : ',
+                                                style: TextStyle(
+                                                    color: mainColor,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                    fontSize: 15.sp),
+                                              ),
+                                              Text('${
+                                                  allreportsTechnical[index]
+                                                  ['technical_name']
+                                              }',style: TextStyle(
+                                                  color: mainColor
+                                              ),)
+                                            ],
                                           ),
-                                          Text('${
-                                              allreportsTechnical[index]
-                                              ['helper_technical_name']
-                                          }',style: TextStyle(
-                                            color: mainColor
-                                          ),)
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'الفنيي المساعدين : ',
+                                                style: TextStyle(
+                                                    color: mainColor,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                    fontSize: 15.sp),
+                                              ),
+                                              Text('${
+                                                  allreportsTechnical[index]
+                                                  ['helper_technical_name']
+                                              }',style: TextStyle(
+                                                  color: mainColor
+                                              ),)
+                                            ],
+                                          ),
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                )),
-                          ],
-                        ),
-                      ),
+                                    )),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     );
-                  },
-                ),
+                  }}),
               )
             ],
           ),

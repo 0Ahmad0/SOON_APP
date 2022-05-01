@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart' as intl;
+import '../../../Firebase/firebase.dart';
+import '../../../Firebase/reports.dart';
 import '../../../const/text_app.dart';
 
 import '../../../const/const_color.dart';
@@ -13,6 +16,10 @@ class AddChangesTReport extends StatelessWidget {
   var deviceType = TextEditingController();
   var deviceSerialNumber = TextEditingController();
   var report = TextEditingController();
+
+  Future<void> sendAssignment() async {
+    await controller.sendAssignment();
+  }
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -77,7 +84,7 @@ class AddChangesTReport extends StatelessWidget {
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
-                          hintText: '[7AEE00CVF]'
+                          hintText: Report.reportNumber,//'[7AEE00CVF]'
                       ),
                     ),
                   ),
@@ -390,6 +397,9 @@ class AddChangesTReport extends StatelessWidget {
                                           10.r),
                                       child:
                                       TextFormField(
+                                        onChanged: (val){
+                                          controller.textReport=val;
+                                        },
                                         maxLines: 3,
                                         textDirection:
                                         TextDirection
@@ -413,6 +423,12 @@ class AddChangesTReport extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: (){
+                      controller.deviceName=deviceName.text;
+                      controller.deviceSerialNumber=deviceSerialNumber.text;
+                      controller.deviceType=deviceType.text;
+                      sendAssignment();
+                      Get.back();
+                      Get.back();
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -446,13 +462,47 @@ class AddChangesController extends GetxController{
   var index = 0.obs;
   var index2 = 0.obs;
   var typeAdd = 'تركيبات'.obs;
+  var listReply;
+  String? deviceName,deviceType,deviceSerialNumber,textReport;
   Color buttonActive = mainColor;
   Color buttonActive2 = mainColor;
   Color textButtonActive = Colors.white;
   Color textButtonActive2 = Colors.white;
 
   PageController? controllerPageView;
+  Future<String> sendAssignment() async {
+    listReply=FirebaseController.report["tracking"];
+    listReply.add({
+      "Time":expectedTime,
+      "email":FirebaseController.email,
+      "رقم التذكرة":FirebaseController.report["رقم البلاغ"],
+      "نوع الحركة":"تركيب",
+      "اسم الجهاز":deviceName,
+      "نوع الجهاز":deviceType,
+      "الرقم التسلسلي للجهاز":deviceSerialNumber,
+      "مدخل التقرير":FirebaseController.name,
+      "الحالة":"تحت الإجراء",
+      "الوصف":"${textReport}",
+    });
+    print(FirebaseController.report.id);
+    final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
+        {
+          "tracking":listReply,
+          "الحالة":"تحت الإجراء",
+          "نوع الحركة":"تركيب",
+        }).then((value){
+      print("تم إضافة حركة");
+      return "تم إضافة حركة";
+    });
+    if(send.isEmpty){
+      print("لم يتم إضافة حركة");
+      return "لم يتم إضافة حركة";
+    }
+    else{
+      return "تم إضافة حركة";
+    }
 
+  }
   @override
   void onInit() {
     controllerPageView = PageController(
@@ -476,7 +526,7 @@ class AddChangesController extends GetxController{
   var technicalName = ''.obs;
   var  helperTechnical = ''.obs;
 
-  var expectedTime = DateTime.now().obs;
+  DateTime expectedTime = DateTime.now();
 
   var dayTime = 0.obs;
 

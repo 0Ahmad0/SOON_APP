@@ -48,20 +48,20 @@ class DetailsTicketCSController extends GetxController{
     listReply.add({
       "Time":DateTime.now(),
       "email":FirebaseController.email,
-      "رقم التذكرة":FirebaseController.report["رقم التذكرة"],
-      "نوع الحركة":"لم يتم الانجاز",
+      "رقم التذكرة":FirebaseController.report["رقم البلاغ"],
+      "نوع الحركة":"لم يتم الإنجاز",
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
       "الحالة":"مرفوضة",
-      "الوصف":"${textReply}",
+      "الوصف":"${causeReply}",
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
           "tracking":listReply,
-          //"الحالة":"مرفوضة",
-          "نوع الحركة":"لم يتم الانجاز",
+          "الحالة":"مرفوضة",
+          "نوع الحركة":"لم يتم الإنجاز",
         }).then((value){
       print("تم ارسال سبب رفض التذكرة");
       return "تم ارسال سبب رفض التذكرة";
@@ -85,15 +85,15 @@ class DetailsTicketCSController extends GetxController{
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
-      "الحالة":"مرفوضة",
-      "الوصف":"${textReply}",
+      "الحالة":"جديدة",
+      "الوصف":"${causeReply}",
 
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
           "tracking":listReply,
-        //  "الحالة":"تحت الإجراء",
+        // "الحالة":"تحت الإجراء",
           "نوع الحركة":"إحالة التذكرة لمركز الصيانة",
         }).then((value){
       print("تم تحويل التذكرة لقسم الصيانة");

@@ -209,7 +209,7 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
       return Column(
         children: [
           Container(
-            height: Get.height * 0.63,
+            height: Get.width * 1.3,//Get.height * 0.63,
             margin:
             EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
             decoration: BoxDecoration(
@@ -881,136 +881,100 @@ class ReportsLogPage extends StatelessWidget {
   const ReportsLogPage({Key? key, this.color}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ListView(
-        children:[
-          buildContainer(
-              height: Get.width * 0.8,
-              color: c[1]['color'],
-              child: Column(
-                children: [
-                  buildInfoTicket(label: 'رقم  التذكرة',
-                      value: c[1]['report_number']),
-                  buildInfoTicket(label: 'التاريخ',
-                      value: intl.DateFormat.yMEd().add_jm().format(c[1]['report_date_time'])),
-                  buildInfoTicket(label: 'نوع الحركة',
-                      value: c[1]['type_des']),
-                  buildInfoTicket(label: 'الوصف',
-                      value: ''),
-                  Expanded(
-                      flex: 2,
-                      child: Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(5.0),
-                          decoration: BoxDecoration(
-                              color: Color(0xffF3F3F3),
-                              borderRadius: BorderRadius.
-                              circular(20.0),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: colorShadowSearch.
-                                    withOpacity(.16),
-                                    offset: Offset(0,9),
-                                    blurRadius: 10
-                                )
-                              ]
-                          ),
-                          child: Text('${c[1]['ticket_problem_description']}',style: TextStyle(
-                              color: mainColor
-                          ),)
-                      )),
-                  buildInfoTicket(label: 'مدخل التقرير',
-                      value: c[1]['reporter_name']),
-                ],
-              )
-          ),
-          buildContainer(
-              height: Get.width * 0.9,
-              color: c[2]['color'],
-              child: Column(
-                children: [
-                  buildInfoTicket(label: 'رقم  التذكرة',
-                      value: c[2]['report_number']),
-                  buildInfoTicket(label: 'التاريخ',
-                      value: intl.DateFormat.yMEd().add_jm().format(c[2]['report_date_time'])),
-                  buildInfoTicket(label: 'نوع الحركة',
-                      value: c[2]['type_des']),
-                  buildInfoTicket(label: 'اسم الجهاز',
-                      value: c[2]['device_name']),
-                  buildInfoTicket(label: 'نوع الجهاز',
-                      value: c[2]['device_type']),
-                  buildInfoTicket(label: 'الوصف',
-                      value: ''),
-                  Expanded(
-                      flex: 2,
-                      child: Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(5.0),
-                          decoration: BoxDecoration(
-                              color: Color(0xffF3F3F3),
-                              borderRadius: BorderRadius.
-                              circular(20.0),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: colorShadowSearch.
-                                    withOpacity(.16),
-                                    offset: Offset(0,9),
-                                    blurRadius: 10
-                                )
-                              ]
-                          ),
-                          child: Text('${c[2]['ticket_problem_description']}',style: TextStyle(
-                              color: mainColor
-                          ),)
-                      )),
-                  buildInfoTicket(label: 'مدخل التقرير',
-                      value: c[2]['reporter_name']),
-                ],
-              )
-          ),
-          buildContainer(
-              height: Get.width * 0.7,
-              color: c[3]['color'],
-              child: Column(
-                children: [
-                  buildInfoTicket(label: 'رقم  التذكرة',
-                      value: c[3]['report_number']),
-                  buildInfoTicket(label: 'التاريخ',
-                      value: intl.DateFormat.yMEd().add_jm()
-                          .format(c[3]['report_date_time'])),
-                  buildInfoTicket(label: 'نوع الحركة',
-                      value: c[3]['type_des']),
-                  buildInfoTicket(label: 'الوصف',
-                      value: ''),
-                  Expanded(
-                      flex: 2,
-                      child: Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(5.0),
-                          decoration: BoxDecoration(
-                              color: Color(0xffF3F3F3),
-                              borderRadius: BorderRadius.
-                              circular(20.0),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: colorShadowSearch.
-                                    withOpacity(.16),
-                                    offset: Offset(0,9),
-                                    blurRadius: 10
-                                )
-                              ]
-                          ),
-                          child: Text('${c[3]['ticket_problem_description']}',style: TextStyle(
-                              color: mainColor
-                          ),)
-                      )),
-                  buildInfoTicket(label: 'مدخل التقرير',
-                      value: c[3]['reporter_name']),
-                ],
-              )
-          ),
-        ]
+    List listTracking=FirebaseController.report["tracking"];
+    return  ListView.separated(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      itemCount: listTracking.length,
+      itemBuilder: (context, index) {
+        return GetBuilder<DetailsTicketController>(
+          builder: (_) {
+            return buildContainer(
+                height: Get.width * 0.9,
+                color: statusReport[Controllert.colorState("${listTracking[index]['الحالة']}")]['name'][1],
+                child: (listTracking[index]["الحالة"]=="تحت الإجراء")?
+                          Column(
+                  children: [
+                    buildInfoTicket(label: 'رقم  التذكرة',
+                        value: listTracking[index]["رقم التذكرة"]),
+                    buildInfoTicket(label: 'التاريخ',
+                        value: FirebaseController.formatTimestamp(listTracking[index]["Time"]/*intl.DateFormat.yMEd().add_jm().format(c[2]['report_date_time']*/)),
+                    buildInfoTicket(label: 'نوع الحركة',
+                        value: listTracking[index]["نوع الحركة"]),
+                      buildInfoTicket(label: 'اسم الجهاز',
+                          value: listTracking[index]["اسم الجهاز"]),
+                      buildInfoTicket(label: 'نوع الجهاز',
+                          value: listTracking[index]["نوع الجهاز"]),
+                    buildInfoTicket(label: 'الوصف',
+                        value: ''),
+                    Expanded(
+                        flex: 2,
+                        child: Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.all(5.0),
+                            decoration: BoxDecoration(
+                                color: Color(0xffF3F3F3),
+                                borderRadius: BorderRadius.
+                                circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: colorShadowSearch.
+                                      withOpacity(.16),
+                                      offset: Offset(0,9),
+                                      blurRadius: 10
+                                  )
+                                ]
+                            ),
+                            child: Text(listTracking[index]["الوصف"],style: TextStyle(
+                                color: mainColor
+                            ),)
+                        )),
+                    buildInfoTicket(label: 'مدخل التقرير',
+                        value: listTracking[index]["مدخل التقرير"]),
+                  ],
+                ):
+                              Column(
+                  children: [
+                    buildInfoTicket(label: 'رقم  التذكرة',
+                        value: listTracking[index]["رقم التذكرة"]),
+                    buildInfoTicket(label: 'التاريخ',
+                        value: FirebaseController.formatTimestamp(listTracking[index]["Time"]/*intl.DateFormat.yMEd().add_jm().format(c[2]['report_date_time']*/)),
+                    buildInfoTicket(label: 'نوع الحركة',
+                        value: listTracking[index]["نوع الحركة"]),
+                    buildInfoTicket(label: 'الوصف',
+                        value: ''),
+                    Expanded(
+                        flex: 2,
+                        child: Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.all(5.0),
+                            decoration: BoxDecoration(
+                                color: Color(0xffF3F3F3),
+                                borderRadius: BorderRadius.
+                                circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: colorShadowSearch.
+                                      withOpacity(.16),
+                                      offset: Offset(0,9),
+                                      blurRadius: 10
+                                  )
+                                ]
+                            ),
+                            child: Text(listTracking[index]["الوصف"],style: TextStyle(
+                                color: mainColor
+                            ),)
+                        )),
+                    buildInfoTicket(label: 'مدخل التقرير',
+                        value: listTracking[index]["مدخل التقرير"]),
+                  ],
+                )
+            );
+          },
+        );
+      },
+      separatorBuilder: (context, index) => const SizedBox(),
     );
   }
 }
-
 

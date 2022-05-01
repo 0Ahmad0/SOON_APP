@@ -85,7 +85,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]=="جديدة"||element["الحالة"]=="تحت الإجراء")?listReport.add(element):"";
+            (element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -101,7 +101,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]=="جديدة"||element["الحالة"]=="تحت الإجراء")?listReport.add(element):"";
+            (element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -116,7 +116,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]=="جديدة"||element["الحالة"]=="تحت الإجراء")?listReport.add(element):"";
+            (element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -129,7 +129,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]=="جديدة"||element["الحالة"]=="تحت الإجراء")?listReport.add(element):"";
+            (element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });

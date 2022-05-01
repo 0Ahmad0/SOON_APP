@@ -113,7 +113,7 @@ List<Map> homeScreenGridViewTechnicalText = [
     'text': 'عرض الإنجازات'
   },
   {
-    'page_to': '/T_superviser_screen',
+    'page_to': '/CS_supervise_report_screen',//'/T_superviser_screen',
     'svg_picture': 'images/check-square.svg',
     'text': 'متابعة البلاغات'
   },

@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:roofa/const/text_app.dart';
-import 'package:roofa/technical/reports/controller/reports_controller.dart';
 import 'package:roofa/technical/show_tasks/type_move/remove.dart';
 
+import '../../../Firebase/reports.dart';
 import '../../../const/const_color.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -16,6 +16,11 @@ import '../../../widgets/custom_dialog.dart';
 import '../../../widgets/material_text.dart';
 import '../../show_tasks/type_move/add_changes.dart';
 import '../../show_tasks/type_move/show_and_not_finish.dart';
+import 'package:roofa/technical/report_screen/controller/report_controller.dart';
+
+import '../controller/reports_controller.dart';
+
+
 
 class ReportsTScreen extends StatelessWidget {
   final controller = Get.put(ReportsTController());
@@ -64,11 +69,22 @@ Map map = {
   }
 }
 
-class FillReportTScreen extends StatelessWidget {
-  TextEditingController ticketNum = TextEditingController();
+class FillReportTScreen extends StatefulWidget {
   var controller;
   FillReportTScreen({this.controller});
 
+
+  @override
+  State<FillReportTScreen> createState() => _FillReportTScreenState();
+}
+
+class _FillReportTScreenState extends State<FillReportTScreen> {
+  TextEditingController ticketNum = TextEditingController();
+  String? actionSend;
+
+  Future<void> sendAssignment() async {
+    actionSend=await widget.controller.sendAssignment();
+  }
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -112,7 +128,7 @@ class FillReportTScreen extends StatelessWidget {
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
-              hintText: '[7AEE00CVF]'
+              hintText: Report.reportNumber,//'[7AEE00CVF]'
             ),
           ),
         ),
@@ -143,6 +159,7 @@ class FillReportTScreen extends StatelessWidget {
               value: e
             )).toList(),
             onChanged: (val){
+              widget.controller.typeMove=val;
               if(val == 'لم يتم الإنجاز'||val == 'تم الإنجاز'||val == 'معاينة'){
 
                 ///لازم تبعث الداتا هنا عشان نفس بعض بس يختلف اللون
@@ -188,11 +205,11 @@ class FillReportTScreen extends StatelessWidget {
                       onTap: ()async{
                         final DateTime? date = await showDatePicker(
                             context: context,
-                            initialDate: controller.expectedTime.value,
+                            initialDate: widget.controller.expectedTime.value,
                             firstDate: DateTime(1990),
                             lastDate: DateTime(2030));
-                        if (date != null && date != controller.expectedTime.value){
-                          controller.expectedTime.value = date;
+                        if (date != null && date != widget.controller.expectedTime.value){
+                          widget.controller.expectedTime.value = date;
                         }
                       },
                       child: Container(
@@ -211,7 +228,7 @@ class FillReportTScreen extends StatelessWidget {
                         ),
                         child: Text('${
                             intl.DateFormat.yMd().format(
-                                controller.expectedTime.value
+                                widget.controller.expectedTime.value
                             )
                         }',style: TextStyle(
                           color: mainColor,
@@ -241,14 +258,14 @@ SizedBox(width: 25.w,),
                           children: [
                             Expanded(child: GestureDetector(
                               onTap: (){
-                                controller.changeDayTime(0);
+                                widget.controller.changeDayTime(0);
                               },
                               child: AnimatedContainer(
                                 padding: EdgeInsets.all(8.r),
                                 alignment: Alignment.center,
                                 duration: Duration(milliseconds: 500),
                                 decoration: BoxDecoration(
-                                    color: controller.dayTime==0
+                                    color: widget.controller.dayTime==0
                                         ?mainColor:Colors.transparent,
                                     borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(8.r),
@@ -256,7 +273,7 @@ SizedBox(width: 25.w,),
                                     )
                                 ),
                                 child: Text('PM',style: TextStyle(
-                                    color: controller.dayTime==0
+                                    color: widget.controller.dayTime==0
                                         ?Colors.white:mainColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.sp
@@ -265,14 +282,14 @@ SizedBox(width: 25.w,),
                             )),
                             Expanded(child: GestureDetector(
                               onTap: (){
-                                controller.changeDayTime(1);
+                                widget.controller.changeDayTime(1);
                               },
                               child: AnimatedContainer(
                                 padding: EdgeInsets.all(8.r),
                                 alignment: Alignment.center,
                                 duration: Duration(milliseconds: 500),
                                 decoration: BoxDecoration(
-                                    color: controller.dayTime==1
+                                    color: widget.controller.dayTime==1
                                         ?mainColor:Colors.transparent,
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(8.r),
@@ -280,7 +297,7 @@ SizedBox(width: 25.w,),
                                     )
                                 ),
                                 child: Text('AM',style: TextStyle(
-                                    color: controller.dayTime==1
+                                    color: widget.controller.dayTime==1
                                         ?Colors.white:mainColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.sp
@@ -388,6 +405,9 @@ SizedBox(width: 25.w,),
                                 10.r),
                             child:
                             TextFormField(
+                              onChanged: (val){
+                                widget.controller.textReport=val;
+                              },
                               maxLines: 3,
                               textDirection:
                               TextDirection
@@ -411,6 +431,10 @@ SizedBox(width: 25.w,),
         ),
         GestureDetector(
           onTap: (){
+            actionSend="";
+            widget.controller.sendAssignment();
+              Get.back();
+
           },
           child: Container(
             alignment: Alignment.center,

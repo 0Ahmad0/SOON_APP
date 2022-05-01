@@ -127,7 +127,11 @@ class SignInScreen extends StatelessWidget {
                                       email: _.email, password: _.password).then((value) async => {
                                     if(_.formKey.currentState!.validate()){
                                       print("done log in"),
-                                      if(FirebaseController.checkType(_.email).contains("student")){
+                                      /************************/
+                                      goToPageSign(_.email, value.user),
+                                      /***********************/
+
+                                      /*if(FirebaseController.checkType(_.email).contains("student")){
                                         Get.off(()=>HomeScreen()),
                                       }else if(FirebaseController.checkType(_.email).contains("manager")){
                                         await FirebaseController.fetchDataUser2(value.user!),
@@ -145,7 +149,7 @@ class SignInScreen extends StatelessWidget {
                                       }
                                       else{
                                         Get.off(()=>UserProfileScreen()),
-                                      }
+                                      }*/
 
 
                                     }
@@ -201,5 +205,46 @@ class SignInScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  goToPageSign(String email,User? user) async {
+    if(FirebaseController.checkType(email).contains("student")){
+      Get.off(()=>HomeScreen());
+    }else if(FirebaseController.checkType(email).contains("manager")){
+    await FirebaseController.fetchDataUser2(user!);
+    if(FirebaseController.typeUser.contains("خدمة العملاء")){
+    Get.off(()=>HomeScreenCS());
+    }else if(FirebaseController.typeUser.contains("الفنيين")){
+    Get.off(()=>HomeScreenT());
+    }else if(FirebaseController.typeUser.contains("الإدارة العليا")){
+    Get.off(()=>HomeScreenHM());
+    }else if(FirebaseController.typeUser.contains("مدير القسم")){
+    Get.off(()=>HomeScreenDM());
+    }else {
+    Get.off(()=>UserProfileScreen());
+    }
+    }
+    else{
+    Get.off(()=>UserProfileScreen());
+    }
+  }
+  goToPage(String email) async {
+    if(FirebaseController.checkType(email).contains("student")){
+      Get.off(()=>HomeScreen());
+    }else if(FirebaseController.checkType(email).contains("manager")){
+      if(FirebaseController.typeUser.contains("خدمة العملاء")){
+        Get.off(()=>HomeScreenCS());
+      }else if(FirebaseController.typeUser.contains("الفنيين")){
+        Get.off(()=>HomeScreenT());
+      }else if(FirebaseController.typeUser.contains("الإدارة العليا")){
+        Get.off(()=>HomeScreenHM());
+      }else if(FirebaseController.typeUser.contains("مدير القسم")){
+        Get.off(()=>HomeScreenDM());
+      }else {
+        Get.off(()=>UserProfileScreen());
+      }
+    }
+    else{
+      Get.off(()=>UserProfileScreen());
+    }
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:roofa/department_manager/details_report_ticket/controller/details_report_ticket_controller.dart';
 
+import '../../../Firebase/controller.dart';
 import '../../../Firebase/firebase.dart';
 import '../../../Firebase/reports.dart';
 import '../../../const/const_color.dart';
@@ -675,6 +676,109 @@ var nameTicket = "معاينة";
 }
 
 class CompositionAndChangesDM extends StatelessWidget {
+  //final Color? color;
+
+  //const ReportsLogPage({Key? key, this.color}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    List listTracking=FirebaseController.report["tracking"];
+    return  ListView.separated(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      itemCount: listTracking.length,
+      itemBuilder: (context, index) {
+        return GetBuilder<DetailsReportTicketDMController>(
+          builder: (_) {
+            return buildContainer(
+                height: Get.width * 0.9,
+                color: statusReport[Controllert.colorState("${listTracking[index]['الحالة']}")]['name'][1],
+                child: (listTracking[index]["الحالة"]=="تحت الإجراء")?
+                Column(
+                  children: [
+                    buildInfoTicket(label: 'رقم  التذكرة',
+                        value: listTracking[index]["رقم التذكرة"]),
+                    buildInfoTicket(label: 'التاريخ',
+                        value: FirebaseController.formatTimestamp(listTracking[index]["Time"]/*intl.DateFormat.yMEd().add_jm().format(c[2]['report_date_time']*/)),
+                    buildInfoTicket(label: 'نوع الحركة',
+                        value: listTracking[index]["نوع الحركة"]),
+                    buildInfoTicket(label: 'اسم الجهاز',
+                        value: listTracking[index]["اسم الجهاز"]),
+                    buildInfoTicket(label: 'نوع الجهاز',
+                        value: listTracking[index]["نوع الجهاز"]),
+                    buildInfoTicket(label: 'الوصف',
+                        value: ''),
+                    Expanded(
+                        flex: 2,
+                        child: Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.all(5.0),
+                            decoration: BoxDecoration(
+                                color: Color(0xffF3F3F3),
+                                borderRadius: BorderRadius.
+                                circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: colorShadowSearch.
+                                      withOpacity(.16),
+                                      offset: Offset(0,9),
+                                      blurRadius: 10
+                                  )
+                                ]
+                            ),
+                            child: Text(listTracking[index]["الوصف"],style: TextStyle(
+                                color: mainColor
+                            ),)
+                        )),
+                    buildInfoTicket(label: 'مدخل التقرير',
+                        value: listTracking[index]["مدخل التقرير"]),
+                  ],
+                ):
+                Column(
+                  children: [
+                    buildInfoTicket(label: 'رقم  التذكرة',
+                        value: listTracking[index]["رقم التذكرة"]),
+                    buildInfoTicket(label: 'التاريخ',
+                        value: FirebaseController.formatTimestamp(listTracking[index]["Time"]/*intl.DateFormat.yMEd().add_jm().format(c[2]['report_date_time']*/)),
+                    buildInfoTicket(label: 'نوع الحركة',
+                        value: listTracking[index]["نوع الحركة"]),
+                    buildInfoTicket(label: 'الوصف',
+                        value: ''),
+                    Expanded(
+                        flex: 2,
+                        child: Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.all(5.0),
+                            decoration: BoxDecoration(
+                                color: Color(0xffF3F3F3),
+                                borderRadius: BorderRadius.
+                                circular(20.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: colorShadowSearch.
+                                      withOpacity(.16),
+                                      offset: Offset(0,9),
+                                      blurRadius: 10
+                                  )
+                                ]
+                            ),
+                            child: Text(listTracking[index]["الوصف"],style: TextStyle(
+                                color: mainColor
+                            ),)
+                        )),
+                    buildInfoTicket(label: 'مدخل التقرير',
+                        value: listTracking[index]["مدخل التقرير"]),
+                  ],
+                )
+            );
+          },
+        );
+      },
+      separatorBuilder: (context, index) => const SizedBox(),
+    );
+  }
+}
+/*
+class CompositionAndChangesDM extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -809,3 +913,4 @@ class CompositionAndChangesDM extends StatelessWidget {
     );
   }
 }
+*/

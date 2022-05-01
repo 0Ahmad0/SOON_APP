@@ -41,6 +41,9 @@ class DetailsTicketController extends GetxController{
     }
 
   }
+  deleteReply(){
+
+  }
   @override
   void onInit() {
     controllerPageView = PageController(

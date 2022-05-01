@@ -65,8 +65,7 @@ class DetailsProblemController extends GetxController{
           'نوع الحركة':"",
           'الحالة':"جديدة",
           'القسم':"",
-          'tracking':[
-          ],
+          'tracking':[],
           'reply':[],
         }).then((value) =>
         {

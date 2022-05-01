@@ -365,8 +365,7 @@ class _TrackingRepotDMScreenState extends State<TrackingRepotDMScreen> {
                                                               : Colors.green,*/
                                                         ),
                                                         Text(
-                                                          '  ${allreportsDM[index]
-                                                          ['report_status']}',
+                                                          controller.listReport[index]['الحالة'],
                                                           style: TextStyle(
                                                             color:statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1]
                                                             /* allreportsDM[index]['report_status']

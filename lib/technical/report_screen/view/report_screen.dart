@@ -19,6 +19,9 @@ import '../../reports/view/reports_screen.dart';
 
 class ReportsTeScreen extends StatelessWidget {
   final controller = Get.put(ReportTController());
+  Color? color;
+
+  ReportsTeScreen({this.color});
   @override
   Widget build(BuildContext context) {
     return Directionality(
