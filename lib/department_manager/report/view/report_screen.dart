@@ -41,10 +41,10 @@ List<dynamic> c =  reportInformation
                 ))
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
+        body: SingleChildScrollView( // هذه مثل اللListView  تعطي لل column سكرول لاعلى واسفل
+          child: Column( // عناصر بشكل عمودي
             children: [
-              GestureDetector(
+              GestureDetector( // عند الكبس على هذا الزر يجب تحميل التقارير
                 onTap: (){},
                 child: Container(
                   padding: EdgeInsets.symmetric(
@@ -54,10 +54,11 @@ List<dynamic> c =  reportInformation
                   alignment: Alignment.centerLeft,
                   width: double.infinity,
                   height: Get.width / 7.5,
-                  child: SvgPicture.asset('images/download.svg'),
+                  child: SvgPicture.asset('images/download.svg'), // وصع الصورة بدقة عالية
+                  //صورة تحميل التقرير بصيغة  svg
                 ),
               ),
-              Container(
+              Container( // هنا كالعادة ارسم شكل كونتينر التذكرة واضع المعلومات بداخله row وبداخلها نصوص
                 margin:
                 EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                 decoration: BoxDecoration(

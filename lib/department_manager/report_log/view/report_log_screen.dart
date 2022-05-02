@@ -36,15 +36,15 @@ class ReportLogDMScreen extends StatelessWidget {
                 ))
           ],
         ),
-        body: Column(
+        body: Column( // عناصر تحت بعضها بشكل عمودي
           children: [
-            Obx(
-                    ()=>Row(
+            Obx( // من الستست مانجمنت لتغير الصفحة في هذه المكان فقط مو بكامل الشاشة
+                    ()=>Row( // عناصر بجانب بعضها
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
+                    Expanded( // من أجل تساوي المسافة ولا توضع الا في داخل column  او  row
                       flex: 5,
-                      child: Container(
+                      child: Container( // هنا يوجد لدينا زرين وعند الكبس عليهما اتنقل بين الصفحتين تم شرحها في السكرين قبل تبع ال pageView  والصفحتين التي اتنقل بينهما بالسحب يمين ويسار نفس الفكرة
                         padding: EdgeInsets.all(5.r),
                         margin: EdgeInsets.symmetric(
                             horizontal: 20.w
@@ -62,6 +62,7 @@ class ReportLogDMScreen extends StatelessWidget {
                             ]),
                         child:  Row(
                           children: [
+                            // هذه اول زر
                             Expanded(
                                 child: GestureDetector(
                                   onTap: () {
@@ -91,6 +92,7 @@ class ReportLogDMScreen extends StatelessWidget {
                                     duration: Duration(milliseconds: 800),
                                   ),
                                 )),
+                            //هذه ثاني زر وتم شرحهم قبل
                             Expanded(
                                 child: GestureDetector(
                                   onTap: () {
@@ -131,6 +133,7 @@ class ReportLogDMScreen extends StatelessWidget {
             ),
             Expanded(
               child: PageView(
+                // هذه ال page View نفس الفكرة تم شرحها مسبقا تاخذ عنصرين هما عبارة عن شاشنتين يتم التقل بينهما عن طريق السحب يمين ويسار او الكبس على الازرار فوق
                 controller: controller.controllerPageView,
                 onPageChanged: (val){
                   controller.index.value = val;
@@ -154,6 +157,7 @@ class ReportLogDM extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      // ليست لعرض معلومات التذكرة تم شرحهل مسبقا
       itemCount: allTicketReportsLogDM.length,
       itemBuilder: (_,index)=>Column(
         children: [
@@ -329,6 +333,7 @@ class ChangesAndCombinations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      // هنا ليست أيضا لعرض معلومات التذكرة الشرح واضح مسبقا فقط جلب نصوص من قاعدة البيانات وعرضها هنا
       itemCount: allTicketChangesAndCombinationsLogDM.length,
       itemBuilder: (_,index)=>Column(
         children: [

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:roofa/const/text_app.dart';
+import 'package:roofa/setting/view/setting_screen.dart';
 
 import '../../../const/const_color.dart';
 import '../../../widgets/home_screen_actions.dart';
@@ -23,44 +24,7 @@ class HomeScreenCS extends StatelessWidget {
           centerTitle: true,
           leading: GestureDetector(
             onTap: () {
-              Get.dialog(Column(
-                  children: List.generate(5, (index) => Container(
-                    padding: EdgeInsets.all(10.0),
-                    margin:
-                    EdgeInsets.only(top: 15.h, right: 12.w, left: 12.w),
-                    width: Get.width,
-                    height: 90.h,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12.r)),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            flex: 4,
-                            child: Material(
-                              color: Colors.transparent,
-                              child: Text(
-                                'يوجد لديك  ${index+2} بلاغات متأخرة',
-                                textDirection: TextDirection.rtl,
-                                style: TextStyle(
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: mainColor),
-                              ),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(left: 12.w),
-                          width: .5,
-                          color: Colors.black.withOpacity(.5),
-                        ),
-                        Expanded(child: SvgPicture.asset(
-                          'images/logo.svg',
-                          fit: BoxFit.cover,
-                        )),
-                      ],
-                    ),
-                  ))
-              ));
+              Get.to(()=>SettingScreen());
             },
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -76,7 +40,47 @@ class HomeScreenCS extends StatelessWidget {
               alignment: Alignment.topLeft,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.dialog(Column(
+                        children: List.generate(5, (index) => Container(
+                          padding: EdgeInsets.all(10.0),
+                          margin:
+                          EdgeInsets.only(top: 15.h, right: 12.w, left: 12.w),
+                          width: Get.width,
+                          height: 90.h,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12.r)),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  flex: 4,
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: Text(
+                                      'يوجد لديك  ${index+2} بلاغات متأخرة',
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(
+                                          fontSize: 17.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: mainColor),
+                                    ),
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(left: 12.w),
+                                width: .5,
+                                color: Colors.black.withOpacity(.5),
+                              ),
+                              Expanded(child: SvgPicture.asset(
+                                'images/logo.svg',
+                                fit: BoxFit.cover,
+                              )),
+                            ],
+                          ),
+                        ))
+                    ));
+
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SvgPicture.asset(

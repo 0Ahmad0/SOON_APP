@@ -37,8 +37,9 @@ class ShowTicketReportDMScreen extends StatelessWidget {
           ],
         ),
         body: Column(
+          // عدة عناصر تحت بعضها بشكل عمودي
           children: [
-            Container(
+            Container( // هنا حافظة بداخلها ايقونة تحميل بصيغة svg  من أجل الدقة العالية
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.all(8.r),
               height: Get.width * 0.15,
@@ -49,6 +50,7 @@ class ShowTicketReportDMScreen extends StatelessWidget {
             ),
             Expanded(
                 child: ListView.builder(
+                  // بعدين هنا ليست فيها معلومات التقارير فقط نجلبها من الداتا بيز ونعرضها هنا بالالية التي شرحتها سابقا شكل التذكرة اللي فيها خط من اليسار وبداخلها المعلومات بداخل row وبداخل كل row  نصين الاسم والقيمة مثلا (المقر : العابدية طالبات وهكذا )
                   itemCount: allTicketReportsDM.length,
                   itemBuilder: (_,index)=>Column(
                     children: [
@@ -111,6 +113,7 @@ class ShowTicketReportDMScreen extends StatelessWidget {
                                               fontSize: 14.sp
                                           ),),
                                           Text(
+                                            // هنا لتنسيق التاريخ بالشكل المطلوب يوم سهر سنة
                                               '${intl.DateFormat
                                                   .yMEd()
                                                   .add_jm()
