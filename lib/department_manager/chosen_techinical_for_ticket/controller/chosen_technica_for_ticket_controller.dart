@@ -79,9 +79,10 @@ class ChosenTechnicalForTicketDMController extends GetxController{
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
-          "tracking":listReply,
+       //   "tracking":listReply,
         //  "الحالة":"معلقة",
-          "نوع الحركة":"إحالة التذكرة لخدمة العملاء",
+         // "نوع الحركة":"إحالة التذكرة لخدمة العملاء",
+          "الجهة":"خدمة العملاء",
         }).then((value){
       print("تم تحويل التذكرة  لخدمة العملاء");
       return "تم تحويل التذكرة  لخدمة العملاء";
@@ -113,9 +114,10 @@ class ChosenTechnicalForTicketDMController extends GetxController{
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
 
-          "tracking":listReply,
+          //"tracking":listReply,
          // "الحالة":"جديدة",
-          "نوع الحركة":"إحاطلة التذكرة لمركز الصيانة",
+          //"نوع الحركة":"إحاطلة التذكرة لمركز الصيانة",
+          "الجهة":"الفنيين",
           "TimeTo":DateTime.parse(expectedTime1.toString()),
           "TimeFor":DateTime.parse(expectedTime2.toString()),
         }).then((value){
@@ -131,6 +133,7 @@ class ChosenTechnicalForTicketDMController extends GetxController{
     }
 
   }
+
   @override
   void onInit() {
     controllerPageView = PageController(

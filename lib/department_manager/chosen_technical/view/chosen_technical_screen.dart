@@ -191,7 +191,9 @@ class _ChosenTechnicalDMScreenState extends State<ChosenTechnicalDMScreen> {
                           ));
                         },
                         child: Container(
-                          height: controller.listReport[index]["الحالة"]!="جديدة"?Get.width * 0.28:Get.width * 0.4,
+                          height: controller.checkChosenTechnical(controller.listReport[index])?
+                          //controller.listReport[index]["الحالة"]!="جديدة"?
+                          Get.width * 0.28:Get.width * 0.4,
                           margin: EdgeInsets.all(8.r),
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -210,7 +212,7 @@ class _ChosenTechnicalDMScreenState extends State<ChosenTechnicalDMScreen> {
                               Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      color:  controller.listReport[index]["نوع الحركة"]=="إحالة التذكرة لمركز الصيانة"
+                                      color:  controller.checkChosenTechnical(controller.listReport[index])
                               // controller.listReport[index]["الحالة"]!="جديدة"
                               //ticketSelectionTechnical[index]['report_status']
                                           ?Color(0xff30D852).withOpacity(.5)
@@ -293,7 +295,8 @@ class _ChosenTechnicalDMScreenState extends State<ChosenTechnicalDMScreen> {
                                           ],
                                         ),
                                       ),
-                                      controller.listReport[index]["الحالة"]!="جديدة"?
+                                      controller.checkChosenTechnical(controller.listReport[index])?
+                                     // controller.listReport[index]["الحالة"]!="جديدة"?
                                       SizedBox() :
                                       Expanded(
                                         flex: 2,

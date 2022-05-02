@@ -56,7 +56,7 @@ class DetailsTicketCSController extends GetxController{
       "Time":DateTime.now(),
       "email":FirebaseController.email,
       "رقم التذكرة":FirebaseController.report["رقم البلاغ"],
-      "نوع الحركة":"لم يتم الإنجاز",
+     // "نوع الحركة":"لم يتم الإنجاز",
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
@@ -69,7 +69,7 @@ class DetailsTicketCSController extends GetxController{
         {
           "tracking":listReply,
           "الحالة":"مرفوضة",
-          "نوع الحركة":"لم يتم الإنجاز",
+         // "نوع الحركة":"لم يتم الإنجاز",
         }).then((value){
       print("تم ارسال سبب رفض التذكرة");
       return "تم ارسال سبب رفض التذكرة";
@@ -89,7 +89,7 @@ class DetailsTicketCSController extends GetxController{
       "Time":DateTime.now(),
       "email":FirebaseController.email,
       "رقم التذكرة":FirebaseController.report["رقم البلاغ"],
-      "نوع الحركة":"إحالة التذكرة لمركز الصيانة",
+      //"نوع الحركة":"إحالة التذكرة لمركز الصيانة",
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
@@ -101,9 +101,10 @@ class DetailsTicketCSController extends GetxController{
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
+          "الجهة":"مدير القسم",
           "tracking":listReply,
         "الحالة":"معتمدة",
-          "نوع الحركة":"إحالة التذكرة لمركز الصيانة",
+         // "نوع الحركة":"إحالة التذكرة لمركز الصيانة",
         }).then((value){
       print("تم تحويل التذكرة لقسم الصيانة");
       return "تم تحويل التذكرة لقسم الصيانة";

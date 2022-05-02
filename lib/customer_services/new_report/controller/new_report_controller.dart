@@ -36,14 +36,14 @@ class NewReportCSController extends GetxController{
         await FirebaseFirestore.instance.collection("reports").
         where("رقم البلاغ",isEqualTo: searchFilter).
         //where("email",isEqualTo: FirebaseController.email).
-      //  where("الحالة",isEqualTo: "جديدة").
+        where("الحالة",isEqualTo: "جديدة").
 
         where("${nameFilter}",isEqualTo: filter).
         get().
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["نوع الحركة"]=="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
+            (element["الجهة"]=="خدمة العملاء")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -54,12 +54,12 @@ class NewReportCSController extends GetxController{
 
         //where("email",isEqualTo: FirebaseController.email).
         where("رقم البلاغ",isEqualTo: searchFilter).
-    //where("الحالة",isEqualTo: "جديدة").
+    where("الحالة",isEqualTo: "جديدة").
         get().
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["نوع الحركة"]=="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
+            (element["الجهة"]=="خدمة العملاء")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -74,7 +74,7 @@ class NewReportCSController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["نوع الحركة"]=="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
+            (element["الجهة"]=="خدمة العملاء")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -82,13 +82,13 @@ class NewReportCSController extends GetxController{
       }
       else{
         await FirebaseFirestore.instance.collection("reports").
-      //  where("الحالة",isEqualTo: "جديدة").
+        where("الحالة",isEqualTo: "جديدة").
         //where("email",isEqualTo: FirebaseController.email).
         get().
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["نوع الحركة"]=="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
+            (element["الجهة"]=="خدمة العملاء")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
