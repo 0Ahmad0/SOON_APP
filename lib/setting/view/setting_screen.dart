@@ -90,7 +90,7 @@ class SettingScreen extends StatelessWidget {
                                 child: ListView(
                                   children: [
                                     SvgPicture.asset('images/logo.svg'),
-                                    Text('هو تطبيق للخدمات الصيانه'
+                                    Text('هو تطبيق لخدمات الصيانه'
                                         ' داخل مرافق الجامعه ويهدف تطبيق '
                                         'صون الى توفير وصول اسرع واسهل للمستخدمين '
                                         '، نسعى الى رفع مستوى الخدمات المقدمة بشكل مستمر',
@@ -111,16 +111,21 @@ class SettingScreen extends StatelessWidget {
 
                                     GestureDetector(
                                       onTap: () async {
+
                                         String email = 'soonapp00@gmail.com';
                                         String subject = '';
                                         String body = '';
 
                                         String emailUrl = "mailto:$email?subject=$subject&body=$body";
+                                        Get.back();
+
                                         if (await canLaunch(emailUrl)) {
+
                                           await launch(emailUrl).then((value){
-                                            Get.snackbar('تم العملية', "تم ارسال رسالتكم شكرا...");
-                                            Get.back();
+                                            print('HHHHHHHHHHH');
                                           });
+                                          Get.snackbar('تم العملية', "تم ارسال رسالتكم شكرا...");
+
                                         } else {
                                           throw "Error occured sending an email";
                                         }
