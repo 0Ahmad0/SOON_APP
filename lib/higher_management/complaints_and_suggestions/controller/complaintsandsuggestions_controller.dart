@@ -24,6 +24,7 @@ class ComplaintsAndSuggestionsController extends GetxController{
       "الحالة":FirebaseController.report["الحالة"],
       "الجهة":FirebaseController.report["الجهة المستفيدة"],
       "الوصف":"${textReply}",
+      "notification":FirebaseController.notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(

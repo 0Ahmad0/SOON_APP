@@ -26,6 +26,7 @@ class ReportsTController extends GetxController{
       "مدخل التقرير":FirebaseController.name,
       "الحالة":(typeMove!="تم الإنجاز"&&typeMove!="لم يتم الإنجاز")?"معتمدة":"مغلقة",
       "الوصف":"${textReport}",
+      "notification":FirebaseController.notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(

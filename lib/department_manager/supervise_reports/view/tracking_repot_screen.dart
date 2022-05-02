@@ -206,7 +206,7 @@ class _TrackingRepotDMScreenState extends State<TrackingRepotDMScreen> {
                     return ListView.builder(
                       itemCount: controller.listReport.length,
                       itemBuilder: (ctx, index) {
-                        List c = allreportsDM[index]['reporter_helper'];
+                        List c = allreportsDM[0]['reporter_helper'];
                         return GestureDetector(
                           onTap: () {
                             Report.reportNumber=controller.listReport[index]['رقم البلاغ'];
@@ -315,7 +315,7 @@ class _TrackingRepotDMScreenState extends State<TrackingRepotDMScreen> {
                                                         ),),
                                                         Text(
                                                           '${
-                                                              allreportsDM[index]['reporter_name']
+                                                              allreportsDM[0]['reporter_name']
                                                           }'
                                                           ,style: TextStyle(
                                                           color: mainColor,

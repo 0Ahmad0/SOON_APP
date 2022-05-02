@@ -14,6 +14,14 @@ class ChosenTechnicalForTicketDMController extends GetxController{
   var listReply;
   PageController? controllerPageView;
 
+  var notification=[
+    {"notification":false,},
+    {"notification":false,},
+    {"notification":false,},
+    {"notification":false,},
+    {"notification":false,},
+  ];
+
   var timeFrom = DateTime.now().obs;
   var timeTo = DateTime.now().obs;
 
@@ -35,6 +43,7 @@ class ChosenTechnicalForTicketDMController extends GetxController{
       "الحالة":FirebaseController.report["الحالة"],
       "الجهة":FirebaseController.report["الجهة المستفيدة"],
       "الوصف":"${textReply}",
+      "notification":notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
@@ -63,15 +72,15 @@ class ChosenTechnicalForTicketDMController extends GetxController{
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
-      "الحالة":"معلقة",
+      "الحالة":"جديدة",
       "الوصف":"${textReply}",
-
+      "notification":notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
           "tracking":listReply,
-          "الحالة":"معلقة",
+        //  "الحالة":"معلقة",
           "نوع الحركة":"إحالة التذكرة لخدمة العملاء",
         }).then((value){
       print("تم تحويل التذكرة  لخدمة العملاء");
@@ -96,17 +105,17 @@ class ChosenTechnicalForTicketDMController extends GetxController{
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
-      "الحالة":"معتمدة",
+      "الحالة":"جديدة",
       "الوصف":"${causeReply}",
-
+      "notification":notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
 
           "tracking":listReply,
-          "الحالة":"معتمدة",
-          "نوع الحركة":"إحالة التذكرة لمركز الصيانة",
+         // "الحالة":"جديدة",
+          "نوع الحركة":"إحاطلة التذكرة لمركز الصيانة",
           "TimeTo":DateTime.parse(expectedTime1.toString()),
           "TimeFor":DateTime.parse(expectedTime2.toString()),
         }).then((value){

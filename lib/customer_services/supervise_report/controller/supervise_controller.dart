@@ -59,7 +59,8 @@ class SuperviseCSController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+            //(element["الحالة"]!="جديدة")?listReport.add(element):"";
+            listReport.add(element);
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -74,7 +75,8 @@ class SuperviseCSController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+            listReport.add(element);
+           // (element["الحالة"]!="جديدة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -89,7 +91,8 @@ class SuperviseCSController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+            listReport.add(element);
+            //(element["الحالة"]!="جديدة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -97,7 +100,7 @@ class SuperviseCSController extends GetxController{
       }
       else{
         await FirebaseFirestore.instance.collection("reports").
-        where("الحالة",isNotEqualTo: "جديدة").
+        //where("الحالة",isNotEqualTo: "جديدة").
         //where("email",isEqualTo: FirebaseController.email).
         get().
         then((value) => {

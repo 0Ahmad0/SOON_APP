@@ -14,7 +14,13 @@ class DetailsTicketCSController extends GetxController{
   String? textReply,causeReply;
   var listReply;
   PageController? controllerPageView;
-
+  var notification=[
+    {"notification":false,},
+    {"notification":false,},
+    {"notification":false,},
+    {"notification":false,},
+    {"notification":false,},
+  ];
 
   Future<String> sendReply() async {
     listReply=FirebaseController.report["reply"];
@@ -25,6 +31,7 @@ class DetailsTicketCSController extends GetxController{
       "الحالة":FirebaseController.report["الحالة"],
       "الجهة":FirebaseController.report["الجهة المستفيدة"],
       "الوصف":"${textReply}",
+      "notification":notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
@@ -55,6 +62,7 @@ class DetailsTicketCSController extends GetxController{
       "مدخل التقرير":FirebaseController.name,
       "الحالة":"مرفوضة",
       "الوصف":"${causeReply}",
+      "notification":notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
@@ -85,15 +93,16 @@ class DetailsTicketCSController extends GetxController{
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
-      "الحالة":"جديدة",
+      "الحالة":"معتمدة",
       "الوصف":"${causeReply}",
+      "notification":notification,
 
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
           "tracking":listReply,
-        // "الحالة":"تحت الإجراء",
+        "الحالة":"معتمدة",
           "نوع الحركة":"إحالة التذكرة لمركز الصيانة",
         }).then((value){
       print("تم تحويل التذكرة لقسم الصيانة");

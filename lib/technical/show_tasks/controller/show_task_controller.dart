@@ -43,7 +43,7 @@ class ShowTasksTController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]=="معتمدة"||element["الحالة"]=="تحت الإجراء")?listReport.add(element):"";
+            (element["الحالة"]=="جديدة"||element["الحالة"]=="تحت الإجراء")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });

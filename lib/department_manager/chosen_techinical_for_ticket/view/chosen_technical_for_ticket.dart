@@ -209,7 +209,6 @@ class _ChosenTechnicalForTicketDMScreenState extends State<ChosenTechnicalForTic
                                                     (){
                                                   Get.back();
                                                   setState(() {
-
                                                   });
                                                 });
                                           },
@@ -981,6 +980,9 @@ class _ChosenTechnicalForTicketDMScreenState extends State<ChosenTechnicalForTic
                             Get.back();
                             sleep(Duration(milliseconds: 100));
                             Get.back();
+                            setState(() {
+
+                            });
                           });
                         },
                         child: Container(

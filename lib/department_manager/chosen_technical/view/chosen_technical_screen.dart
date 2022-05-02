@@ -210,7 +210,8 @@ class _ChosenTechnicalDMScreenState extends State<ChosenTechnicalDMScreen> {
                               Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      color:  controller.listReport[index]["الحالة"]!="جديدة"
+                                      color:  controller.listReport[index]["نوع الحركة"]=="إحالة التذكرة لمركز الصيانة"
+                              // controller.listReport[index]["الحالة"]!="جديدة"
                               //ticketSelectionTechnical[index]['report_status']
                                           ?Color(0xff30D852).withOpacity(.5)
                                           :Color(0xffBFBFBF),

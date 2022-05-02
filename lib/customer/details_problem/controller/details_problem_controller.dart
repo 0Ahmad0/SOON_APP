@@ -38,6 +38,13 @@ class DetailsProblemController extends GetxController{
   }
 
   Future<bool> sendReport() async {
+    var notification=[
+      {"notification":false,},
+      {"notification":false,},
+      {"notification":false,},
+      {"notification":false,},
+      {"notification":false,},
+    ];
     if(FirebaseController.email.isNotEmpty){
       print(FirebaseController.email);
       try{
@@ -65,6 +72,7 @@ class DetailsProblemController extends GetxController{
           'نوع الحركة':"",
           'الحالة':"جديدة",
           'القسم':"",
+          "notification":notification,
           'tracking':[],
           'reply':[],
         }).then((value) =>

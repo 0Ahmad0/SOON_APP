@@ -24,6 +24,7 @@ class TicketDetailsTController extends GetxController{
       "الحالة":FirebaseController.report["الحالة"],
       "الجهة":FirebaseController.report["الجهة المستفيدة"],
       "الوصف":"${textReply}",
+      "notification":FirebaseController.notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
@@ -54,6 +55,7 @@ class TicketDetailsTController extends GetxController{
       "مدخل التقرير":FirebaseController.name,
       "الحالة":"مرفوضة",
       "الوصف":"${causeReply}",
+      "notification":FirebaseController.notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
@@ -86,7 +88,7 @@ class TicketDetailsTController extends GetxController{
       "مدخل التقرير":FirebaseController.name,
       "الحالة":"جديدة",
       "الوصف":"${causeReply}",
-
+      "notification":FirebaseController.notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(

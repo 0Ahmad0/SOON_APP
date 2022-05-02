@@ -85,7 +85,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")?listReport.add(element):"";
+            ((element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")&&element["نوع الحركة"]!="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -101,7 +101,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")?listReport.add(element):"";
+            ((element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")&&element["نوع الحركة"]!="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -116,7 +116,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")?listReport.add(element):"";
+            ((element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")&&element["نوع الحركة"]!="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -129,7 +129,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")?listReport.add(element):"";
+            ((element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")&&element["نوع الحركة"]!="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -141,7 +141,16 @@ class ChosenTechnicalDMController extends GetxController{
     }
 
   }
-
+  bool checkChosenTechnicians(var report) {
+    if (report["الحالة"] == "جديدة" &&
+        (report["نوع الحركة"] == "" || report["tracking"].length == 0))
+      return false;
+    else if (report["الحالة"] == "معتمدة" && report["نوع الحركة"] ==
+        "إحالة التذكرة لمركز الصيانة" && report["tracking"].length == 2)
+      return false;
+    else
+      return true;
+  }
   @override
   void onInit() {
     controllerPageView = PageController(

@@ -36,12 +36,15 @@ class NewReportCSController extends GetxController{
         await FirebaseFirestore.instance.collection("reports").
         where("رقم البلاغ",isEqualTo: searchFilter).
         //where("email",isEqualTo: FirebaseController.email).
-        where("الحالة",isEqualTo: "جديدة").
+      //  where("الحالة",isEqualTo: "جديدة").
 
         where("${nameFilter}",isEqualTo: filter).
         get().
         then((value) => {
-          listReport=value.docs,
+          listReport=[],
+          value.docs.forEach((element) {
+            (element["نوع الحركة"]=="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
+          }),
           print("listReport : "+"${listReport.length}"),
         });
         return true;
@@ -51,10 +54,13 @@ class NewReportCSController extends GetxController{
 
         //where("email",isEqualTo: FirebaseController.email).
         where("رقم البلاغ",isEqualTo: searchFilter).
-    where("الحالة",isEqualTo: "جديدة").
+    //where("الحالة",isEqualTo: "جديدة").
         get().
         then((value) => {
-          listReport=value.docs,
+          listReport=[],
+          value.docs.forEach((element) {
+            (element["نوع الحركة"]=="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
+          }),
           print("listReport : "+"${listReport.length}"),
         });
         return true;
@@ -63,21 +69,27 @@ class NewReportCSController extends GetxController{
         await FirebaseFirestore.instance.collection("reports").
         where("الحالة",isEqualTo: "جديدة").
         //where("email",isEqualTo: FirebaseController.email).
-        where("${nameFilter}",isEqualTo: filter).
+        //where("${nameFilter}",isEqualTo: filter).
         get().
         then((value) => {
-          listReport=value.docs,
+          listReport=[],
+          value.docs.forEach((element) {
+            (element["نوع الحركة"]=="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
+          }),
           print("listReport : "+"${listReport.length}"),
         });
         return true;
       }
       else{
         await FirebaseFirestore.instance.collection("reports").
-        where("الحالة",isEqualTo: "جديدة").
+      //  where("الحالة",isEqualTo: "جديدة").
         //where("email",isEqualTo: FirebaseController.email).
         get().
         then((value) => {
-          listReport=value.docs,
+          listReport=[],
+          value.docs.forEach((element) {
+            (element["نوع الحركة"]=="إحالة التذكرة لخدمة العملاء")?listReport.add(element):"";
+          }),
           print("listReport : "+"${listReport.length}"),
         });
         return true;

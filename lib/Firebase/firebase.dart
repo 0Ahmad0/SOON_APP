@@ -13,6 +13,13 @@ class FirebaseController{
   static late String phoneNumber;
   static late String firstEmail,lastEmail;
   static var report;
+  static var notification=[
+    {"notification":false,},
+    {"notification":false,},
+    {"notification":false,},
+    {"notification":false,},
+    {"notification":false,},
+  ];
   static Future<void> fetchDataUser1() async {
     user = await FirebaseAuth.instance.currentUser!;
     await fetchDataUser2(user);
