@@ -427,6 +427,7 @@ class SelectTypeConectionScreenController extends GetxController{
           'القسم':FirebaseController.typeUser,
           'الوصف':description.text,
           'رقم البلاغ': generateRandomString,
+          "notification":false,
           'Time':DateTime.now(),
         }).then((value) =>
         {

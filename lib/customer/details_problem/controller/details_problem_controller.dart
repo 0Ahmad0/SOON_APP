@@ -72,6 +72,7 @@ class DetailsProblemController extends GetxController{
           'نوع الحركة':"",
           'الحالة':"جديدة",
           'القسم':"",
+          "الجهة":"مدير القسم",
           "notification":notification,
           'tracking':[],
           'reply':[],
