@@ -16,6 +16,7 @@ class ShowReportsDMScreen extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        // صفحة عرض التقارير الويدجت كلها تشبه بعضها والله يعني لازم تكون نفهمت
         appBar: AppBar(
           title: Text(
             'عرض التقارير',
@@ -23,9 +24,10 @@ class ShowReportsDMScreen extends StatelessWidget {
           centerTitle: true,
         ),
         body: Column(
+          // عدة عناصر فوق بعضها
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
+            Container( // كونتينر وبداخله نص
               alignment: Alignment.center,
               width: double.infinity,
               height: Get.width / 2,
@@ -47,6 +49,7 @@ class ShowReportsDMScreen extends StatelessWidget {
                       offset: Offset(0, 4))
                 ]),
                 child: ListView.builder(
+                  // هنا ليست ليختار منها الشهر والمقر اعرض فيها ListTile  وعند الكبس على كل واحدة تعطيني المعلومات مثلا كبست على المقر رح يطلع ديالوغ بكل المقرات الموجودة واختار منها وكذل الأمر بالنسبة للشهر 12 شهر رح يختار رقم من 1 الى 12
                   shrinkWrap: true,
                   padding: EdgeInsets.zero,
                   itemCount: showReportsList.length,
@@ -84,6 +87,7 @@ class ShowReportsDMScreen extends StatelessWidget {
                   },
                 )),
             GestureDetector(
+              // هنا زر عند الكبس سوف يأخذنا الى صفحة عرض التقارير المحددة بالشهر أو بالمقر أو بكليهما أو ان لم يختار شيء سيعرض له كل التقارير
               onTap: (){
                 Get.toNamed('/DM_report_screen');
               },
