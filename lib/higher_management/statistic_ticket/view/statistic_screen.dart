@@ -585,12 +585,13 @@ class TicketChartWidget extends StatelessWidget {
   TicketChartWidget({required this.data});
   @override
   Widget build(BuildContext context) {
+
     List<charts.Series<TicketChart, String>> series = [
       charts.Series(
           id: "Soon",
           data: data,
           domainFn: (TicketChart series, _) => series.numX,
-          measureFn: (TicketChart series, _) => int.parse(series.numX),
+          measureFn: (TicketChart series, _) => series.numY,//int.parse(series.numX),
           colorFn: (TicketChart series, _) => series.barColor
       )
     ];
@@ -611,6 +612,7 @@ class TicketChartWidget extends StatelessWidget {
       ),
     );
   }
+
 }
 List<TicketChart> data = [
   TicketChart(

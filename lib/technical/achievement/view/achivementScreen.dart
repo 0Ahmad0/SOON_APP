@@ -6,7 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:roofa/Firebase/firebase.dart';
 import 'package:roofa/const/const_color.dart';
+import 'package:roofa/higher_management/statistic_ticket/ticket_chart.dart';
 import '../../../Firebase/controller.dart';
+
 import '/technical/achievement/controller/achevmebt_controller.dart';
 
 import '../../../const/text_app.dart';
@@ -169,12 +171,7 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                   ],
                                 )
                               ],),
-                                 Obx(
-                                     ()=>Column(
-                                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                                       children: [
-
-                                         Container(
+                            Container(
                                            width: Get.width,
                                            height: Get.height / 4.8,
                                            margin: EdgeInsets.only(top: 10.0.h),
@@ -208,8 +205,10 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                                            children: [
                                                              _buildTicketText(
                                                                  onTap: (){
+                                                                   controller.typeList="total";
                                                                    controller.listReport=controller.totalReports!;
-                                                                   controller.lateReport.value=false;
+                                                                   setState(() {
+                                                                   });
                                                                  },
                                                                  text:'إجمالي التذاكر : ',
                                                                  num:controller.totalReports?.length,//userTicket[0].numAllTicket,
@@ -217,10 +216,10 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                                              ),
                                                              _buildTicketText(
                                                                  onTap: (){
-
-                                                                   controller.listReport=controller.closedReports!;
-                                                                   controller.lateReport.value=false;
-                                                                   controller.update();
+                                                                   controller.typeList="closed";
+                                                                  controller.listReport=controller.closedReports!;
+                                                                   setState(() {
+                                                                   });
                                                                  },
                                                                  text:'التذاكر المغلقة : ',
                                                                  num:controller.closedReports?.length,//userTicket[0].numClosedTicket,
@@ -229,9 +228,10 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                                              _buildTicketText(
                                                                  onTap: (){
                                                                    controller.listReport=controller.lateReports!;
-                                                                   controller.lateReport.value=true;
-                                                                   print(controller.lateReport.value);
-                                                                   controller.update();
+                                                                   controller.typeList="late";
+                                                                   setState(() {
+
+                                                                   });
                                                                  },
                                                                  text:'التذاكر المتأخرة : ',
                                                                  num:controller.lateReports?.length,//userTicket[0].numLateTicket,
@@ -258,7 +258,9 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                                              _buildTicketText(
                                                                  onTap: (){
                                                                    controller.listReport=controller.spoonReports!;
-                                                                   controller.lateReport.value=false;
+                                                                   controller.typeList="spoon";
+                                                                   setState(() {
+                                                                   });
                                                                  },
                                                                  text:' التذاكر المعلقة : ',
                                                                  num:controller.spoonReports?.length,//userTicket[0].numPendingTicket,
@@ -267,7 +269,9 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                                              _buildTicketText(
                                                                  onTap: (){
                                                                    controller.listReport=controller.accreditedReports!;
-                                                                   controller.lateReport.value=false;
+                                                                   controller.typeList="accredited";
+                                                                   setState(() {
+                                                                   });
                                                                  },
                                                                  text:'التذاكر المعتمدة : ',
                                                                  num:controller.accreditedReports?.length,//userTicket[0].numAcceptableTicket,
@@ -275,8 +279,10 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                                              ),
                                                              _buildTicketText(
                                                                  onTap: (){
-                                                                   controller.listReport=controller.underProcedureReports!;
-                                                                   controller.lateReport.value=false;
+                                                                   controller.typeList="underProcedure";
+                                                                   controller.listReport=controller.underProcedureReports!;                                                                   controller.typeList="under Procedure";
+                                                                   setState(() {
+                                                                   });
                                                                  },
                                                                  text:' التذاكر تحت الإجراء : ',
                                                                  num:controller.underProcedureReports?.length,//userTicket[0].numProcedureTicket,
@@ -293,7 +299,7 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                              ],
                                            ),
                                          ),
-                                         Column(
+                            Column(
                                            children: List.generate(controller.listReport.length, (index) => GestureDetector(
                                              onTap: () {
                                              },
@@ -319,7 +325,7 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                                            child: Container(
                                                              height: constrains.maxWidth / 2.5,
                                                              decoration: BoxDecoration(
-                                                                 color: (!controller.lateReport.value)?
+                                                                 color: (controller.typeList!="late")?
                                                                  statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1]:
                                                                  colorpurple,
                                                                  // Colors.red,
@@ -361,7 +367,7 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                                                        children: [
                                                                          CircleAvatar(
                                                                            radius: 6.r,
-                                                                           backgroundColor: (!controller.lateReport.value)?
+                                                                           backgroundColor: (controller.typeList!="late")?
                                                                            statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1]:
                                                                            colorpurple,
                                                                            //Colors.red,
@@ -369,11 +375,10 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                                                          SizedBox(
                                                                            width: 10.w,
                                                                          ),
-                                                                         Text("${controller.lateReport.value}",
-                                                                           // controller.listReport[index]['الحالة'],
+                                                                         Text(controller.listReport[index]['الحالة'],
                                                                            // '${allreports[3]['report_status']}',
                                                                            style: TextStyle(
-                                                                             color: (!controller.lateReport.value)?
+                                                                             color: (controller.typeList!="late")?
                                                                              statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1]:
                                                                              colorpurple,
                                                                            ),
@@ -477,13 +482,18 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                              ),
                                            )),
                                          ),
-                                       ],),
-                                 ) ,
                             Container(
                               width: Get.width,
                               height: Get.height / 1.99,
                               child: TicketChartWidget(
-                                data: data,
+                                data: controller.giveData([
+                                  controller.totalReports?.length,
+                                  controller.accreditedReports?.length,
+                                  controller.underProcedureReports?.length,
+                                  controller.closedReports?.length,
+                                  controller.spoonReports?.length,
+                                  controller.lateReports?.length,
+                                ]),
                               ),
                             ),
                           ],
