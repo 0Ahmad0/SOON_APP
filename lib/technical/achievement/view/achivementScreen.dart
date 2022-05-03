@@ -189,21 +189,25 @@ class AchivementTScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     _buildTicketText(
+                                        onTap: (){},
                                         text:'إجمالي التذاكر : ',
                                         num:userTicket[0].numAllTicket,
                                         color: Colors.green
                                     ),
                                     _buildTicketText(
+                                        onTap: (){},
                                         text:'التذاكر المغلقة : ',
                                         num:userTicket[0].numClosedTicket,
                                         color: Colors.red
                                     ),
                                     _buildTicketText(
+                                        onTap: (){},
                                         text:'التذاكر المتأخرة : ',
                                         num:userTicket[0].numLateTicket,
                                         color: Colors.pinkAccent
                                     ),
                                     _buildTicketText(
+                                        onTap: (){},
                                         text:'عدد الزيارات في الشهر : ',
                                         num:userTicket[0].visitedInMonth,
                                         color:Colors.black
@@ -221,16 +225,19 @@ class AchivementTScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     _buildTicketText(
+                                        onTap: (){},
                                         text:' التذاكر المعلقة : ',
                                         num:userTicket[0].numPendingTicket,
                                         color: Colors.grey
                                     ),
                                     _buildTicketText(
+                                        onTap: (){},
                                         text:'التذاكر المعتمدة : ',
                                         num:userTicket[0].numAcceptableTicket,
                                         color: Colors.orange
                                     ),
                                     _buildTicketText(
+                                      onTap: (){},
                                         text:' التذاكر تحت الإجراء : ',
                                         num:userTicket[0].numProcedureTicket,
                                         color: Colors.blue
@@ -424,8 +431,12 @@ class AchivementTScreen extends StatelessWidget {
       ),
     );
   }
-  Widget _buildTicketText({text,num,color}) => Expanded(child: Text('$text ${num}',style: TextStyle(
-      color: color,
-      fontWeight: FontWeight.bold
-  ),),);
+  Widget _buildTicketText({text,num,color,onTap}) =>
+      Expanded(child: GestureDetector(
+        onTap: onTap,
+        child: Text('$text ${num}',style: TextStyle(
+        color: color,
+        fontWeight: FontWeight.bold
+  ),),
+      ),);
 }

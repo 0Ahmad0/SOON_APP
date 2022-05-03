@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:roofa/const/const_color.dart';
 import 'package:roofa/department_manager/home_page/controller/home_page_controller.dart';
+import 'package:roofa/setting/view/setting_screen.dart';
 import 'package:roofa/widgets/home_screen_actions.dart';
 import 'package:roofa/const/text_app.dart';
 
@@ -16,6 +17,7 @@ class HomeScreenDM extends StatelessWidget {//كلاس في فلاتر الوا�
     return Directionality( // من أجل ظهور التنسيق باللغة العربية (من اليمين لليسار)
       textDirection: TextDirection.rtl,
       child: Scaffold(// هنا أبدا بالرسم في الواجهة مثل الحاضنة للصفحة وما بداخلها
+
         appBar: AppBar(  // الجزء العلوي من الصفحة يكون فيه نص يعبر عن عنوان الصفحة و أزرار رجوع أو اشعارات
           title: Text( // هذا عنوان الصفحة
             'الصفحة الرئيسية',
@@ -23,50 +25,7 @@ class HomeScreenDM extends StatelessWidget {//كلاس في فلاتر الوا�
           centerTitle: true,  // مشان يجي العنوان يالمنتصف
           leading: GestureDetector( // هذه ويدجت تخليني أقدر أكبس على أي شيء يكون ابنها
             onTap: () {  // فانكشن عند الضغط
-              Get.dialog(  // من الستيت مانجمنت getx موجود الديالوغ جاهز وهو مثل مربع يظهر فوق الشاشة
-                  SingleChildScrollView( // لكي تكون الشاشة سكرول الى الاعلى واللاسفل
-                    child: Column(  // من أجل وضع أكثر من ويدجت فوق بعض وبشكل عمودي
-
-                      // هنا هذه الاشعارات بشكل يدوي لكن عند الربط ستتغير شكلها وسيكون الاشعار بشكل فعلي
-                children: List.generate(15, (index) => Container(// حاضنة يوضع بداخلها شيء
-                    padding: EdgeInsets.all(10.0),  // يعطي بعد عن الحافة للشيء لكن من الداخل
-                    margin: // يعطي بعد عن الحافة للشيء لكن من الخارج عن حدود الشاشة مثلا
-                    EdgeInsets.only(top: 15.h, right: 12.w, left: 12.w),
-                    width: Get.width,
-                    height: 90.h,
-                    decoration: BoxDecoration( // للتحكم بخصائص الكونتينر لون شكل حوافه
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12.r)),
-                    child: Row(  // مثل العمود لكن العناصر تتوضع هنا بشكل أفقي
-                      children: [
-                        Expanded( // من أجل توزيع المسافة بالتساوي بين العناصر الموضوعة حصرا داخل row أو column حصرااااااا ولو شاهدنا flex فيعني...
-                            flex: 4, // هنا أعطي لهذه ال expanded أربع أضعاف حجم باقي ال Expanded
-                            child: Material(// مشان يظهر النص بتنسيق نظامي لو شلنا الماتيريال رح يطلع بكشل بشع وتحته خطوط
-                              color: Colors.transparent,
-                              child: Text(
-                                'يوجد لديك  ${index+2} بلاغات متأخرة',
-                                textDirection: TextDirection.rtl,// اتجاه النص
-                                style: TextStyle( // ستايل النص  حجم الخط اللون الغمق ....الخ
-                                    fontSize: 17.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: mainColor),
-                              ),
-                            )),
-                        Container(
-                          margin: EdgeInsets.only(left: 12.w),
-                          width: .5,
-                          color: Colors.black.withOpacity(.5),
-                        ),
-                        Expanded(
-                            child: SvgPicture.asset( // ويدجت جاهزة لتعرض الصور بأفضل دقة ممكنة وهي تنسيق SVG
-                          'images/logo.svg',
-                          fit: BoxFit.cover,// هنا يعني أن تأخذ الصورة كامل الحجم للشيء الموضوع فيه
-                        )),
-                      ],
-                    ),
-                ))
-              ),
-                  ));
+              Get.to(()=>SettingScreen());
             },
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -82,7 +41,52 @@ class HomeScreenDM extends StatelessWidget {//كلاس في فلاتر الوا�
               alignment: Alignment.topLeft, // توضع العناصر أحتاجهم في أعلى اليسار
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.dialog(  // من الستيت مانجمنت getx موجود الديالوغ جاهز وهو مثل مربع يظهر فوق الشاشة
+                        SingleChildScrollView( // لكي تكون الشاشة سكرول الى الاعلى واللاسفل
+                          child: Column(  // من أجل وضع أكثر من ويدجت فوق بعض وبشكل عمودي
+                            // هنا هذه الاشعارات بشكل يدوي لكن عند الربط ستتغير شكلها وسيكون الاشعار بشكل فعلي
+                              children: List.generate(4, (index) => Container(// حاضنة يوضع بداخلها شيء
+                                padding: EdgeInsets.all(10.0),  // يعطي بعد عن الحافة للشيء لكن من الداخل
+                                margin: // يعطي بعد عن الحافة للشيء لكن من الخارج عن حدود الشاشة مثلا
+                                EdgeInsets.only(top: 15.h, right: 12.w, left: 12.w),
+                                width: Get.width,
+                                height: 90.h,
+                                decoration: BoxDecoration( // للتحكم بخصائص الكونتينر لون شكل حوافه
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12.r)),
+                                child: Row(  // مثل العمود لكن العناصر تتوضع هنا بشكل أفقي
+                                  children: [
+                                    Expanded( // من أجل توزيع المسافة بالتساوي بين العناصر الموضوعة حصرا داخل row أو column حصرااااااا ولو شاهدنا flex فيعني...
+                                        flex: 4, // هنا أعطي لهذه ال expanded أربع أضعاف حجم باقي ال Expanded
+                                        child: Material(// مشان يظهر النص بتنسيق نظامي لو شلنا الماتيريال رح يطلع بكشل بشع وتحته خطوط
+                                          color: Colors.transparent,
+                                          child: Text(
+                                            'يوجد لديك  ${index+2} بلاغات متأخرة',
+                                            textDirection: TextDirection.rtl,// اتجاه النص
+                                            style: TextStyle( // ستايل النص  حجم الخط اللون الغمق ....الخ
+                                                fontSize: 17.sp,
+                                                fontWeight: FontWeight.bold,
+                                                color: mainColor),
+                                          ),
+                                        )),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 12.w),
+                                      width: .5,
+                                      color: Colors.black.withOpacity(.5),
+                                    ),
+                                    Expanded(
+                                        child: SvgPicture.asset( // ويدجت جاهزة لتعرض الصور بأفضل دقة ممكنة وهي تنسيق SVG
+                                          'images/logo.svg',
+                                          fit: BoxFit.cover,// هنا يعني أن تأخذ الصورة كامل الحجم للشيء الموضوع فيه
+                                        )),
+                                  ],
+                                ),
+                              ))
+                          ),
+                        ));
+
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SvgPicture.asset(
@@ -157,8 +161,8 @@ class HomeScreenDM extends StatelessWidget {//كلاس في فلاتر الوا�
                           color: Color(0xff447A78)),
                     ),
                     Text(
-                      controller.typeUser,
-                      //'رئيس قسم',
+                      // 'controller.typeUser',
+                      'رئيس قسم',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 13.sp,

@@ -18,7 +18,12 @@ class SettingScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text("الإعدادات"),
           centerTitle: true,
-          leading: Icon(Icons.arrow_back_ios),
+          leading: IconButton(
+            onPressed: (){
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 80),
@@ -90,7 +95,7 @@ class SettingScreen extends StatelessWidget {
                                 child: ListView(
                                   children: [
                                     SvgPicture.asset('images/logo.svg'),
-                                    Text('هو تطبيق للخدمات الصيانه'
+                                    Text('هو تطبيق لخدمات الصيانه'
                                         ' داخل مرافق الجامعه ويهدف تطبيق '
                                         'صون الى توفير وصول اسرع واسهل للمستخدمين '
                                         '، نسعى الى رفع مستوى الخدمات المقدمة بشكل مستمر',
@@ -136,7 +141,10 @@ class SettingScreen extends StatelessWidget {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
-                                            Icon(Icons.email_outlined,),
+                                            Icon(
+                                              Icons.email_outlined,
+                                              color: Colors.white,
+                                            ),
                                             Text('soonapp00@gmail.com',style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 20.sp
