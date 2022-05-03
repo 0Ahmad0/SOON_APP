@@ -104,6 +104,7 @@ class DetailsTicketCSController extends GetxController{
           "الجهة":"مدير القسم",
           "tracking":listReply,
         "الحالة":"معتمدة",
+          "notification":FirebaseController.notification,
          // "نوع الحركة":"إحالة التذكرة لمركز الصيانة",
         }).then((value){
       print("تم تحويل التذكرة لقسم الصيانة");

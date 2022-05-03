@@ -49,7 +49,7 @@ class TicketDetailsTController extends GetxController{
       "Time":DateTime.now(),
       "email":FirebaseController.email,
       "رقم التذكرة":FirebaseController.report["رقم البلاغ"],
-      "نوع الحركة":"لم يتم الإنجاز",
+      "نوع الحركة":"",
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
@@ -62,7 +62,8 @@ class TicketDetailsTController extends GetxController{
         {
           "tracking":listReply,
           "الحالة":"مرفوضة",
-          "نوع الحركة":"لم يتم الإنجاز",
+          "notification":FirebaseController.notification,
+         // "نوع الحركة":"لم يتم الإنجاز",
         }).then((value){
       print("تم ارسال سبب رفض التذكرة");
       return "تم ارسال سبب رفض التذكرة";

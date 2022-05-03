@@ -38,6 +38,7 @@ class ReportsTController extends GetxController{
           "tracking":listReply,
           "الحالة":state,
           "نوع الحركة":typeMove,
+          "notification":FirebaseController.notification,
         }).then((value){
       print("تم إضافة حركة");
       return "تم إضافة حركة";

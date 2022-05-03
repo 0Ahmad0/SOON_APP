@@ -391,6 +391,7 @@ class RemoveController extends GetxController{
           "tracking":listReply,
           "الحالة":"تحت الإجراء",
           "نوع الحركة":"ازالة /فك",
+          "notification":FirebaseController.notification,
         }).then((value){
       print("تم إضافة حركة");
       return "تم إضافة حركة";
