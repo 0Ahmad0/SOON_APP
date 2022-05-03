@@ -15,6 +15,10 @@ class ReportsTController extends GetxController{
   PageController? controllerPageView;
 
   Future<String> sendAssignment() async {
+    String state="";
+    if(typeMove=="تم الإنجاز") state="مغلقة";
+    else if(typeMove=="لم يتم الإنجاز") state="معلقة";
+    else if(typeMove=="معاينة") state="تحت الإجراء";
     listReply=FirebaseController.report["tracking"];
     listReply.add({
       "Time":DateTime.now(),
@@ -24,7 +28,7 @@ class ReportsTController extends GetxController{
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
-      "الحالة":(typeMove!="تم الإنجاز"&&typeMove!="لم يتم الإنجاز")?"معتمدة":"مغلقة",
+      "الحالة":state,
       "الوصف":"${textReport}",
       "notification":FirebaseController.notification,
     });
@@ -32,8 +36,9 @@ class ReportsTController extends GetxController{
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
           "tracking":listReply,
-          "الحالة":(typeMove!="تم الإنجاز"&&typeMove!="لم يتم الإنجاز")?"معتمدة":"مغلقة",
+          "الحالة":state,
           "نوع الحركة":typeMove,
+          "notification":FirebaseController.notification,
         }).then((value){
       print("تم إضافة حركة");
       return "تم إضافة حركة";

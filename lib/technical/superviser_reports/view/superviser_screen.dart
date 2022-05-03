@@ -6,6 +6,7 @@ import 'package:select_dialog/select_dialog.dart';
 
 import '../../../Firebase/controller.dart';
 import '../../../Firebase/firebase.dart';
+import '../../../Firebase/reports.dart';
 import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
 import '../../../customer_services/home_page/view/home_page.dart';
@@ -20,8 +21,14 @@ import '../../home_screen/view/home_screen.dart';
 import '../../reports/view/reports_screen.dart';
 import '../controller/superviser_controller.dart';
 
-class SuperviserReportTScreen extends StatelessWidget {
+class SuperviserReportTScreen extends StatefulWidget {
+  @override
+  State<SuperviserReportTScreen> createState() => _SuperviserReportTScreenState();
+}
+
+class _SuperviserReportTScreenState extends State<SuperviserReportTScreen> {
   final controller = Get.put(SuperviserTController());
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -210,6 +217,7 @@ class SuperviserReportTScreen extends StatelessWidget {
                                     flex: 18,
                                     child: GestureDetector(
                                       onTap: (){
+                                        Report.reportNumber=controller.listReport[index]['رقم البلاغ'];
                                         Get.to(()=>ReportsTeScreen(color: statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1]));
                                       },
                                       child: Container(

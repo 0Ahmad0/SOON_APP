@@ -11,7 +11,18 @@ import 'package:roofa/widgets/dialog_date_time.dart';
 import 'package:select_dialog/select_dialog.dart';
 import 'package:intl/intl.dart' as intl;
 
-class ReportLateHMScreen extends StatelessWidget {
+import '../../../Firebase/controller.dart';
+import '../../../Firebase/firebase.dart';
+import '../../../Firebase/reports.dart';
+
+class ReportLateHMScreen extends StatefulWidget {
+  @override
+  State<ReportLateHMScreen> createState() => _ReportLateHMScreenState();
+}
+
+class _ReportLateHMScreenState extends State<ReportLateHMScreen> {
+  final controller = Get.put(ReportLateHMController());
+
 // هنا تظهر البلاغات المتأخرة وغير المنجزة فقط
   @override
   Widget build(BuildContext context) {
@@ -114,6 +125,12 @@ class ReportLateHMScreen extends StatelessWidget {
                                   Icons.search,
                                   color: mainColor,
                                 )),
+                            onChanged: (val){
+                              controller.searchFilter=val;
+                              controller.update();
+                              setState((){
+                              });
+                            },
                           ),
                         )),
                     Expanded(
@@ -160,7 +177,30 @@ class ReportLateHMScreen extends StatelessWidget {
                           label: 'hello',
                           selectedValue: 'lol',
                           items: c,
-                          onChange: (selected) {
+                          onChange: (selected) async {
+                            controller.selectedText.value = selected.toString();
+                            //contrller.update();
+                            //=======//
+                            controller.stateFilter="";
+                            controller.headquartersFilter="";
+                            controller.beneficiaryFilter="";
+                            switch("${statusSort[index]['type_sort_name']['name']}"){
+                              case "فرز على حسب الحالة":
+                                controller.stateFilter=selected.toString();
+                                break;
+                              case "فرز على حسب الجهة":
+                                controller.beneficiaryFilter=selected.toString();
+                                break;
+                              case "فرز على حسب المقر":
+                                controller.headquartersFilter=selected.toString();
+                                print(controller.headquartersFilter);
+                                break;
+                            }
+                            //await contrller.fetchDataReportUser();
+                            controller.update();
+                            setState((){
+                            });
+                            //=======
                           },
                         );
                       },
@@ -173,184 +213,208 @@ class ReportLateHMScreen extends StatelessWidget {
                 height: 20.h,
               ),
               Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: allreports.length,
-                  itemBuilder: (ctx, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Get.to(()=>DetailsTicketHMPage());
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 12.w, vertical: 10.h),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: colorShadowSearch.withOpacity(.23),
-                                blurRadius: 10,
-                                offset: Offset(0, 9),
-                              )
-                            ]),
-                        child: LayoutBuilder(
-                          builder: (context, constrains) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                    child: Container(
-                                      height: constrains.maxWidth / 2.5,
-                                      decoration: BoxDecoration(
-                                          color: colorpurple,
-                                          borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(15.r),
-                                            bottomRight: Radius.circular(15.r),
+                child: FutureBuilder(
+                    future: controller.fetchDataReportUser(),
+                    builder: (context,snapShot) {
+                    if (!snapShot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                    } else{
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.listReport.length,
+                        itemBuilder: (ctx, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Report.reportNumber=controller.listReport[index]['رقم البلاغ'];
+                              Get.to(()=>DetailsTicketHMPage());
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 12.w, vertical: 10.h),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15.r),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: colorShadowSearch.withOpacity(.23),
+                                      blurRadius: 10,
+                                      offset: Offset(0, 9),
+                                    )
+                                  ]),
+                              child: LayoutBuilder(
+                                builder: (context, constrains) {
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                          child: Container(
+                                            height: constrains.maxWidth / 2.5,
+                                            decoration: BoxDecoration(
+                                                color: (controller.listReport[index]['الحالة']=="معلقة")?
+                                                statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1]:
+                                                colorpurple,
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(15.r),
+                                                  bottomRight: Radius.circular(15.r),
+                                                )),
                                           )),
-                                    )),
-                                Expanded(
-                                    flex: 18,
-                                    child: Container(
-                                      padding: EdgeInsets.all(10.r),
-                                      decoration: BoxDecoration(),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                  child: Wrap(
-                                                    children: [
-                                                      Text(
-                                                        'رقم البلاغ: ',
-                                                        style: TextStyle(
-                                                            color: mainColor,
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                            fontSize: 15.sp),
-                                                      ),
-                                                      Text(
-                                                        '${allreports[index]['report_num']}',
-                                                        style: TextStyle(
-                                                            color: mainColor,
-                                                            height: 1.5),
-                                                      ),
-                                                    ],
-                                                  )),
-                                              Expanded(
-                                                  child: Text(
-                                                    '${intl.DateFormat.yMEd().add_jm().format(allreports[index]['report_date_time'])}',
-                                                    style: TextStyle(
-                                                        color: colorShadowSearch),
-                                                  )),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                  flex: 2,
-                                                  child: Wrap(
-                                                    children: [
-                                                      Text(
-                                                        'الجهة: ',
-                                                        style: TextStyle(
-                                                            color: mainColor,
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                            fontSize: 15.sp),
-                                                      ),
-                                                      Text(
-                                                        '${allreports[index]['report_sender']}',
-                                                        style: TextStyle(
-                                                            color: mainColor,
-                                                            height: 1.5),
-                                                      ),
-                                                    ],
-                                                  )),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 2,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .stretch,
+                                      Expanded(
+                                          flex: 18,
+                                          child: Container(
+                                            padding: EdgeInsets.all(10.r),
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              children: [
+                                                Row(
                                                   children: [
-                                                    Wrap(
-                                                      children: [
-                                                        Text(
-                                                          'المقر: ',
+                                                    Expanded(
+                                                        child: Wrap(
+                                                          children: [
+                                                            Text(
+                                                              'رقم البلاغ: ',
+                                                              style: TextStyle(
+                                                                  color: mainColor,
+                                                                  fontWeight:
+                                                                  FontWeight.bold,
+                                                                  fontSize: 15.sp),
+                                                            ),
+                                                            Text(
+                                                              '${controller.listReport[index]['رقم البلاغ']}',
+                                                              //'${allreports[index]['report_num']}',
+                                                              style: TextStyle(
+                                                                  color: mainColor,
+                                                                  height: 1.5),
+                                                            ),
+                                                          ],
+                                                        )),
+                                                    Expanded(
+                                                        child: Text(
+                                                            FirebaseController.formatTimestamp(controller.listReport[index]["Time"]),
+                                                          //'${intl.DateFormat.yMEd().add_jm().format(allreports[index]['report_date_time'])}',
                                                           style: TextStyle(
-                                                              color: mainColor,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold,
-                                                              fontSize: 15.sp),
-                                                        ),
-                                                        Text(
-                                                          '${allreports[index]['report_position']}',
-                                                          style: TextStyle(
-                                                              color: mainColor,
-                                                              height: 1.5),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Wrap(
-                                                      children: [
-                                                        Text(
-                                                          'الاسم: ',
-                                                          style: TextStyle(
-                                                              color: mainColor,
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .bold,
-                                                              fontSize: 15.sp),
-                                                        ),
-                                                        Text(
-                                                          '${allreports[index]['reporter_name']}',
-                                                          style: TextStyle(
-                                                              color: mainColor,
-                                                              height: 1.5),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                              color: colorShadowSearch),
+                                                        )),
                                                   ],
                                                 ),
-                                              ),
-                                              Expanded(
-                                                child: Row(
+                                                Row(
                                                   children: [
-                                                    CircleAvatar(
-                                                        radius: 6.r,
-                                                        backgroundColor: colorpurple
+                                                    Expanded(
+                                                        flex: 2,
+                                                        child: Wrap(
+                                                          children: [
+                                                            Text(
+                                                              'الجهة: ',
+                                                              style: TextStyle(
+                                                                  color: mainColor,
+                                                                  fontWeight:
+                                                                  FontWeight.bold,
+                                                                  fontSize: 15.sp),
+                                                            ),
+                                                            Text('${
+                                  controller.listReport[index]['الجهة المستفيدة']
+                                  }',
+                                                              //'${allreports[index]['report_sender']}',
+                                                              style: TextStyle(
+                                                                  color: mainColor,
+                                                                  height: 1.5),
+                                                            ),
+                                                          ],
+                                                        )),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      flex: 2,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .stretch,
+                                                        children: [
+                                                          Wrap(
+                                                            children: [
+                                                              Text(
+                                                                'المقر: ',
+                                                                style: TextStyle(
+                                                                    color: mainColor,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                    fontSize: 15.sp),
+                                                              ),
+                                                              Text(
+                                                                  '${
+                                                                      controller.listReport[index]['المقر']
+                                                                  }',
+                                                                //'${allreports[index]['report_position']}',
+                                                                style: TextStyle(
+                                                                    color: mainColor,
+                                                                    height: 1.5),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Wrap(
+                                                            children: [
+                                                              Text(
+                                                                'الاسم: ',
+                                                                style: TextStyle(
+                                                                    color: mainColor,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                    fontSize: 15.sp),
+                                                              ),
+                                                              Text(
+                                  '${
+                                  controller.listReport[index]['الاسم']
+                                  }',
+                                                                //'${allreports[index]['reporter_name']}',
+                                                                style: TextStyle(
+                                                                    color: mainColor,
+                                                                    height: 1.5),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                    SizedBox(
-                                                      width: 10.w,
-                                                    ),
-                                                    Text(
-                                                      'متأخرة',
-                                                      style: TextStyle(
-                                                          color: colorpurple
+                                                    Expanded(
+                                                      child: Row(
+                                                        children: [
+                                                          CircleAvatar(
+                                                              radius: 6.r,
+                                                              backgroundColor: (controller.listReport[index]['الحالة']=="معلقة")?
+                                                              statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1]:
+                                                              colorpurple
+                                                          ),
+                                                          SizedBox(
+                                                            width: 10.w,
+                                                          ),
+                                                          Text(
+                                                            (controller.listReport[index]['الحالة']=="معلقة")?'معلقة':'متأخرة',
+                                                            style: TextStyle(
+                                                                color: (controller.listReport[index]['الحالة']=="معلقة")?
+                                                                        statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1]:
+                                                                        colorpurple
+                                                            ),
+                                                          )
+                                                        ],
                                                       ),
                                                     )
                                                   ],
-                                                ),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    )),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                                                )
+                                              ],
+                                            ),
+                                          )),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }}),
               )
             ],
           ),

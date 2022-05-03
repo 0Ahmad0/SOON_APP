@@ -116,16 +116,21 @@ class SettingScreen extends StatelessWidget {
 
                                     GestureDetector(
                                       onTap: () async {
+
                                         String email = 'soonapp00@gmail.com';
                                         String subject = '';
                                         String body = '';
 
                                         String emailUrl = "mailto:$email?subject=$subject&body=$body";
+                                        Get.back();
+
                                         if (await canLaunch(emailUrl)) {
+
                                           await launch(emailUrl).then((value){
-                                            Get.snackbar('تم العملية', "تم ارسال رسالتكم شكرا...");
-                                            Get.back();
+                                            print('HHHHHHHHHHH');
                                           });
+                                          Get.snackbar('تم العملية', "تم ارسال رسالتكم شكرا...");
+
                                         } else {
                                           throw "Error occured sending an email";
                                         }

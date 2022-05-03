@@ -483,6 +483,7 @@ class AddChangesController extends GetxController{
       "مدخل التقرير":FirebaseController.name,
       "الحالة":"تحت الإجراء",
       "الوصف":"${textReport}",
+      "notification":FirebaseController.notification,
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
@@ -490,6 +491,7 @@ class AddChangesController extends GetxController{
           "tracking":listReply,
           "الحالة":"تحت الإجراء",
           "نوع الحركة":"تركيب",
+          "notification":FirebaseController.notification,
         }).then((value){
       print("تم إضافة حركة");
       return "تم إضافة حركة";

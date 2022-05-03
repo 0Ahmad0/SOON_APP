@@ -52,7 +52,10 @@ class SuperviseReportDMController extends GetxController{
         where("${nameFilter}",isEqualTo: filter).
         get().
         then((value) => {
-          listReport=value.docs,
+          listReport=[],
+          value.docs.forEach((element) {
+            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+          }),
           print("listReport : "+"${listReport.length}"),
         });
         return true;
@@ -64,7 +67,10 @@ class SuperviseReportDMController extends GetxController{
         where("رقم البلاغ",isEqualTo: searchFilter).
         get().
         then((value) => {
-          listReport= value.docs,
+          listReport=[],
+          value.docs.forEach((element) {
+            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+          }),
           print("listReport : "+"${listReport.length}"),
         });
         return true;
@@ -76,7 +82,10 @@ class SuperviseReportDMController extends GetxController{
         where("${nameFilter}",isEqualTo: filter).
         get().
         then((value) => {
-          listReport=value.docs,
+          listReport=[],
+          value.docs.forEach((element) {
+            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+          }),
           print("listReport : "+"${listReport.length}"),
         });
         return true;
@@ -87,7 +96,10 @@ class SuperviseReportDMController extends GetxController{
         //where("email",isEqualTo: FirebaseController.email).
         get().
         then((value) => {
-          listReport=value.docs,
+          listReport=[],
+          value.docs.forEach((element) {
+            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+          }),
           print("listReport : "+"${listReport.length}"),
         });
         return true;
