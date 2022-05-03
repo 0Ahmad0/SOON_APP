@@ -54,7 +54,7 @@ List<Map> homeScreenGridViewDepartmentManagerText = [
     'text': 'متابعة البلاغات'
   },
   {
-    'page_to': '/DM_achievement_of_technicians_screen',
+    'page_to': '/HM_statistic_screen',//'/DM_achievement_of_technicians_screen',
     'svg_picture': 'images/archive.svg',
     'text': 'عرض إنجاز الفنيين'
   },
