@@ -9,9 +9,16 @@ import 'package:roofa/setting/view/setting_screen.dart';
 import 'package:roofa/widgets/home_screen_actions.dart';
 import 'package:roofa/const/text_app.dart';
 
-class HomeScreenDM extends StatelessWidget {//كلاس في فلاتر الواجهة فيه جامدة لا تتحدث البانات
-  final controller = Get.put(HomePageDMController());// كونترولر لفصل البيانات عن الواجهة أضع فيه التوابع والمتغيرات وهو من الستيت مانجمنت getx
-  //state managment getx
+import '../../../user_profile/view/user_profile_screen.dart';
+
+class HomeScreenDM extends StatefulWidget {  @override
+  State<HomeScreenDM> createState() => _HomeScreenDMState();
+}
+
+class _HomeScreenDMState extends State<HomeScreenDM> {
+//كلاس في فلاتر الواجهة فيه جامدة لا تتحدث البانات
+  final controller = Get.put(HomePageDMController());
+// كونترولر لفصل البيانات عن الواجهة أضع فيه التوابع والمتغيرات وهو من الستيت مانجمنت getx
   @override
   Widget build(BuildContext context) {//تابع بناء كل واجهة واسمه ال build من هنا يبدأ رسم كل واجهة
     return Directionality( // من أجل ظهور التنسيق باللغة العربية (من اليمين لليسار)
@@ -146,9 +153,16 @@ class HomeScreenDM extends StatelessWidget {//كلاس في فلاتر الوا�
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: SvgPicture.asset(
-                          'images/user-circle.svg',
-                        ),
+                        child:GestureDetector(
+                          onTap: () {
+                            Get.to(()=>UserProfileScreen());
+                            setState(() {
+                            });
+                          },
+                          child:SvgPicture.asset(
+                            'images/user-circle.svg',
+                          ),
+                        )
                       ),
                     ),
                     Text(

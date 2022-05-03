@@ -58,7 +58,6 @@ class HomeScreenController extends GetxController{
             });
            // FirebaseFirestore.instance.collection("reports").doc(element.id).update(element.data());
           }),
-
           numberNotification=0,
           notification.forEach((element) {
             (element.number>0)?numberNotification++:"";
@@ -73,6 +72,7 @@ class HomeScreenController extends GetxController{
       print(e);
       return false;
     }
+    return false;
   }
   bool checkNotification(){
     bool check=false;

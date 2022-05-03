@@ -6,6 +6,7 @@ import 'package:roofa/const/text_app.dart';
 import 'package:roofa/setting/view/setting_screen.dart';
 
 import '../../../const/const_color.dart';
+import '../../../user_profile/view/user_profile_screen.dart';
 import '../../../widgets/home_screen_actions.dart';
 import '../controller/home_controller.dart';
 
@@ -150,8 +151,13 @@ class HomeScreenCS extends StatelessWidget {
                                       onTap: () {},
                                       child: Padding(
                                         padding: const EdgeInsets.all(12.0),
-                                        child: SvgPicture.asset(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Get.to(()=>UserProfileScreen());
+                                          },
+                                          child: SvgPicture.asset(
                                           'images/user-circle.svg',
+                                        ),
                                         ),
                                       ),
                                     ),

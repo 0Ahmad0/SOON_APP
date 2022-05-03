@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:roofa/const/const_color.dart';
+import 'package:roofa/user_profile/view/user_profile_screen.dart';
 import 'package:roofa/widgets/home_screen_actions.dart';
 
 import 'package:roofa/customer/home_page/controller/home_screen_controller.dart';
@@ -11,8 +12,14 @@ import 'package:roofa/customer/home_page/controller/home_screen_controller.dart'
 import '../../../setting/view/setting_screen.dart';
 
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final HomeScreenController controller = Get.put(HomeScreenController());
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -33,6 +40,9 @@ class HomeScreen extends StatelessWidget {
                   leading: GestureDetector(
                     onTap: () {
                       Get.to(()=>SettingScreen());
+                      setState(() {
+
+                      });
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
@@ -85,10 +95,14 @@ class HomeScreen extends StatelessWidget {
                                                   width: .5,
                                                   color: Colors.black.withOpacity(.5),
                                                 ),
-                                                Expanded(child: SvgPicture.asset(
+                                                Expanded(child: GestureDetector(
+                                                    onTap:(){
+                                                      print("bhh");
+                                                    },
+                                                child: SvgPicture.asset(
                                                   'images/logo.svg',
                                                   fit: BoxFit.cover,
-                                                )),
+                                                )),),
                                               ],
                                             ),
                                           ),
@@ -149,7 +163,12 @@ class HomeScreen extends StatelessWidget {
                                 child: ListView(
                                   children: [
                                     GestureDetector(
-                                      onTap: () {},
+
+                                      onTap: () {
+                                        Get.to(()=>UserProfileScreen());
+                                      setState(() {
+                                      });
+                                      },
                                       child: Padding(
                                         padding: const EdgeInsets.all(12.0),
                                         child: SvgPicture.asset(

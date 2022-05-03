@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
 import '../../../setting/view/setting_screen.dart';
+import '../../../user_profile/view/user_profile_screen.dart';
 import '../../../widgets/home_screen_actions.dart';
 import '../controller/home_controller.dart';
 final  controller = Get.put(HomeTController());
@@ -83,10 +84,15 @@ class HomeScreenT extends StatelessWidget {
                                                 width: .5,
                                                 color: Colors.black.withOpacity(.5),
                                               ),
-                                              Expanded(child: SvgPicture.asset(
-                                                'images/logo.svg',
-                                                fit: BoxFit.cover,
-                                              )),
+                                              Expanded(child:GestureDetector(
+                                                onTap: () {
+                                                  Get.to(()=>UserProfileScreen());
+                                                },
+                                                child: SvgPicture.asset(
+                                                  'images/logo.svg',
+                                                  fit: BoxFit.cover,
+                                                )),
+                                              ),
                                             ],
                                           ),
                                         ),

@@ -8,6 +8,7 @@ import 'package:roofa/setting/view/setting_screen.dart';
 import 'package:roofa/widgets/home_screen_actions.dart';
 import 'package:roofa/const/text_app.dart';
 
+import '../../../user_profile/view/user_profile_screen.dart';
 import '../controller/homepage_controller.dart';
 class HomeScreenHM extends StatelessWidget {
   final  controller = Get.put(HomePageController());
@@ -83,10 +84,15 @@ class HomeScreenHM extends StatelessWidget {
                                                 width: .5,
                                                 color: Colors.black.withOpacity(.5),
                                               ),
-                                              Expanded(child: SvgPicture.asset(
+                                              Expanded(child: GestureDetector(
+                                                onTap: () {
+                                                  Get.to(()=>UserProfileScreen());
+                                                },
+                                                child: SvgPicture.asset(
                                                 'images/logo.svg',
                                                 fit: BoxFit.cover,
                                               )),
+                                              ),
                                             ],
                                           ),
                                         ),
