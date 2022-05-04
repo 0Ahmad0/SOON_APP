@@ -5,9 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:roofa/department_manager/achievement_of_technicians/controller/achievement_of_technicians_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
+import '../../../const_pdf.dart';
 import '../../../higher_management/statistic_ticket/view/statistic_screen.dart';
 import '../../../widgets/dialog_date_time.dart';
 import '../../../widgets/material_text.dart';
@@ -268,27 +270,11 @@ class AchievementOfTechniciansScreen extends StatelessWidget {
                     left: 15.w,
                     top: 5.h,
                     child: GestureDetector( // عند الكبس أظهر ديالوغ
-                      onTap: (){
-                        Get.dialog( //ديالوغ جاهز من الستست مانجمنت هذا يظهر في منتصف الشاشة ويخير المستخدم بشيء او يحذره من شيء أو يطلب منه ادخال شيء مثلا
-                          Center(
-                          child: Container(
-                            width: Get.width,
-                            height: Get.width / 4,
-                            color: Colors.white,
-                            child: MaterialText( // ويدجت جاهزة تخلي النص بداخل الديالوغ ماتيريال
-                              text: 'الأرشيف',
-                              fontSize: 50.sp,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        );
-                        Timer( // مؤقت لزوال الشيء يعد تنفيذه وهو مذة ظهور الديالوغ واختفاءه
-                            Duration(milliseconds: 800), // مدة عرضه أقل من ثانية يعني
-                                ()=>Get.back() // عند انتهاء المؤقت اعمل الغاء للديالوغ
-                        );
+                      onTap: ()async{
+                        print('hello');
+                        await launch(getStaticksFile);
                       },
-                      child: SvgPicture.asset('images/download.svg'), // الشيء الذي سأكبس عليه هو هذه الصورة
+                      child: SvgPicture.asset('images/download.svg',color: Colors.red,), // الشيء الذي سأكبس عليه هو هذه الصورة
                     ),
                   ),
                   Column(

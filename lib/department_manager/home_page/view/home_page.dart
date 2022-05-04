@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:roofa/const/const_color.dart';
 import 'package:roofa/department_manager/home_page/controller/home_page_controller.dart';
 import 'package:roofa/setting/view/setting_screen.dart';
+import 'package:roofa/user_profile/view/user_profile_screen.dart';
 import 'package:roofa/widgets/home_screen_actions.dart';
 import 'package:roofa/const/text_app.dart';
 
@@ -53,7 +54,8 @@ class _HomeScreenDMState extends State<HomeScreenDM> {
                         SingleChildScrollView( // لكي تكون الشاشة سكرول الى الاعلى واللاسفل
                           child: Column(  // من أجل وضع أكثر من ويدجت فوق بعض وبشكل عمودي
                             // هنا هذه الاشعارات بشكل يدوي لكن عند الربط ستتغير شكلها وسيكون الاشعار بشكل فعلي
-                              children: List.generate(4, (index) => Container(// حاضنة يوضع بداخلها شيء
+                              children: List.generate(4, (index) =>
+                                  Container(// حاضنة يوضع بداخلها شيء
                                 padding: EdgeInsets.all(10.0),  // يعطي بعد عن الحافة للشيء لكن من الداخل
                                 margin: // يعطي بعد عن الحافة للشيء لكن من الخارج عن حدود الشاشة مثلا
                                 EdgeInsets.only(top: 15.h, right: 12.w, left: 12.w),
@@ -150,6 +152,7 @@ class _HomeScreenDMState extends State<HomeScreenDM> {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        Get.to(()=>UserProfileScreen());
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -166,8 +169,8 @@ class _HomeScreenDMState extends State<HomeScreenDM> {
                       ),
                     ),
                     Text(
-                      controller.name,
-                      //'سلطان الحربي',
+                      // controller.name,
+                      'سلطان الحربي',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 15.sp,

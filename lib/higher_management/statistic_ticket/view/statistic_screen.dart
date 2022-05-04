@@ -10,8 +10,10 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:roofa/higher_management/homepage/view/home_screen.dart';
 import 'package:roofa/higher_management/statistic_ticket/user_ticket.dart';
 import 'package:roofa/widgets/material_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../Firebase/controller.dart';
 import '../../../const/text_app.dart';
+import '../../../const_pdf.dart';
 import '../../../widgets/dialog_date_time.dart';
 import '../controller/statistic_controller.dart';
 import '../ticket.dart';
@@ -319,20 +321,8 @@ class _StatisticScreenState extends State<StatisticScreen> {
                     left: 15.w,
                     top: 5.h,
                     child: GestureDetector(
-                      onTap: (){
-                        Get.dialog(Center(
-                          child: Container(
-                            width: Get.width,
-                            height: Get.width / 4,
-                            color: Colors.white,
-                            child: MaterialText(text: 'الأرشيف',fontSize: 50.sp,textAlign: TextAlign.center,),
-                          ),
-                        ),
-                        );
-                        Timer(
-                            Duration(milliseconds: 800),
-                                ()=>Get.back()
-                        );
+                      onTap: ()async{
+                        await launch(getStaticksFile);
                       },
                       child: SvgPicture.asset('images/download.svg'),
                     ),

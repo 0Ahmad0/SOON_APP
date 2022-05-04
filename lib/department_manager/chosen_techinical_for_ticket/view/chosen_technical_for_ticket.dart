@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:roofa/const/const_color.dart';
+import 'package:roofa/const/picker.dart';
 import 'package:roofa/main.dart';
 import 'package:roofa/widgets/custom_dialog.dart';
 import 'package:select_dialog/select_dialog.dart';
@@ -115,19 +116,25 @@ class ChosenTechnicalForTicketDMScreen extends StatelessWidget {
                                                 children: [
                                                   IconButton(
                                                       onPressed:
-                                                          () {},
+                                                          () {
+                                                        //هةن بتحط الكونترولر وبتعملو clear
+                                                          },
                                                       icon: Icon(
                                                           Icons
                                                               .delete_forever_outlined)),
                                                   IconButton(
                                                       onPressed:
-                                                          () {},
+                                                          () {
+                                                        Picker.pickerFile();
+                                                          },
                                                       icon: Icon(
                                                           Icons
                                                               .attach_file_outlined)),
                                                   IconButton(
                                                       onPressed:
-                                                          () {},
+                                                          () {
+                                                        Picker.showChoiceDialog(context);
+                                                          },
                                                       icon: Icon(
                                                           Icons
                                                               .camera_alt_outlined)),
@@ -296,19 +303,25 @@ class ChosenTechnicalForTicketDMScreen extends StatelessWidget {
                                                 children: [
                                                   IconButton(
                                                       onPressed:
-                                                          () {},
+                                                          () {
+                                                        //هون بتحط الكونترولر وبتعملو مسح
+                                                          },
                                                       icon: Icon(
                                                           Icons
                                                               .delete_forever_outlined)),
                                                   IconButton(
                                                       onPressed:
-                                                          () {},
+                                                          () {
+                                                        Picker.pickerFile();
+                                                          },
                                                       icon: Icon(
                                                           Icons
                                                               .attach_file_outlined)),
                                                   IconButton(
                                                       onPressed:
-                                                          () {},
+                                                          () {
+                                                            Picker.showChoiceDialog(context);
+                                                          },
                                                       icon: Icon(
                                                           Icons
                                                               .camera_alt_outlined)),

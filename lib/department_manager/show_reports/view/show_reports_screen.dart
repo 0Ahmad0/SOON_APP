@@ -64,7 +64,8 @@ class ShowReportsDMScreen extends StatelessWidget {
                               Icons.keyboard_arrow_down,color: mainColor,
                           size: 25.sp,),
                           title: Text(
-                            '${showReportsList[index]['type_sort_name']['name']}',
+                            '${showReportsList[index]
+                            ['type_sort_name']['name']}',
                             style:
                             TextStyle(fontWeight: FontWeight.bold),
                           ),

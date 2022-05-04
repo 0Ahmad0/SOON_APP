@@ -8,6 +8,7 @@ import 'package:roofa/Customer/connection_customer_services/controller/conection
 import 'package:roofa/Firebase/chatting.dart';
 import 'package:roofa/Firebase/firebase.dart';
 import 'package:roofa/const/const_color.dart';
+import 'package:roofa/const/picker.dart';
 
 class ConectionCustomerServicesScreen extends StatefulWidget {
   const ConectionCustomerServicesScreen({Key? key}) : super(key: key);
@@ -74,6 +75,7 @@ class _ConectionCustomerServicesScreenState
                   return Stack(
                     children: [
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
                             padding: EdgeInsets.all(12.r),
@@ -189,7 +191,7 @@ class _ConectionCustomerServicesScreenState
                                                                 .sender_type != /*"المتسفيد"*/
                                                             Chatting
                                                                 .TYPE_USER) //index.isOdd
-                                                        ? Color(0xffB3EFE1)
+                                                        ? Color(0xffb3efe1)
                                                         : Color(0xffF3F3F3)),
                                                 padding: EdgeInsets.only(
                                                     left: 8.r,
@@ -277,7 +279,9 @@ class _ConectionCustomerServicesScreenState
                                     focusedBorder: InputBorder.none,
                                     suffixIcon: IconButton(
                                       icon: Icon(Icons.attach_file_rounded),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Picker.pickerFile();
+                                      },
                                     ),
                                     prefixIcon: IconButton(
                                       icon: Icon(Icons.send_outlined),

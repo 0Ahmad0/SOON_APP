@@ -8,6 +8,7 @@ import 'package:roofa/preview_screen/view/preview_screen.dart';
 import 'package:roofa/setting/view/setting_screen.dart';
 import 'package:roofa/widgets/custom_dialog.dart';
 
+import '../../department_manager/home_page/view/home_page.dart';
 import '../userprofile_controller/userprofile_controller.dart';
 
 class UserProfileScreen extends StatelessWidget {
@@ -22,14 +23,18 @@ class UserProfileScreen extends StatelessWidget {
           title: Text("الملف الشخصي"),
           centerTitle: true,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
             icon: Icon(
               Icons.arrow_back_ios,
             ),
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.off(()=>HomeScreenDM());
+              },
               icon: Icon(
                 Icons.home,
                 size: 30,

@@ -6,9 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:roofa/department_manager/details_report_ticket/controller/details_report_ticket_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
+import '../../../const_pdf.dart';
 import '../../../technical/report_screen/view/report_screen.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../../../widgets/material_text.dart';
@@ -141,6 +143,24 @@ class DetailsReportTicketDMScreen extends StatelessWidget {
                   ],
                 )
             ),
+            Obx(
+                ()=>controller.index.value == 1?GestureDetector( // عند الكبس على هذا الزر يجب تحميل التقارير
+            onTap: ()async{
+            await launch(getArchivmentFile);
+            },
+            child: Container(
+            padding: EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 5
+            ),
+            alignment: Alignment.centerLeft,
+            width: double.infinity,
+            height: Get.width / 7.5,
+            child: SvgPicture.asset('images/download.svg'), // وصع الصورة بدقة عالية
+            //صورة تحميل التقرير بصيغة  svg
+            ),
+            ):SizedBox()
+            ),
             Expanded(
               child: PageView(
                 controller: controller.controllerPageView,
@@ -239,7 +259,9 @@ var nameTicket = "معاينة";
                                   child: Row(
                                     children: [
                                       GestureDetector(
-                                        onTap: (){},
+                                        onTap: ()async{
+                                          await launch(getTicketFile);
+                                        },
                                         child: SvgPicture.asset('images/print.svg'),
                                       ),
                                     ],

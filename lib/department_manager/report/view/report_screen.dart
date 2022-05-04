@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:open_file/open_file.dart';
 import 'package:roofa/department_manager/home_page/view/home_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
+import '../../../const_pdf.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../../../widgets/material_text.dart';
 import 'package:intl/intl.dart' as intl;
@@ -45,7 +48,9 @@ List<dynamic> c =  reportInformation
           child: Column( // عناصر بشكل عمودي
             children: [
               GestureDetector( // عند الكبس على هذا الزر يجب تحميل التقارير
-                onTap: (){},
+                onTap: ()async{
+               await launch(getReportFile);
+                },
                 child: Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: 15,
@@ -60,7 +65,8 @@ List<dynamic> c =  reportInformation
               ),
               Container( // هنا كالعادة ارسم شكل كونتينر التذكرة واضع المعلومات بداخله row وبداخلها نصوص
                 margin:
-                EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                EdgeInsets.symmetric(horizontal: 12.w,
+                    vertical: 10.h),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15.r),

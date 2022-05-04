@@ -37,6 +37,7 @@ dependencies:
   image_picker:
   file_picker:
   firebase_analytics:
+  open_file:
 
 dev_dependencies:
   flutter_test:
