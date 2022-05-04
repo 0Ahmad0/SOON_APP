@@ -319,14 +319,20 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                                                                                 children: [
                                                                                   IconButton(
                                                                                       onPressed:
-                                                                                          () {},
+                                                                                          () {
+                                                                                        widget.controller.replayText.clear();
+                                                                                        setState(() {
+
+                                                                                        });
+                                                                                          },
                                                                                       icon: Icon(
                                                                                           Icons
                                                                                               .delete_forever_outlined)),
                                                                                   IconButton(
                                                                                       onPressed:
                                                                                           () {
-                                                                                        Picker.pickerFile();},
+                                                                                        Picker.pickerFile();
+                                                                                        },
                                                                                       icon: Icon(
                                                                                           Icons
                                                                                               .attach_file_outlined)),
@@ -356,10 +362,8 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                                                                                   .r),
                                                                               child:
                                                                               TextFormField(
+                                                                                controller: widget.controller.replayText,
                                                                                 maxLines: 3,
-                                                                                onChanged: (val){
-                                                                                  widget.controller.textReply=val;
-                                                                                },
                                                                                 textDirection:
                                                                                 TextDirection
                                                                                     .rtl,
