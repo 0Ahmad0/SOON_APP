@@ -16,6 +16,7 @@ import 'package:roofa/const/text_app.dart';
 
 import '../../../Firebase/controller.dart';
 import '../../../Firebase/firebase.dart';
+import '../../../const/picker.dart';
 import '../../../technical/report_screen/view/report_screen.dart';
 import '../../../widgets/super_viser.dart';
 import '../controller/detalis_ticket_controller.dart';
@@ -324,13 +325,16 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                                                                                               .delete_forever_outlined)),
                                                                                   IconButton(
                                                                                       onPressed:
-                                                                                          () {},
+                                                                                          () {
+                                                                                        Picker.pickerFile();},
                                                                                       icon: Icon(
                                                                                           Icons
                                                                                               .attach_file_outlined)),
                                                                                   IconButton(
                                                                                       onPressed:
-                                                                                          () {},
+                                                                                          () {
+                                                                                            Picker.showChoiceDialog(context);
+                                                                                          },
                                                                                       icon: Icon(
                                                                                           Icons
                                                                                               .camera_alt_outlined)),
