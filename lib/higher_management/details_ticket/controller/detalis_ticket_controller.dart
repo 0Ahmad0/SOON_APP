@@ -11,7 +11,7 @@ class DetailsTicketHMController extends GetxController{
   var index = 0.obs;
   Color buttonActive = mainColor;
   Color textButtonActive = Colors.white;
-  String? textReply;
+  final textReply= TextEditingController();
   var listReply;
   PageController? controllerPageView;
 
@@ -24,7 +24,7 @@ class DetailsTicketHMController extends GetxController{
       "الاسم":FirebaseController.name,
       "الحالة":FirebaseController.report["الحالة"],
       "الجهة":FirebaseController.report["الجهة المستفيدة"],
-      "الوصف":"${textReply}",
+      "الوصف":"${textReply.text}",
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(

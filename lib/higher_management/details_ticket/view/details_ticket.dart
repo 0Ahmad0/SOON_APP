@@ -18,6 +18,7 @@ import '../../../Customer/details_ticket/controller/detalis_ticket_controller.da
 import '../../../Firebase/controller.dart';
 import '../../../Firebase/firebase.dart';
 import '../../../Firebase/reports.dart';
+import '../../../const/picker.dart';
 import '../controller/detalis_ticket_controller.dart';
 
 
@@ -69,7 +70,7 @@ class _DetailsTicketHMPageState extends State<DetailsTicketHMPage> {
                 child: Column(
                   children: [
                     Container(
-                      height: Get.height * 0.63,
+                      height: Get.height * 0.73,
                       margin:
                       EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                       decoration: BoxDecoration(
@@ -176,19 +177,24 @@ class _DetailsTicketHMPageState extends State<DetailsTicketHMPage> {
                                                                             children: [
                                                                               IconButton(
                                                                                   onPressed:
-                                                                                      () {},
+                                                                                      () {
+                                                                                        controller.textReply.clear();
+                                                                                        setState(() {
+
+                                                                                        });
+                                                                                      },
                                                                                   icon: Icon(
                                                                                       Icons
                                                                                           .delete_forever_outlined)),
                                                                               IconButton(
                                                                                   onPressed:
-                                                                                      () {},
+                                                                                      () { Picker.pickerFile();},
                                                                                   icon: Icon(
                                                                                       Icons
                                                                                           .attach_file_outlined)),
                                                                               IconButton(
                                                                                   onPressed:
-                                                                                      () {},
+                                                                                      () {Picker.showChoiceDialog(context);},
                                                                                   icon: Icon(
                                                                                       Icons
                                                                                           .camera_alt_outlined)),
@@ -211,9 +217,7 @@ class _DetailsTicketHMPageState extends State<DetailsTicketHMPage> {
                                                                           child:
                                                                           TextFormField(
                                                                             maxLines: 3,
-                                                                            onChanged: (val){
-                                                                              controller.textReply=val;
-                                                                            },
+                                                                            controller: controller.textReply,
                                                                             textDirection:
                                                                             TextDirection
                                                                                 .rtl,

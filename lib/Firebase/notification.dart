@@ -25,6 +25,8 @@ class Notifications{
         return "يوجد لديك تذاكر تم تحويلها ${number} إليك من خدمة العملاء";
       case 6:
         return "يوجد لديك ${number} بلاغات متأخرة";
+      case 7:
+        return "يوجد لديك ${number} بلاغات معلقة";
       case 10:
         return "";
     }

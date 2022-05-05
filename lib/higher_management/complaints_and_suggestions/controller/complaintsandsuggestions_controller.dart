@@ -8,7 +8,7 @@ import '../../../const/const_color.dart';
 class ComplaintsAndSuggestionsController extends GetxController{
   var listReport;
   var listReply;
-  String? textReply;
+  final textReply= TextEditingController();
   var index = 0.obs;
 
   Color buttonActive = mainColor;
@@ -23,7 +23,7 @@ class ComplaintsAndSuggestionsController extends GetxController{
       "الاسم":FirebaseController.name,
       "الحالة":FirebaseController.report["الحالة"],
       "الجهة":FirebaseController.report["الجهة المستفيدة"],
-      "الوصف":"${textReply}",
+      "الوصف":"${textReply.text}",
       "notification":FirebaseController.notification,
     });
     print(FirebaseController.report.id);

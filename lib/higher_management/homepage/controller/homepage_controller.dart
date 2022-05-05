@@ -11,6 +11,7 @@ class HomePageController extends GetxController{
   int numberNotification=0;
   List<Notifications> notification=[
     Notifications(numText: 6,number: 0),
+    Notifications(numText: 7,number: 0),
   ];
   Future<bool> fetchDataProfile() async {
     final user = await FirebaseAuth.instance.currentUser;
@@ -29,16 +30,20 @@ class HomePageController extends GetxController{
     try{
       notification=[
         Notifications(numText: 6,number: 0),
+        Notifications(numText: 7,number: 0),
       ];
       await FirebaseFirestore.instance.collection("reports").
       // where("email",isEqualTo: FirebaseController.email).
       get().
       then((value) => {
         value.docs.forEach((element) {
-          if(element["الحالة"]!="مرفوضة"&&element["الحالة"]!="مغلقة"&&element["الجهة"]=="الفنيين"){
+          if(element["الحالة"]!="معلقة"&&element["الحالة"]!="مرفوضة"&&element["الحالة"]!="مغلقة"&&element["الجهة"]=="الفنيين"){
             if(Timestamp.now().compareTo(element["TimeFor"])==1){
               notification[0].number++;
             }
+          }
+          if(element["الحالة"]=="معلقة"){
+            notification[1].number++;
           }
         }),
         numberNotification=0,

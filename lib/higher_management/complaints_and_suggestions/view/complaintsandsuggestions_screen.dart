@@ -10,6 +10,7 @@ import 'package:roofa/higher_management/homepage/view/home_screen.dart';
 
 import '../../../Firebase/firebase.dart';
 import '../../../const/const_color.dart';
+import '../../../const/picker.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../../../widgets/material_text.dart';
 import '../controller/complaintsandsuggestions_controller.dart';
@@ -296,19 +297,22 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                                     children: [
                                                       IconButton(
                                                           onPressed:
-                                                              () {},
+                                                              () {
+                                                               // controller.textReply.clear();
+
+                                                              },
                                                           icon: Icon(
                                                               Icons
                                                                   .delete_forever_outlined)),
                                                       IconButton(
                                                           onPressed:
-                                                              () {},
+                                                              () { Picker.pickerFile();},
                                                           icon: Icon(
                                                               Icons
                                                                   .attach_file_outlined)),
                                                       IconButton(
                                                           onPressed:
-                                                              () {},
+                                                              () {Picker.showChoiceDialog(context);},
                                                           icon: Icon(
                                                               Icons
                                                                   .camera_alt_outlined)),
@@ -330,10 +334,8 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                                       .r),
                                                   child:
                                                   TextFormField(
+                                                    //controller: controller.textReply,
                                                     maxLines: 3,
-                                                    onChanged: (val){
-                                                      controller.textReply=val;
-                                                    },
                                                     //textDirection: TextDirection.rtl,
                                                     decoration:
                                                     InputDecoration(
