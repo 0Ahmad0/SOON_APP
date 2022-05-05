@@ -5,9 +5,11 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:roofa/technical/home_screen/view/home_screen.dart';
 import 'package:roofa/technical/reports/view/reports_screen.dart';
+import '../../../Firebase/controller.dart';
 import '../../../Firebase/firebase.dart';
 import '../../../Firebase/reports.dart';
 import '../../../const/const_color.dart';
+import '../../../const/text_app.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../../../widgets/material_text.dart';
 import '/technical/ticket_details/controller/ticket_details_controller.dart';
@@ -79,7 +81,7 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
             return ListView(
               children: [
                 Container(
-                    height: Get.width * 1.4,
+                    height: Get.width * 1.6,
                     margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -97,7 +99,7 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                         Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Colors.grey,
+                                  color: statusReport[Controllert.colorState("${ FirebaseController.report['الحالة']}")]['name'][1] ,//Colors.grey,
                                   borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(15.r),
                                     bottomRight: Radius.circular(15.r),
@@ -175,7 +177,12 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                                                                   children: [
                                                                     IconButton(
                                                                         onPressed:
-                                                                            () {},
+                                                                            () {
+                                                                              controller.textReply.clear();
+                                                                              setState(() {
+
+                                                                              });
+                                                                            },
                                                                         icon: Icon(Icons
                                                                             .delete_forever_outlined)),
                                                                     IconButton(
@@ -398,7 +405,8 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                                             children: [
                                               CircleAvatar(
                                                 radius: 5.r,
-                                                backgroundColor: Colors.grey,
+                                                backgroundColor:statusReport[Controllert.colorState("${ FirebaseController.report['الحالة']}")]['name'][1] ,
+                                                //Colors.grey,
                                               ),
                                               SizedBox(
                                                 width: 10.w,
@@ -407,7 +415,8 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                                                 FirebaseController.report["الحالة"],
                                                 //'${widget.map['report_status']}',
                                                 style: TextStyle(
-                                                  color: Colors.grey,
+                                                  color:statusReport[Controllert.colorState("${ FirebaseController.report['الحالة']}")]['name'][1] ,
+                                                  //Colors.grey,
                                                 ),
                                               )
                                             ],
@@ -639,130 +648,141 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                             )),
                       ],
                     )),
-                ListView.builder(
-                  itemCount: 2,
-                  shrinkWrap: true,
-                  itemBuilder: (ctx, index) {
-                    return Slidable(
-                      child: Container(
-                        margin:
-                        EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
-                        padding: EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                          color: Color(0xffF3F3F3),
-                          borderRadius: BorderRadius.circular(15.r),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Wrap(
-                                      children: [
-                                        Text(
-                                          '${intl.DateFormat.yMMMMd().add_jms().format(DateTime.now())}',
-                                          style: TextStyle(
-                                              fontSize: 9.sp, color: Colors.grey),
-                                        ),
-                                        Text(
-                                          ' | من قسم',
-                                          style: TextStyle(
-                                              fontSize: 9.sp, color: Colors.grey),
-                                        ),
-                                        Text(
-                                          ' الصيانة ',
-                                          style: TextStyle(
-                                              fontSize: 9.sp, color: Colors.grey),
-                                        ),
-                                        Text(
-                                          ' | الحالة',
-                                          style: TextStyle(
-                                              fontSize: 9.sp, color: Colors.grey),
-                                        ),
-                                        Text(
-                                          ' مغلقة ',
-                                          style: TextStyle(
-                                              fontSize: 9.sp, color: Colors.red),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Text(
-                                      'نسعد بتواصلكم معنا عبر التذاكر الالكترونية',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: mainColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جديد ',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Color(0xff28A2CF), fontSize: 8.sp),
-                                    ),
-                                    Text(
-                                      'نسعى لخدمتكم دوماً',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Color(0xff28A2CF),
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'وحدة خدمة الصيانةً',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Color(0xff28A2CF),
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )),
-                            Expanded(
+                ...List.generate(FirebaseController.report["reply"].length, (index)  {
+                  return Slidable(
+                    child: Container(
+                      margin:
+                      EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
+                      padding: EdgeInsets.all(12.0),
+                      decoration: BoxDecoration(
+                        color: Color(0xffF3F3F3),
+                        borderRadius: BorderRadius.circular(15.r),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              flex: 3,
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  SvgPicture.asset('images/user-circle.svg'),
+                                  Wrap(
+                                    children: [
+                                      Text(
+                                        '${intl.DateFormat.yMMMMd()
+                                            .add_jms()
+                                            .format(DateTime.now())}',
+                                        style: TextStyle(
+                                            fontSize: 9.sp,
+                                            color: Colors.grey),
+                                      ),
+                                      Text(
+                                        ' | من قسم',
+                                        style: TextStyle(
+                                            fontSize: 9.sp,
+                                            color: Colors.grey),
+                                      ),
+                                      Text(
+                                        (FirebaseController.report["reply"][index]["القسم"]!=null)
+                                            ?"${FirebaseController.report["reply"][index]["القسم"]}"
+                                            :' ',
+                                        //' الصيانة ',
+                                        style: TextStyle(
+                                            fontSize: 9.sp,
+                                            color: Colors.grey),
+                                      ),
+                                      Text(
+                                        ' | الحالة',
+                                        style: TextStyle(
+                                            fontSize: 9.sp,
+                                            color: Colors.grey),
+                                      ),
+                                      Text(
+                                        FirebaseController.report["reply"][index]["الحالة"],
+                                        //' مغلقة ',
+                                        style: TextStyle(
+                                          fontSize: 9.sp,
+                                          color: statusReport[Controllert.colorState("${FirebaseController.report['الحالة']}")]['name'][1],),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
                                   Text(
-                                    'أحمد بن عفيف',
+                                    'نسعد بتواصلكم معنا عبر التذاكر الالكترونية',
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: mainColor,
-                                        fontSize: 13.sp,
                                         fontWeight: FontWeight.bold),
-                                  )
+                                  ),
+                                  Text(
+                                    FirebaseController.report["reply"][index]["الوصف"],
+                                    //'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جدي ',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color(0xff28A2CF),
+                                        fontSize: 8.sp),
+                                  ),
+                                  Text(
+                                    'نسعى لخدمتكم دوماً',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Color(0xff28A2CF),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'وحدةً'+'${FirebaseController.report["reply"][index]["الوحدة"]}',
+                                        //'وحدة خدمة الصيانةً',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Color(0xff28A2CF),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      startActionPane: ActionPane(
-                        // A motion is a widget used to control how the pane animates.
-                        motion: const ScrollMotion(),
-
-                        // A pane can dismiss the Slidable.
-
-                        // All actions are defined in the children parameter.
-                        children: const [
-                          // A SlidableAction can have an icon and/or a label.
-                          SlidableAction(
-                            backgroundColor: Color(0xFFFE4A49),
-                            foregroundColor: Colors.white,
-                            icon: Icons.delete,
-                            label: 'Delete',
-                            onPressed: null,
-                          ),
+                              )),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                SvgPicture.asset('images/user-circle.svg'),
+                                Text(
+                                  FirebaseController.report["reply"][index]["الاسم"],
+                                  //'أحمد بن عفيف',
+                                  style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                    );
-                  },
-                )
+                    ),
+                    startActionPane: ActionPane(
+                      // A motion is a widget used to control how the pane animates.
+                      motion: const ScrollMotion(),
+
+                      // A pane can dismiss the Slidable.
+
+                      // All actions are defined in the children parameter.
+                      children: const [
+                        // A SlidableAction can have an icon and/or a label.
+                        SlidableAction(
+                          backgroundColor: Color(0xFFFE4A49),
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Delete',
+                          onPressed:null,
+                        ),
+                      ],
+                    ),
+                  );
+                }),
               ],
             );
           }}),

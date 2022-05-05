@@ -6,7 +6,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:roofa/Customer/details_ticket/controller/detalis_ticket_controller.dart';
+
 import 'package:roofa/Customer/supervise_reports/view/superviser_report_screen.dart';
 import 'package:roofa/const/const_color.dart';
 import 'package:roofa/higher_management/how_can_show_replay/view/how_can_show_replay.dart';
@@ -14,9 +14,11 @@ import 'package:roofa/widgets/custom_dialog.dart';
 import 'package:roofa/widgets/material_text.dart';
 import 'package:roofa/const/text_app.dart';
 
+import '../../../Customer/details_ticket/controller/detalis_ticket_controller.dart';
 import '../../../Firebase/controller.dart';
 import '../../../Firebase/firebase.dart';
 import '../../../Firebase/reports.dart';
+import '../controller/detalis_ticket_controller.dart';
 
 
 
@@ -27,7 +29,7 @@ class DetailsTicketHMPage extends StatefulWidget {
 }
 
 class _DetailsTicketHMPageState extends State<DetailsTicketHMPage> {
-  final controller = Get.put(DetailsTicketController());
+  final controller = Get.put(DetailsTicketHMController());
   String? actionSend;
   Future<void> sendReply() async {
     actionSend=await controller.sendReply();

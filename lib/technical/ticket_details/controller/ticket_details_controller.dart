@@ -10,7 +10,8 @@ class TicketDetailsTController extends GetxController{
   var index = 0.obs;
   Color buttonActive = mainColor;
   Color textButtonActive = Colors.white;
-  String? textReply,causeReply;
+  final textReply=TextEditingController();
+  String?causeReply;
   var listReply;
   PageController? controllerPageView;
 
