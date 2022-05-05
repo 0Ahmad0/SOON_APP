@@ -9,6 +9,7 @@ import '../../../Firebase/controller.dart';
 import '../../../Firebase/firebase.dart';
 import '../../../Firebase/reports.dart';
 import '../../../const/const_color.dart';
+import '../../../const/picker.dart';
 import '../../../const/text_app.dart';
 import '../../../widgets/custom_dialog.dart';
 import '../../../widgets/material_text.dart';
@@ -187,12 +188,16 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                                                                             .delete_forever_outlined)),
                                                                     IconButton(
                                                                         onPressed:
-                                                                            () {},
+                                                                            () {
+                                                                              Picker.pickerFile();
+                                                                            },
                                                                         icon: Icon(Icons
                                                                             .attach_file_outlined)),
                                                                     IconButton(
                                                                         onPressed:
-                                                                            () {},
+                                                                            () {
+                                                                              Picker.showChoiceDialog(context);
+                                                                            },
                                                                         icon: Icon(Icons
                                                                             .camera_alt_outlined)),
                                                                   ],
@@ -212,9 +217,7 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                                                                     10.r),
                                                                 child:
                                                                 TextFormField(
-                                                                  onChanged: (val){
-                                                                    controller.textReply= val;
-                                                                  },
+                                                                  controller: controller.textReply,
                                                                   maxLines: 3,
                                                                   textDirection:
                                                                   TextDirection
@@ -264,7 +267,7 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                                                                 .circular(
                                                                 50.r)),
                                                         child: MaterialText(
-                                                          text: 'ارسال',
+                                                          text: ' ارسال',
                                                           fontWeight:
                                                           FontWeight.bold,
                                                           fontSize: 15.sp,
@@ -717,7 +720,7 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    FirebaseController.report["reply"][index]["الوصف"],
+                                    "${FirebaseController.report["reply"][index]["الوصف"]}",
                                     //'يرجى إنشاء تذكرة طلب صيانة للمستلزمات التعلمية  من ايقونة انشاء بلاغ جدي ',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(

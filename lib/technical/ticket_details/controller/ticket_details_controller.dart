@@ -24,7 +24,7 @@ class TicketDetailsTController extends GetxController{
       "الاسم":FirebaseController.name,
       "الحالة":FirebaseController.report["الحالة"],
       "الجهة":FirebaseController.report["الجهة المستفيدة"],
-      "الوصف":"${textReply}",
+      "الوصف":"${textReply.text}",
       "notification":FirebaseController.notification,
     });
     print(FirebaseController.report.id);
