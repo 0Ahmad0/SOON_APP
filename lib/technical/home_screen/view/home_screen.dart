@@ -171,7 +171,8 @@ class HomeScreenT extends StatelessWidget {
                                         color: Color(0xff447A78)),
                                   ),
                                   Text(
-                                    'فني',
+                                    controller.typeUser,
+                                   // 'فني',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 13.sp,

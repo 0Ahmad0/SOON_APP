@@ -9,6 +9,7 @@ import 'package:roofa/widgets/custom_dialog.dart';
 import 'package:roofa/widgets/material_text.dart';
 import 'package:roofa/const/text_app.dart';
 
+import '../../../const/picker.dart';
 import '../../home_page/view/home_screen.dart';
 import '../controller/details_problem_controller.dart';
 
@@ -143,19 +144,25 @@ class DetalisProblemScreen extends StatelessWidget {
                                       children: [
                                         IconButton(
                                             onPressed:
-                                                () {},
+                                                () {
+                                             controller.textReply.clear();
+                                            },
                                             icon: Icon(
                                                 Icons
                                                     .delete_forever_outlined)),
                                         IconButton(
                                             onPressed:
-                                                () {},
+                                                () {
+                                              Picker.pickerFile();
+                                            },
                                             icon: Icon(
                                                 Icons
                                                     .attach_file_outlined)),
                                         IconButton(
                                             onPressed:
-                                                () {},
+                                                () {
+                                              Picker.showChoiceDialog(context);
+                                            },
                                             icon: Icon(
                                                 Icons
                                                     .camera_alt_outlined)),

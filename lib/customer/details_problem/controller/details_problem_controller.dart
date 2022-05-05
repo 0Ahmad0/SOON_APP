@@ -1,13 +1,14 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:roofa/Firebase/firebase.dart';
 import 'package:roofa/customer/send_report/controller/send_report_controller.dart';
 
 class DetailsProblemController extends GetxController{
   SendReportVal sendReportVal=SendReportVal();
-
+  final textReply=TextEditingController();
   late String definingProblem="";
   late String extentDamage="";
   late String description="";
