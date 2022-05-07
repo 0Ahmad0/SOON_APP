@@ -26,14 +26,18 @@ class _HomeScreenDMState extends State<HomeScreenDM> {
       textDirection: TextDirection.rtl,
       child: Scaffold(// هنا أبدا بالرسم في الواجهة مثل الحاضنة للصفحة وما بداخلها
 
-        appBar: AppBar(  // الجزء العلوي من الصفحة يكون فيه نص يعبر عن عنوان الصفحة و أزرار رجوع أو اشعارات
-          title: Text( // هذا عنوان الصفحة
+        appBar: AppBar(
+          title: Text(
             'الصفحة الرئيسية',
+            style: TextStyle(),
           ),
-          centerTitle: true,  // مشان يجي العنوان يالمنتصف
-          leading: GestureDetector( // هذه ويدجت تخليني أقدر أكبس على أي شيء يكون ابنها
-            onTap: () {  // فانكشن عند الضغط
+          centerTitle: true,
+          leading: GestureDetector(
+            onTap: () {
               Get.to(()=>SettingScreen());
+              setState(() {
+
+              });
             },
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -45,56 +49,66 @@ class _HomeScreenDMState extends State<HomeScreenDM> {
             ),
           ),
           actions: [
-            Stack( // نفس ال column وال row لكن الفرق أن هنا العناصر تتوضع فوق بعضها البعض مو تحت أو بجانب بعض
-              alignment: Alignment.topLeft, // توضع العناصر أحتاجهم في أعلى اليسار
+            Stack(
+              alignment: Alignment.topLeft,
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.dialog(  // من الستيت مانجمنت getx موجود الديالوغ جاهز وهو مثل مربع يظهر فوق الشاشة
-                        SingleChildScrollView( // لكي تكون الشاشة سكرول الى الاعلى واللاسفل
-                          child: Column(  // من أجل وضع أكثر من ويدجت فوق بعض وبشكل عمودي
-                            // هنا هذه الاشعارات بشكل يدوي لكن عند الربط ستتغير شكلها وسيكون الاشعار بشكل فعلي
-                              children: List.generate(4, (index) =>
-                                  Container(// حاضنة يوضع بداخلها شيء
-                                padding: EdgeInsets.all(10.0),  // يعطي بعد عن الحافة للشيء لكن من الداخل
-                                margin: // يعطي بعد عن الحافة للشيء لكن من الخارج عن حدود الشاشة مثلا
-                                EdgeInsets.only(top: 15.h, right: 12.w, left: 12.w),
-                                width: Get.width,
-                                height: 90.h,
-                                decoration: BoxDecoration( // للتحكم بخصائص الكونتينر لون شكل حوافه
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(12.r)),
-                                child: Row(  // مثل العمود لكن العناصر تتوضع هنا بشكل أفقي
-                                  children: [
-                                    Expanded( // من أجل توزيع المسافة بالتساوي بين العناصر الموضوعة حصرا داخل row أو column حصرااااااا ولو شاهدنا flex فيعني...
-                                        flex: 4, // هنا أعطي لهذه ال expanded أربع أضعاف حجم باقي ال Expanded
-                                        child: Material(// مشان يظهر النص بتنسيق نظامي لو شلنا الماتيريال رح يطلع بكشل بشع وتحته خطوط
-                                          color: Colors.transparent,
-                                          child: Text(
-                                            'يوجد لديك  ${index+2} بلاغات متأخرة',
-                                            textDirection: TextDirection.rtl,// اتجاه النص
-                                            style: TextStyle( // ستايل النص  حجم الخط اللون الغمق ....الخ
-                                                fontSize: 17.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: mainColor),
-                                          ),
-                                        )),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 12.w),
-                                      width: .5,
-                                      color: Colors.black.withOpacity(.5),
+                    Get.dialog(ListView.builder(
+                        itemCount: controller.notification.length,//allreports.length,
+                        itemBuilder: (ctx, index){
+                          return (controller.notification[index].number>0)?GestureDetector(
+                              child:  Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(10.0),
+                                    margin:
+                                    EdgeInsets.only(top: 10.h, right: 12.w, left: 12.w),
+                                    width: Get.width,
+                                    height: 90.h,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(12.r)),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                            flex: 4,
+                                            child: Material(
+                                              color: Colors.transparent,
+                                              child: Text(
+                                                controller.notification[index].toString(),
+                                                //'يوجد لديك  5 بلاغات تم تغير حالتها',
+                                                textDirection: TextDirection.rtl,
+                                                style: TextStyle(
+                                                    fontSize: 17.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: mainColor),
+                                              ),
+                                            )),
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5.w),
+                                          width: .5,
+                                          color: Colors.black.withOpacity(.5),
+                                        ),
+                                        Expanded(child: GestureDetector(
+                                            onTap:(){
+                                              print("bhh");
+                                            },
+                                            child: SvgPicture.asset(
+                                              'images/logo.svg',
+                                              fit: BoxFit.cover,
+                                            )),),
+                                      ],
                                     ),
-                                    Expanded(
-                                        child: SvgPicture.asset( // ويدجت جاهزة لتعرض الصور بأفضل دقة ممكنة وهي تنسيق SVG
-                                          'images/logo.svg',
-                                          fit: BoxFit.cover,// هنا يعني أن تأخذ الصورة كامل الحجم للشيء الموضوع فيه
-                                        )),
-                                  ],
-                                ),
-                              ))
-                          ),
-                        ));
+                                  ),
+                                ],
+                              )
+                          ):
+                          SizedBox();
+                        }
+                    ),
 
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -105,18 +119,17 @@ class _HomeScreenDMState extends State<HomeScreenDM> {
                     ),
                   ),
                 ),
-                Positioned(//استطيع من خلالها تحريك العنصر اللي محطوطة عليه في أربع اتجاهات وحصرا تستخدم مع ال Stack
-                  left: 0,
-                  top: 0,
-                  child: CircleAvatar(// ويدجت تعطي شكل دائري
-                    radius: 10.r,// حجمها
+                Positioned(
+                  left: 2,
+                  top: 2,
+                  child: CircleAvatar(
+                    radius: 10.r,
                     backgroundColor: Colors.red,
                     child: Text(
-                      '4',
+                      "${controller.numberNotification}",
+                      //'4',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontWeight: FontWeight.bold
-                          ,color: Colors.white
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                 )
