@@ -485,11 +485,12 @@ class SuggestionsScreen extends StatelessWidget {
                        Text(
                          controller.listReport[index]["الوصف"]
                          //'أقتراح'
-                         ,style: TextStyle(
+                         , style: TextStyle(
                            color: mainColor,
                            fontWeight: FontWeight.bold,
                            fontSize: 25.sp
-                       ),)
+                       ),
+                       ),
                      ],
                    )),
                Expanded(

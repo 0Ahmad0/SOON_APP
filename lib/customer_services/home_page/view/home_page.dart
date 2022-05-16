@@ -148,16 +148,13 @@ class HomeScreenCS extends StatelessWidget {
                                 child: ListView(
                                   children: [
                                     GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Get.to(()=>UserProfileScreen());
+                                      },
                                       child: Padding(
                                         padding: const EdgeInsets.all(12.0),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            Get.to(()=>UserProfileScreen());
-                                          },
-                                          child: SvgPicture.asset(
-                                          'images/user-circle.svg',
-                                        ),
+                                        child: SvgPicture.asset(
+                                        'images/user-circle.svg',
                                         ),
                                       ),
                                     ),

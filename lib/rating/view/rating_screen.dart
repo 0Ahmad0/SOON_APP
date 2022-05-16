@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -10,7 +11,8 @@ import 'package:roofa/widgets/material_text.dart';
 
 class RatingScreen extends StatelessWidget {
   final controller = Get.put(RatingController());
-
+  final String? id;
+  RatingScreen({this.id});
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -66,10 +68,28 @@ class RatingScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 15.h,),
                 GestureDetector(
-                  onTap: () {
-                    showCustomDialog(
-                      text: 'تم إرسال التقيم بنجاح'
-                    );
+                  onTap: () async {
+                    /*print("هل تم حل المشكلة بسرعة عالية من قبل الفني؟"+"\n"+
+                        "${controller.speedRate.value}"+"\n"+
+                        'هل قام الفني بإبلاغك بالمشكلة وسببها؟'+"\n"+
+                        "${controller.problemSolveRate.value}"+"\n"+
+                        'هل تكررت المشكلة معك اكثر من مره؟'+"\n"+
+                        "${controller.repeatProblemRate.value}"+"\n"+
+                        'ما مدى رضاك بشكل عام بالخدمة من 1 الى 10'+"\n"+
+                        "${controller.ratingGlobal.value}");
+                    */
+                    print(id);
+                    await FirebaseFirestore.instance.collection("reports").doc(id).update(
+                      {
+                        "القسم":"ok",
+                      }
+                    ).then((value) {
+                      Navigator.pop(context);
+                      showCustomDialog(
+                          text: 'تم إرسال التقيم بنجاح'
+                      );
+                    });
+
                   },
                   child:
                   Container(

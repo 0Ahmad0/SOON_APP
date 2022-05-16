@@ -38,10 +38,10 @@ class HomeTController extends GetxController{
       then((value) => {
         value.docs.forEach((element) {
           if(element["الجهة"]=="الفنيين"&&
-              (element["الحالة"]=="جديدة"||element["الحالة"]=="معتمدة")&&
+              (element["الحالة"]=="تحت الإجراء"&&element["tracking"].length==0)&&
               !element["notification"][3]["notification"])
             notification[0].number++;
-          else if(element["الحالة"]!="مرفوضة"&&element["الحالة"]!="مغلقة"&&element["الجهة"]=="الفنيين"){
+          if(element["الحالة"]!="مرفوضة"&&element["الحالة"]!="مغلقة"&&element["الجهة"]=="الفنيين"){
             if(Timestamp.now().compareTo(element["TimeFor"])==1){
               notification[1].number++;
             }

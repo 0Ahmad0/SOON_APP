@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:roofa/const/picker.dart';
 import 'package:roofa/const/text_app.dart';
 import 'package:roofa/technical/show_tasks/type_move/remove.dart';
 
@@ -203,7 +204,8 @@ class _FillReportTScreenState extends State<FillReportTScreen> {
                     flex:2,
                     child: GestureDetector(
                       onTap: ()async{
-                        final DateTime? date = await showDatePicker(
+                        final DateTime? date
+                        = await showDatePicker(
                             context: context,
                             initialDate: widget.controller.expectedTime.value,
                             firstDate: DateTime(1990),
@@ -254,7 +256,8 @@ SizedBox(width: 25.w,),
                             ],
                             borderRadius: BorderRadius.circular(8.r)
                         ),
-                        child: Obx(()=>Row(
+                        child: Obx(
+                                ()=>Row(
                           children: [
                             Expanded(child: GestureDetector(
                               onTap: (){
@@ -380,12 +383,16 @@ SizedBox(width: 25.w,),
                                         .delete_forever_outlined)),
                                 IconButton(
                                     onPressed:
-                                        () {},
+                                        () {
+                                      Picker.pickerFile();
+                                        },
                                     icon: Icon(Icons
                                         .attach_file_outlined)),
                                 IconButton(
                                     onPressed:
-                                        () {},
+                                        () {
+                                      Picker.showChoiceDialog(context);
+                                        },
                                     icon: Icon(Icons
                                         .camera_alt_outlined)),
                               ],
@@ -432,8 +439,14 @@ SizedBox(width: 25.w,),
         GestureDetector(
           onTap: (){
             actionSend="";
-            widget.controller.sendAssignment();
+
+            if(widget.controller.check()){
+              widget.controller.sendAssignment();
               Get.back();
+            }
+            else
+              Get.snackbar("Error", "complete details",backgroundColor: Colors.red,colorText: Colors.white);
+
 
           },
           child: Container(

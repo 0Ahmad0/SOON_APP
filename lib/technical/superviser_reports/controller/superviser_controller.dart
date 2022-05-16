@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
+import '../../../Firebase/firebase.dart';
 import '../../../Firebase/reports.dart';
 
 
@@ -46,7 +47,7 @@ class SuperviserTController extends GetxController{
       if(searchFilter!=""&&filter!=""){
         await FirebaseFirestore.instance.collection("reports").
         where("رقم البلاغ",isEqualTo: searchFilter).
-        //where("email",isEqualTo: FirebaseController.email).
+        where("email",isEqualTo: FirebaseController.email).
         //where("الحالة",isNotEqualTo: "جديدة").
 
         where("${nameFilter}",isEqualTo: filter).
@@ -54,8 +55,7 @@ class SuperviserTController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            //(element["الحالة"]!="جديدة")?listReport.add(element):"";
-            listReport.add(element);
+            (element["الحالة"]!="مرفوضة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -63,15 +63,14 @@ class SuperviserTController extends GetxController{
       }
       else if(searchFilter!=""&&filter==""){
         await FirebaseFirestore.instance.collection("reports").
-        //where("الحالة",isNotEqualTo: "جديدة").
+        where("الحالة",isNotEqualTo: "جديدة").
         //where("email",isEqualTo: FirebaseController.email).
         where("رقم البلاغ",isEqualTo: searchFilter).
         get().
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            listReport.add(element);
-            // (element["الحالة"]!="جديدة")?listReport.add(element):"";
+            (element["الحالة"]!="مرفوضة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -79,15 +78,14 @@ class SuperviserTController extends GetxController{
       }
       else if(searchFilter==""&&filter!=""){
         await FirebaseFirestore.instance.collection("reports").
-        //where("الحالة",isNotEqualTo: "جديدة").
+        where("الحالة",isNotEqualTo: "جديدة").
         //where("email",isEqualTo: FirebaseController.email).
         where("${nameFilter}",isEqualTo: filter).
         get().
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            listReport.add(element);
-            //(element["الحالة"]!="جديدة")?listReport.add(element):"";
+            (element["الحالة"]!="مرفوضة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -95,11 +93,14 @@ class SuperviserTController extends GetxController{
       }
       else{
         await FirebaseFirestore.instance.collection("reports").
-        //where("الحالة",isNotEqualTo: "جديدة").
+        where("الحالة",isNotEqualTo: "جديدة").
         //where("email",isEqualTo: FirebaseController.email).
         get().
         then((value) => {
-          listReport=value.docs,
+          listReport=[],
+          value.docs.forEach((element) {
+            (element["الحالة"]!="مرفوضة")?listReport.add(element):"";
+          }),
           print("listReport : "+"${listReport.length}"),
         });
         return true;

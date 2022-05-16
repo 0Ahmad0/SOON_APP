@@ -42,7 +42,8 @@ class ShowReportsDMScreen extends StatelessWidget {
             ),
             Container(
                 decoration:
-                BoxDecoration(color: Colors.white, boxShadow: [
+                BoxDecoration(
+                    color: Colors.white, boxShadow: [
                   BoxShadow(
                       color: colorShadowSearch.withOpacity(.56),
                       blurRadius: 10,
@@ -61,7 +62,8 @@ class ShowReportsDMScreen extends StatelessWidget {
                         return  ListTile(
                           textColor: mainColor,
                           trailing: Icon(
-                              Icons.keyboard_arrow_down,color: mainColor,
+                              Icons.keyboard_arrow_down,
+                            color: mainColor,
                           size: 25.sp,),
                           title: Text(
                             '${showReportsList[index]
@@ -102,7 +104,8 @@ class ShowReportsDMScreen extends StatelessWidget {
                     40.r
                   ),
                 ),
-                child: Text('عرض التقارير',style: TextStyle(
+                child: Text(
+                  'عرض التقارير',style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp

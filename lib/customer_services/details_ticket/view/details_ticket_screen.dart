@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:roofa/const/picker.dart';
 import 'package:roofa/customer_services/home_page/view/home_page.dart';
 import 'package:roofa/widgets/custom_dialog.dart';
 
@@ -193,13 +194,17 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                                                                                     .delete_forever_outlined)),
                                                                         IconButton(
                                                                             onPressed:
-                                                                                () {},
+                                                                                () {
+                                                                              Picker.pickerFile();
+                                                                                },
                                                                             icon: Icon(
                                                                                 Icons
                                                                                     .attach_file_outlined)),
                                                                         IconButton(
                                                                             onPressed:
-                                                                                () {},
+                                                                                () {
+                                                                              Picker.showChoiceDialog(context);
+                                                                                },
                                                                             icon: Icon(
                                                                                 Icons
                                                                                     .camera_alt_outlined)),
@@ -501,7 +506,7 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                                           ),
                                         ],
                                       ),
-                                      Row(
+                                    /*  Row(
                                         children: [
                                           Wrap(
                                             children: [
@@ -522,7 +527,7 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                                             ],
                                           ),
                                         ],
-                                      ),
+                                      ),*/
                                       Column(
                                         crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
@@ -629,19 +634,24 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                                                     children: [
                                                       IconButton(
                                                           onPressed:
-                                                              () {},
+                                                              () {
+                                                              },
                                                           icon: Icon(
                                                               Icons
                                                                   .delete_forever_outlined)),
                                                       IconButton(
                                                           onPressed:
-                                                              () {},
+                                                              () {
+                                                            Picker.pickerFile();
+                                                              },
                                                           icon: Icon(
                                                               Icons
                                                                   .attach_file_outlined)),
                                                       IconButton(
                                                           onPressed:
-                                                              () {},
+                                                              () {
+                                                            Picker.showChoiceDialog(context);
+                                                              },
                                                           icon: Icon(
                                                               Icons
                                                                   .camera_alt_outlined)),

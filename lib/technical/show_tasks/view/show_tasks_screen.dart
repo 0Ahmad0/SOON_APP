@@ -38,39 +38,6 @@ class _ShowTasksTScreenState extends State<ShowTasksTScreen> {
                 Get.back();
               },
             ),
-            actions: [
-              Stack(
-                alignment: Alignment.topLeft,
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: SvgPicture.asset(
-                        'images/notifications.svg',
-                        width: 23.w,
-                        height: 23.h,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 2,
-                    top: 2,
-                    child: CircleAvatar(
-                      radius: 10.r,
-                      backgroundColor: Colors.red,
-                      child: Text(
-                        '4',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
           ),
           body: Column(
             children: [
@@ -217,6 +184,9 @@ class _ShowTasksTScreenState extends State<ShowTasksTScreen> {
                     return ListView.builder(
                       itemCount: controller.listReport.length,
                       itemBuilder: (ctx, index) {
+                        bool isNew=(controller.listReport[index]["الجهة"]=="الفنيين"&&
+                            (controller.listReport[index]["الحالة"]=="تحت الإجراء"&&
+                                controller.listReport[index]["tracking"].length==0));
                         return GestureDetector(
                           onTap: () {
                             Report.reportNumber=controller.listReport[index]['رقم البلاغ'];
@@ -244,7 +214,8 @@ class _ShowTasksTScreenState extends State<ShowTasksTScreen> {
                                     child: Container(
                                       height: Get.width * 0.5,
                                       decoration: BoxDecoration(
-                                          color: statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1],//Colors.grey,
+                                          color: isNew?Colors.grey:
+                                          statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1],//Colors.grey,
                                           borderRadius: BorderRadius.only(
                                             topRight: Radius.circular(15.r),
                                             bottomRight: Radius.circular(15.r),
@@ -268,7 +239,7 @@ class _ShowTasksTScreenState extends State<ShowTasksTScreen> {
                                                     fontSize: 15.sp),
                                               ),
                                               Expanded(
-                                                flex: 2,
+                                                flex: 1,
                                                 child: Text(
                                                   FirebaseController.formatTimestamp(controller.listReport[index]["Time"]),
                                                 /*  '${
@@ -284,16 +255,19 @@ class _ShowTasksTScreenState extends State<ShowTasksTScreen> {
                                                       height: 1.5),
                                                 ),
                                               ),
-
+                                              SizedBox(width: 10,),
                                               Expanded(
                                                 child: Row(
                                                   children: [
                                                     CircleAvatar(
-                                                      backgroundColor: statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1],//Colors.grey,
+                                                      backgroundColor:   isNew?Colors.grey
+                                                          :statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1],//Colors.grey,
                                                       radius:  5.r,
                                                     ),
+                                                    SizedBox(width: 5,),
                                                     Text('${
-                                                        controller.listReport[index]['الحالة']
+                                                        isNew?"جديدة"
+                                                        :controller.listReport[index]['الحالة']
                                                     }'),
                                                   ],
                                                 ),

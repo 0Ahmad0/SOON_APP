@@ -9,9 +9,13 @@ class ReportsTController extends GetxController{
   var index = 0.obs;
   Color buttonActive = mainColor;
   Color textButtonActive = Colors.white;
-  String? typeMove,textReport,state;
+  String? typeMove="",textReport="",state="";
   var listReply;
-
+  bool check(){
+    if(typeMove=="")return false;
+    else if(textReport=="")return false;
+    else return true;
+  }
   PageController? controllerPageView;
 
   Future<String> sendAssignment() async {

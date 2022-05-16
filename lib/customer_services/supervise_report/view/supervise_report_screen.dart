@@ -306,7 +306,8 @@ class _SuperviseReportCSScreenState extends State<SuperviseReportCSScreen> {
                                                           ),)
                                                         ],
                                                       ),
-                                                      Row(
+                                                       (controller.listReport[index]["الجهة"]=="الفنيين")?
+                                                       Row(
                                                         children: [
                                                           Text('الفني المسؤول : ',style: TextStyle(
                                                               color: mainColor,
@@ -320,7 +321,8 @@ class _SuperviseReportCSScreenState extends State<SuperviseReportCSScreen> {
                                                             color: mainColor,
                                                           ),)
                                                         ],
-                                                      ),
+                                                      ):SizedBox(),
+                                                      (controller.listReport[index]["الجهة"]=="الفنيين")?
                                                       Row(
                                                         children: [
                                                           Text('الفنيين المساعدين : ',style: TextStyle(
@@ -335,7 +337,7 @@ class _SuperviseReportCSScreenState extends State<SuperviseReportCSScreen> {
                                                                 ),)).toList(),
                                                           )
                                                         ],
-                                                      ),
+                                                      ):SizedBox(),
                                                     ],
                                                   ),
                                                 ),

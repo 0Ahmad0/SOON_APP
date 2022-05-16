@@ -11,8 +11,13 @@ class DetailsProblemController extends GetxController{
   final textReply=TextEditingController();
   late String definingProblem="";
   late String extentDamage="";
-  late String description="";
-
+  var description=TextEditingController();
+  bool check(){
+    if(definingProblem=="")return false;
+    else if(extentDamage=="")return false;
+    else if(description.text=="")return false;
+    else return true;
+  }
   void setVal(String name,String val){
     switch(name){
       case "تحديد المشكلة":
@@ -22,7 +27,7 @@ class DetailsProblemController extends GetxController{
         extentDamage=val;
         break;
       case "الوصف":
-        description=val;
+        description.text=val;
         break;
     }
   }
@@ -33,7 +38,7 @@ class DetailsProblemController extends GetxController{
       case "مدى الضرر":
         return extentDamage;
       case "الوصف":
-        return description;
+        return description.text;
     }
     return "";
   }
@@ -63,7 +68,7 @@ class DetailsProblemController extends GetxController{
             'رقم الغرفة':sendReportVal.roomNumber,
             'تحديد المشكلة':definingProblem,
             'مدى الضرر':extentDamage,
-            'الوصف':description,
+            'الوصف':description.text,
             'رقم البلاغ':generateRandomString,
             'Time':DateTime.now(),
           'TimeTo':DateTime.now(),
@@ -73,7 +78,7 @@ class DetailsProblemController extends GetxController{
           'نوع الحركة':"",
           'الحالة':"جديدة",
           'القسم':"",
-          "الجهة":"مدير القسم",
+          "الجهة":"خدمة العملاء",
           "notification":notification,
           'tracking':[],
           'reply':[],
@@ -89,7 +94,7 @@ class DetailsProblemController extends GetxController{
               'رقم الغرفة : '+sendReportVal.roomNumber+","+
               'تحديد المشكلة : '+definingProblem+","+
               'مدى الضرر : '+extentDamage+","+
-              'الوصف : '+description+","+
+              'الوصف : '+description.text+","+
               'رقم البلاغ : '+generateRandomString+","+
               'الحالة : '+"جديدة"+","+
               'Time :'+"${DateTime.now()}"+" ]"),

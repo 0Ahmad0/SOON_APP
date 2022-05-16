@@ -239,7 +239,7 @@ List<Map> statusReport = [
     'name': ['تحت الإجراء', Color(0xff28A2CF)]
   },
   {
-    'name': ['معلقة', Color(0xff818181)]
+    'name': ['معلقة', Colors.yellow]//Color(0xff818181)]
   },
   {
     'name': ['مغلقة', Color(0xffDF0D0D)]
@@ -428,7 +428,8 @@ List<Map<dynamic, dynamic>> statusSortDM = [
       ]
     },
   },
-  {
+  //{
+    /*
     'type_sort_name': {
       'name': 'فرز على حسب الحركة',
       'type_sort_value': [
@@ -442,7 +443,8 @@ List<Map<dynamic, dynamic>> statusSortDM = [
         'إحالة التذكرة لخدمة العملاء',*/
       ]
     },
-  },
+    */
+ // },
   {
     'type_sort_name': {
       'name': 'فرز على حسب الجهة',

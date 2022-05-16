@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:get/get.dart';
 import 'package:roofa/const/const_color.dart';
 
 class AppointmentOfTechniciansScreen extends StatelessWidget {
@@ -16,7 +17,8 @@ class AppointmentOfTechniciansScreen extends StatelessWidget {
             ),),
             centerTitle: true,
             leading: GestureDetector(
-              onTap: () {},
+              onTap: () {
+              },
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: SvgPicture.asset(

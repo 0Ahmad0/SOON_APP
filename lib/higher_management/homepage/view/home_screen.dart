@@ -153,7 +153,9 @@ class HomeScreenHM extends StatelessWidget {
                               child: ListView(
                                 children: [
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Get.to(()=>UserProfileScreen());
+                                    },
                                     child: Padding(
                                       padding: const EdgeInsets.all(12.0),
                                       child: SvgPicture.asset(
@@ -163,7 +165,7 @@ class HomeScreenHM extends StatelessWidget {
                                   ),
                                   Text(
                                     controller.name,
-                                    //'خالد المطيري',
+                                    // 'خالد المطيري',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 15.sp,
@@ -172,7 +174,7 @@ class HomeScreenHM extends StatelessWidget {
                                   ),
                                   Text(
                                     controller.typeUser,
-                                    //'إدارة عليا',
+                                    // 'إدارة عليا',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 13.sp,

@@ -6,12 +6,14 @@ import '../../../Firebase/firebase.dart';
 import '../../../const/const_color.dart';
 
 class DetailsReportTicketDMController extends GetxController{
+
   var index = 0.obs;
   Color buttonActive = mainColor;
   Color textButtonActive = Colors.white;
-  String? textReply;
+  final replayText = TextEditingController();
   var listReply;
   PageController? controllerPageView;
+
 
   Future<String> sendReply() async {
     listReply=FirebaseController.report["reply"];
@@ -21,8 +23,7 @@ class DetailsReportTicketDMController extends GetxController{
       "الاسم":FirebaseController.name,
       "الحالة":FirebaseController.report["الحالة"],
       "الجهة":FirebaseController.report["الجهة المستفيدة"],
-      "الوصف":"${textReply}",
-      "notification":FirebaseController.notification,
+      "الوصف":"${replayText.text}",
     });
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
@@ -41,6 +42,7 @@ class DetailsReportTicketDMController extends GetxController{
     }
 
   }
+
   @override
   void onInit() {
     controllerPageView = PageController(

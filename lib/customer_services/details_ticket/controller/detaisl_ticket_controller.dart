@@ -67,7 +67,7 @@ class DetailsTicketCSController extends GetxController{
     print(FirebaseController.report.id);
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
-          "tracking":listReply,
+       //   "tracking":listReply,
           "الحالة":"مرفوضة",
          // "نوع الحركة":"لم يتم الإنجاز",
         }).then((value){
@@ -93,7 +93,7 @@ class DetailsTicketCSController extends GetxController{
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
-      "الحالة":"معتمدة",
+      "الحالة":"جديدة",
       "الوصف":"${causeReply}",
       "notification":notification,
 
@@ -102,7 +102,7 @@ class DetailsTicketCSController extends GetxController{
     final send=await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id).update(
         {
           "الجهة":"مدير القسم",
-          "tracking":listReply,
+        //  "tracking":listReply,
         "الحالة":"معتمدة",
           "notification":FirebaseController.notification,
          // "نوع الحركة":"إحالة التذكرة لمركز الصيانة",

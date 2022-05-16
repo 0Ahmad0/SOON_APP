@@ -11,6 +11,8 @@ class ChosenTechnicalForTicketDMController extends GetxController{
   Color buttonActive = mainColor;
   Color textButtonActive = Colors.white;
   String? textReply,causeReply;
+  final replayText = TextEditingController();
+  final replayCause = TextEditingController();
   var listReply;
   PageController? controllerPageView;
 
@@ -42,7 +44,7 @@ class ChosenTechnicalForTicketDMController extends GetxController{
       "الاسم":FirebaseController.name,
       "الحالة":FirebaseController.report["الحالة"],
       "الجهة":FirebaseController.report["الجهة المستفيدة"],
-      "الوصف":"${textReply}",
+      "الوصف":"${replayText.text}",
       "notification":notification,
     });
     print(FirebaseController.report.id);
@@ -73,7 +75,7 @@ class ChosenTechnicalForTicketDMController extends GetxController{
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
       "الحالة":"جديدة",
-      "الوصف":"${textReply}",
+      "الوصف":"${replayCause.text}",
       "notification":notification,
     });
     print(FirebaseController.report.id);
@@ -106,7 +108,7 @@ class ChosenTechnicalForTicketDMController extends GetxController{
       "اسم الجهاز":"",
       "نوع الجهاز":"",
       "مدخل التقرير":FirebaseController.name,
-      "الحالة":"جديدة",
+      "الحالة":"تحت الإجراء",
       "الوصف":"${causeReply}",
       "notification":notification,
     });
@@ -115,7 +117,7 @@ class ChosenTechnicalForTicketDMController extends GetxController{
         {
 
           //"tracking":listReply,
-         // "الحالة":"جديدة",
+          "الحالة":"تحت الإجراء",
           //"نوع الحركة":"إحاطلة التذكرة لمركز الصيانة",
           "الجهة":"الفنيين",
           "TimeTo":DateTime.parse(expectedTime1.toString()),

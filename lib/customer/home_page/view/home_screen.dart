@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "${controller.numberNotification}",
                               //'4',
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
                             ),
                           ),
                         )
@@ -163,7 +163,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: ListView(
                                   children: [
                                     GestureDetector(
-
                                       onTap: () {
                                         Get.to(()=>UserProfileScreen());
                                       setState(() {

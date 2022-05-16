@@ -102,11 +102,11 @@ class AchievementOfTechniciansController extends GetxController{
   var selectName = 'اسامة العوض'.obs;
   List customerNames = [
     'اسامة العوض',
-    'أحمد متولي',
+    /*'أحمد متولي',
     'رهف متولي',
     'شهد العامودي',
     'رزان الحربي',
-    'ايمان الأهدل',
+    'ايمان الأهدل',*/
 
   ];
 }

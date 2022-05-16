@@ -10,9 +10,12 @@ import 'package:intl/intl.dart' as intl;
 import 'package:roofa/Customer/supervise_reports/view/superviser_report_screen.dart';
 import 'package:roofa/Firebase/reports.dart';
 import 'package:roofa/const/const_color.dart';
+import 'package:roofa/const_pdf.dart';
+import 'package:roofa/customer/home_page/view/home_screen.dart';
 import 'package:roofa/widgets/custom_dialog.dart';
 import 'package:roofa/widgets/material_text.dart';
 import 'package:roofa/const/text_app.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Firebase/controller.dart';
 import '../../../Firebase/firebase.dart';
@@ -51,7 +54,9 @@ class _DetailsTicketScreenState extends State<DetailsTicketScreen> {
             ),
             actions: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.off(()=>HomeScreen());
+                  },
                   icon: Icon(
                     Icons.home,
                     size: 30.r,
@@ -154,7 +159,9 @@ class _DetailsTicketScreenState extends State<DetailsTicketScreen> {
                       Expanded(
                           child: IconButton(
                             icon: Icon(Icons.print,color: colorShadowSearch,),
-                            onPressed: (){},
+                            onPressed: ()async{
+                              await launch(getArchivmentFile);
+                            },
                           )):SizedBox(),
 
                     ],
@@ -198,6 +205,8 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
   Future<void> sendReply() async {
     actionSend=await widget.controller.sendReply();
   }
+  int c = 0;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -250,7 +259,8 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                                           }else{
                                             return Column(
                                               children: [
-                                                ticketInformation['ticket_status']!="مرفوضة"?Row(
+                                                FirebaseController.report['الحالة']!="مرفوضة"?
+                                                Row(
                                                   mainAxisAlignment: MainAxisAlignment.end,
                                                   children: [
                                                     GestureDetector(
@@ -451,7 +461,10 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                                                   ],
                                                 ):SizedBox(),
                                                 Text(
-                                                  'بيانات التذكرة',
+                                                  "${
+                                                      (  FirebaseController.report["نوع الحركة"]=="")?'بيانات التذكرة':"التذكرة "+FirebaseController.report["نوع الحركة"]
+                                                  }"
+                                                      ,
                                                   style: TextStyle(
                                                       color: mainColor,
                                                       fontSize: 14.sp,
@@ -681,6 +694,7 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                                                 ),
                                                 Row(
                                                   children: [
+                                                    /*
                                                     Wrap(
                                                       children: [
                                                         Text(
@@ -700,6 +714,7 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                                                         ),
                                                       ],
                                                     ),
+                                                    */
                                                   ],
                                                 ),
                                                 Column(
@@ -742,7 +757,41 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                   //هنا يجب أنا تشيك إذا كانت مرفوضة بس يطلع له سبب الرفض واذا كانت غير شي يطلع له الردود
                   //ticketInformation['ticket_status']!="مرفوضة"?
                   ...List.generate(FirebaseController.report["reply"].length, (index)  {
-                    return Slidable(
+                    return Dismissible(
+                      secondaryBackground: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.0
+                        ),
+                        color: Colors.red,
+                        alignment: Alignment.centerLeft,
+                        child: Icon(Icons.delete,
+                          size: Get.width * 0.1,
+                          color: Colors.white,),
+                      ),
+                      background: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 15.0
+                        ),
+                        alignment:  Alignment.centerRight
+                        ,
+                        color: Colors.red,
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                          size: Get.width * 0.1,
+                        ),
+                      ),
+                      key: Key(UniqueKey().toString()),
+                      onDismissed: (direction) async {
+                        print(direction);
+                        List reply=FirebaseController.report["reply"];
+                        reply.removeAt(index);
+                       // print(FirebaseController.report.id);
+                        await FirebaseFirestore.instance.collection("reports").doc(FirebaseController.report.id)
+                        .update({
+                          "reply":reply,
+                        }).then((value) => Get.snackbar("delete", "done delete reply",backgroundColor: Colors.white,colorText: Colors.red));
+                      },
                       child: Container(
                         margin:
                         EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
@@ -827,7 +876,7 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                                     Row(
                                       children: [
                                         Text(
-                                          'وحدةً'+'${FirebaseController.report["reply"][index]["الوحدة"]}',
+                                          'وحدةً'+'${(FirebaseController.report["reply"][index]["الوحدة"]!=null)?FirebaseController.report["reply"][index]["الوحدة"]:" معرفة"}',
                                           //'وحدة خدمة الصيانةً',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -855,24 +904,6 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                             )
                           ],
                         ),
-                      ),
-                      startActionPane: ActionPane(
-                        // A motion is a widget used to control how the pane animates.
-                        motion: const ScrollMotion(),
-
-                        // A pane can dismiss the Slidable.
-
-                        // All actions are defined in the children parameter.
-                        children: const [
-                          // A SlidableAction can have an icon and/or a label.
-                          SlidableAction(
-                            backgroundColor: Color(0xFFFE4A49),
-                            foregroundColor: Colors.white,
-                            icon: Icons.delete,
-                            label: 'Delete',
-                            onPressed:null,
-                          ),
-                        ],
                       ),
                     );
                   }),

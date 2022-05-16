@@ -11,7 +11,6 @@ import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
 import '../../../customer_services/home_page/view/home_page.dart';
 import '../../../customer_services/reports_screen/view/reports_screen.dart';
-import '../../../customer_services/supervise_report/controller/supervise_controller.dart';
 import '../../../department_manager/details_report_ticket/view/details_report_ticket.dart';
 import '../../../department_manager/supervise_reports/controller/supervise_repot_controller.dart';
 import '../../../widgets/dialog_date_time.dart';
@@ -40,7 +39,7 @@ import '../../../Firebase/reports.dart';
 import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
 import '../../../department_manager/details_report_ticket/view/details_report_ticket.dart';
-import '../../../department_manager/supervise_reports/controller/supervise_repot_controller.dart';
+
 import '../../../rating/view/rating_screen.dart';
 import '../../../widgets/dialog_date_time.dart';
 
@@ -53,7 +52,7 @@ class SuperviserReportTScreen extends StatefulWidget {
 }
 
 class _SuperviserReportTScreenState extends State<SuperviserReportTScreen> {
-  final controller = Get.put(SuperviseCSController());
+  final controller = Get.put(SuperviserTController());
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +169,7 @@ class _SuperviserReportTScreenState extends State<SuperviserReportTScreen> {
                   itemBuilder: (context, index) {
                     List c = statusSortDM[index]['type_sort_name']
                     ['type_sort_value'];
-                    return GetBuilder<SuperviseCSController>(
+                    return GetBuilder<SuperviserTController>(
                       builder: (_) {
                         return  ListTile(
                           textColor: mainColor,
@@ -333,6 +332,7 @@ class _SuperviserReportTScreenState extends State<SuperviserReportTScreen> {
                                                           ),)
                                                         ],
                                                       ),
+                                                      (controller.listReport[index]["الجهة"]=="الفنيين")?
                                                       Row(
                                                         children: [
                                                           Text('الفني المسؤول : ',style: TextStyle(
@@ -347,7 +347,8 @@ class _SuperviserReportTScreenState extends State<SuperviserReportTScreen> {
                                                             color: mainColor,
                                                           ),)
                                                         ],
-                                                      ),
+                                                      ):SizedBox(),
+                                                      (controller.listReport[index]["الجهة"]=="الفنيين")?
                                                       Row(
                                                         children: [
                                                           Text('الفنيين المساعدين : ',style: TextStyle(
@@ -362,7 +363,7 @@ class _SuperviserReportTScreenState extends State<SuperviserReportTScreen> {
                                                                 ),)).toList(),
                                                           )
                                                         ],
-                                                      ),
+                                                      ):SizedBox(),
                                                     ],
                                                   ),
                                                 ),

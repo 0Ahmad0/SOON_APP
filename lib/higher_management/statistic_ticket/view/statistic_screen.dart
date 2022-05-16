@@ -466,7 +466,8 @@ class _StatisticScreenState extends State<StatisticScreen> {
                 ),
               ),
               Column(
-                children: List.generate(controller.listReport.length, (index) => GestureDetector(
+                children: List.generate(
+                    controller.listReport.length, (index) => GestureDetector(
                   onTap: () {
                   },
                   child: Container(

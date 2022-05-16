@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:roofa/insert_phone_number/view/inser_phone_number_screen.dart';
 import 'package:roofa/preview_screen/view/preview_screen.dart';
 import 'package:roofa/setting/view/setting_screen.dart';
+import 'package:roofa/sign_in/view/sign_in_screen.dart';
 import 'package:roofa/widgets/custom_dialog.dart';
 
 import '../../department_manager/home_page/view/home_page.dart';
@@ -120,35 +121,23 @@ class UserProfileScreen extends StatelessWidget {
                                 showCustomDialog(text: 'مرحبا بكم في تطبيقنا');
                               },
                             ),
+
                             SizedBox(height: 20),
-                            _buildItem(
-                              title: controller.phoneNumber,//"05xxxxxxxx",
-                              rightIconImage: "images/mobile-alt.svg",
-                              leftIconImage: "images/edit.svg",
-                              fontColor: Color(0xFF447A78),
-                              onTap: (){
-                                Get.to(InsertPhoneNumberScreen());
-                              },
-                            ),
-                            SizedBox(height: 20),
-                            _buildItem(
-                              title: "تغير كلمة المرور",
-                              leftIconImage: "images/edit.svg",
-                              fontColor: Color(0xFF447A78),
-                              onTap: () async {
-                                showCustomDialog(text: 'تم تغيير كلمة السر بنجاح');
-                              },
-                            ),
-                            SizedBox(height: 20),
-                            _buildItem(
+                                                       GestureDetector(
+                                                         onTap: (){
+                                                           Get.off(()=> SignInScreen());
+
+                                                         },
+                                                         child: _buildItem(
                               title: "تسجيل الخروج",
                               rightIconImage: "images/log-out.svg",
                               iconColor: Colors.red,
                               fontColor: Colors.red,
                               onTap: (){
-                                Get.off(()=>PreviewScreen());
+                                Get.off(()=> SignInScreen());
                               },
                             ),
+                                                       ),
                            /* InkWell(onTap: (){
                               Get.to(SettingScreen());
                             },

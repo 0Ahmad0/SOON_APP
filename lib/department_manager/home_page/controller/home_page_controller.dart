@@ -48,10 +48,11 @@ class HomePageDMController extends GetxController{
       then((value) => {
         value.docs.forEach((element) {
           if(element["الجهة"]=="مدير القسم"&&
-              element["الحالة"]=="جديدة"&&
+              element["الحالة"]=="معتمدة"&&
               !element["notification"][2]["notification"])
                       notification[3].number++;
           else if(!element["notification"][2]["notification"]) notification[0].number++;
+          if(element["الحالة"]=="معتمدة"&&element["notification"][4]["notification"]) notification[4].number++;
           element["tracking"].forEach((track) {
               if(track["الحالة"]=="معتمدة"&&track["notification"][2]["notification"]) notification[4].number++;
               if(!track["notification"][2]["notification"]){

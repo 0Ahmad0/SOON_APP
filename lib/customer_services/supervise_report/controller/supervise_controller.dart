@@ -51,7 +51,7 @@ class SuperviseCSController extends GetxController{
       if(searchFilter!=""&&filter!=""){
         await FirebaseFirestore.instance.collection("reports").
         where("رقم البلاغ",isEqualTo: searchFilter).
-        //where("email",isEqualTo: FirebaseController.email).
+        where("email",isEqualTo: FirebaseController.email).
         //where("الحالة",isNotEqualTo: "جديدة").
 
         where("${nameFilter}",isEqualTo: filter).
@@ -68,7 +68,7 @@ class SuperviseCSController extends GetxController{
       }
       else if(searchFilter!=""&&filter==""){
         await FirebaseFirestore.instance.collection("reports").
-        //where("الحالة",isNotEqualTo: "جديدة").
+        where("الحالة",isNotEqualTo: "جديدة").
         //where("email",isEqualTo: FirebaseController.email).
         where("رقم البلاغ",isEqualTo: searchFilter).
         get().
@@ -84,7 +84,7 @@ class SuperviseCSController extends GetxController{
       }
       else if(searchFilter==""&&filter!=""){
         await FirebaseFirestore.instance.collection("reports").
-        //where("الحالة",isNotEqualTo: "جديدة").
+        where("الحالة",isNotEqualTo: "جديدة").
         //where("email",isEqualTo: FirebaseController.email).
         where("${nameFilter}",isEqualTo: filter).
         get().
@@ -100,7 +100,7 @@ class SuperviseCSController extends GetxController{
       }
       else{
         await FirebaseFirestore.instance.collection("reports").
-        //where("الحالة",isNotEqualTo: "جديدة").
+        where("الحالة",isNotEqualTo: "جديدة").
         //where("email",isEqualTo: FirebaseController.email).
         get().
         then((value) => {

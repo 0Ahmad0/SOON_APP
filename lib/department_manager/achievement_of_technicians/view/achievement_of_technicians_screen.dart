@@ -58,8 +58,7 @@ class _AchievementOfTechniciansScreenState extends State<AchievementOfTechnician
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Obx(
-                                ()=>Padding(
+                        Obx(()=>Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Row(
                                 children: [
@@ -86,12 +85,16 @@ class _AchievementOfTechniciansScreenState extends State<AchievementOfTechnician
                                           Expanded(
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  controller.onClickButton(0);
+                                                  controller.onClickButton(
+                                                      0
+                                                  );
                                                 },
                                                 child: AnimatedContainer(
                                                   alignment: Alignment.center,
                                                   decoration: BoxDecoration(
-                                                      color: controller.index.value == 0
+                                                      color: controller.
+                                                      index.
+                                                      value == 0
                                                           ? mainColor
                                                           : Colors.white,
                                                       borderRadius: BorderRadius.circular(50.r)),
@@ -103,13 +106,16 @@ class _AchievementOfTechniciansScreenState extends State<AchievementOfTechnician
                                                           : mainColor,
                                                     ),
                                                   ),
-                                                  duration: Duration(milliseconds: 800),
+                                                  duration:
+                                                  Duration(milliseconds: 800),
                                                 ),
                                               )),
                                           Expanded(
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  controller.onClickButton(1);
+                                                  controller.onClickButton(
+                                                      1
+                                                  );
                                                 },
                                                 child: AnimatedContainer(
                                                   alignment: Alignment.center,
@@ -136,7 +142,9 @@ class _AchievementOfTechniciansScreenState extends State<AchievementOfTechnician
                                   Expanded(
                                     child: IconButton(
                                         onPressed: () {
-                                          Get.dialog(DalogDateTime());
+                                          Get.dialog(
+                                              DalogDateTime()
+                                          );
                                         },
                                         icon: Icon(
                                           Icons.date_range_sharp,
@@ -163,7 +171,8 @@ class _AchievementOfTechniciansScreenState extends State<AchievementOfTechnician
                               ]
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            crossAxisAlignment: CrossAxisAlignment
+                                .stretch,
                             children: [
                               Text('إجمالي عدد التذاكر لكل الفنيين في الفترة المحددة',style: TextStyle(
                                   color: mainColor,
@@ -228,7 +237,10 @@ class _AchievementOfTechniciansScreenState extends State<AchievementOfTechnician
                                         ),
                                       ),
                                     ),
-                                    Container(width: 1,height: Get.height,color: mainColor,),
+                                    Container(width: 1,
+                                      height: Get.height,
+                                      color: mainColor,
+                                    ),
                                     Expanded(
                                       child: Container(
                                         padding: EdgeInsets.all(8.0),
@@ -316,7 +328,6 @@ class _AchievementOfTechniciansScreenState extends State<AchievementOfTechnician
                         Obx(()=>Stack(
                           alignment: Alignment.center,
                           children: [
-
                             Positioned(
                               left: 15.w,
                               top: 5.h,
@@ -466,9 +477,9 @@ class _AchievementOfTechniciansScreenState extends State<AchievementOfTechnician
                           ),
                         ),
                         Column(
-                          children: List.generate(controller.listReport.length, (index) => GestureDetector(
-                            onTap: () {
-                            },
+                          children: List.generate(controller.listReport.length, (index) =>
+                              GestureDetector(
+                            onTap: () {},
                             child: Container(
                               margin: EdgeInsets.symmetric(
                                   horizontal: 12.w, vertical: 10.h),
@@ -492,7 +503,9 @@ class _AchievementOfTechniciansScreenState extends State<AchievementOfTechnician
                                             height: constrains.maxWidth / 2.5,
                                             decoration: BoxDecoration(
                                                 color: (controller.typeList!="late")?
-                                                statusReport[Controllert.colorState("${controller.listReport[index]['الحالة']}")]['name'][1]:
+                                                statusReport[Controllert.colorState(
+                                                  // التعلميمة تعطيني لون التذكرة بناءا على الاسم
+                                                    "${controller.listReport[index]['الحالة']}")]['name'][1] :
                                                 colorpurple,
                                                 // Colors.red,
                                                 borderRadius: BorderRadius.only(
@@ -501,10 +514,9 @@ class _AchievementOfTechniciansScreenState extends State<AchievementOfTechnician
                                                 )),
                                           )),
                                       Expanded(
-                                          flex: 18,
+                                        flex: 18,
                                           child: Container(
                                             padding: EdgeInsets.all(10.r),
-                                            decoration: BoxDecoration(),
                                             child: Column(
                                               children: [
                                                 Row(

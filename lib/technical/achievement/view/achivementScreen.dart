@@ -6,7 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:roofa/Firebase/firebase.dart';
 import 'package:roofa/const/const_color.dart';
+import 'package:roofa/const_pdf.dart';
 import 'package:roofa/higher_management/statistic_ticket/ticket_chart.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../Firebase/controller.dart';
 
 import '/technical/achievement/controller/achevmebt_controller.dart';
@@ -143,20 +145,8 @@ class _AchivementTScreenState extends State<AchivementTScreen> {
                                   left: 15.w,
                                   top: 5.h,
                                   child: GestureDetector(
-                                    onTap: (){
-                                      Get.dialog(Center(
-                                        child: Container(
-                                          width: Get.width,
-                                          height: Get.width / 4,
-                                          color: Colors.white,
-                                          child: MaterialText(text: 'الأرشيف',fontSize: 50.sp,textAlign: TextAlign.center,),
-                                        ),
-                                      ),
-                                      );
-                                      Timer(
-                                          Duration(milliseconds: 800),
-                                              ()=>Get.back()
-                                      );
+                                    onTap: ()async{
+                                   await launch(getStaticksTechnicalFile);
                                     },
                                     child: SvgPicture.asset('images/download.svg'),
                                   ),

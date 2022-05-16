@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:roofa/const/picker.dart';
 import '../../../Firebase/firebase.dart';
 import '../../../Firebase/reports.dart';
 import '../../../const/text_app.dart';
@@ -372,12 +373,16 @@ class AddChangesTReport extends StatelessWidget {
                                                   .delete_forever_outlined)),
                                           IconButton(
                                               onPressed:
-                                                  () {},
+                                                  () {
+                                                Picker.pickerFile();
+                                                  },
                                               icon: Icon(Icons
                                                   .attach_file_outlined)),
                                           IconButton(
                                               onPressed:
-                                                  () {},
+                                                  () {
+                                                Picker.showChoiceDialog(context);
+                                                  },
                                               icon: Icon(Icons
                                                   .camera_alt_outlined)),
                                         ],
@@ -422,13 +427,18 @@ class AddChangesTReport extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () async {
                       controller.deviceName=deviceName.text;
                       controller.deviceSerialNumber=deviceSerialNumber.text;
                       controller.deviceType=deviceType.text;
-                      sendAssignment();
+                      if(controller.check()){
+                       sendAssignment();
                       Get.back();
                       Get.back();
+                      }
+                      else
+                        Get.snackbar("Error", "complete details",backgroundColor: Colors.red,colorText: Colors.white);
+
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -468,7 +478,13 @@ class AddChangesController extends GetxController{
   Color buttonActive2 = mainColor;
   Color textButtonActive = Colors.white;
   Color textButtonActive2 = Colors.white;
-
+  bool check(){
+    if(deviceName=="")return false;
+    else if(deviceType=="")return false;
+    else if(deviceSerialNumber=="")return false;
+    else if(textReport=="")return false;
+    else return true;
+  }
   PageController? controllerPageView;
   Future<String> sendAssignment() async {
     listReply=FirebaseController.report["tracking"];

@@ -85,7 +85,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            ((element["الحالة"]=="جديدة")&&element["الجهة"]!="خدمة العملاء")?listReport.add(element):"";
+            (element["الجهة"]=="مدير القسم"||(element["الجهة"]=="الفنيين"&&element["الحالة"]=="تحت الإجراء"))?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -101,7 +101,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            ((element["الحالة"]=="جديدة")&&element["الجهة"]!="خدمة العملاء")?listReport.add(element):"";
+            (element["الجهة"]=="مدير القسم"||(element["الجهة"]=="الفنيين"&&element["الحالة"]=="تحت الإجراء"))?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -116,7 +116,7 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            ((element["الحالة"]=="جديدة")&&element["الجهة"]!="خدمة العملاء")?listReport.add(element):"";          }),
+            (element["الجهة"]=="مدير القسم"||(element["الجهة"]=="الفنيين"&&element["الحالة"]=="تحت الإجراء"))?listReport.add(element):"";         }),
           print("listReport : "+"${listReport.length}"),
         });
         return true;
@@ -128,7 +128,9 @@ class ChosenTechnicalDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            ((element["الحالة"]=="جديدة")&&element["الجهة"]!="خدمة العملاء")?listReport.add(element):"";
+            print(element["الحالة"]);
+          //  ((element["الحالة"]=="جديدة")&&element["الجهة"]!="خدمة العملاء")?listReport.add(element):"";
+            (element["الجهة"]=="مدير القسم"||(element["الجهة"]=="الفنيين"&&element["الحالة"]=="تحت الإجراء"))?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });

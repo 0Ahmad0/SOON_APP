@@ -43,8 +43,7 @@ class ShowTasksTController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            ((element["الحالة"]=="جديدة"&&element["الجهة"]=="الفنيين")||
-                element["الحالة"]=="معتمدة"||element["الحالة"]=="تحت الإجراء")?
+            element["الجهة"]=="الفنيين"?
             listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
@@ -61,8 +60,7 @@ class ShowTasksTController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            ((element["الحالة"]=="جديدة"&&element["الجهة"]=="الفنيين")||
-                element["الحالة"]=="معتمدة"||element["الحالة"]=="تحت الإجراء")?
+            element["الجهة"]=="الفنيين"?
             listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
@@ -78,8 +76,8 @@ class ShowTasksTController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            ((element["الحالة"]=="جديدة"&&element["الجهة"]=="الفنيين")||
-                element["الحالة"]=="معتمدة"||element["الحالة"]=="تحت الإجراء")?
+            element["الجهة"]=="الفنيين"?
+
             listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
@@ -94,8 +92,9 @@ class ShowTasksTController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            ((element["الحالة"]=="جديدة"&&element["الجهة"]=="الفنيين")||
-                element["الحالة"]=="معتمدة"||element["الحالة"]=="تحت الإجراء")?
+           /* ((element["الحالة"]=="جديدة"&&element["الجهة"]=="الفنيين")||
+                element["الحالة"]=="معتمدة"||element["الحالة"]=="تحت الإجراء")?*/
+            element["الجهة"]=="الفنيين"?
                     listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),

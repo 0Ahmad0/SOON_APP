@@ -9,6 +9,7 @@ import 'package:intl/intl.dart' as intl;
 
 import 'package:roofa/Customer/supervise_reports/view/superviser_report_screen.dart';
 import 'package:roofa/const/const_color.dart';
+import 'package:roofa/higher_management/homepage/view/home_screen.dart';
 import 'package:roofa/higher_management/how_can_show_replay/view/how_can_show_replay.dart';
 import 'package:roofa/widgets/custom_dialog.dart';
 import 'package:roofa/widgets/material_text.dart';
@@ -52,7 +53,9 @@ class _DetailsTicketHMPageState extends State<DetailsTicketHMPage> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.off(()=>HomeScreenHM());
+                },
                 icon: Icon(
                   Icons.home,
                   size: 30.r,
@@ -589,7 +592,34 @@ class _DetailsTicketHMPageState extends State<DetailsTicketHMPage> {
                       ),
                     ),
                     ...List.generate(FirebaseController.report["reply"].length, (index)  {
-                      return Slidable(
+                      return Dismissible(
+                        secondaryBackground: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.0
+                          ),
+                          color: Colors.red,
+                          alignment: Alignment.centerLeft,
+                          child: Icon(Icons.delete,
+                            size: Get.width * 0.1,
+                            color: Colors.white,),
+                        ),
+                        background: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.0
+                          ),
+                          alignment:  Alignment.centerRight
+                          ,
+                          color: Colors.red,
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                            size: Get.width * 0.1,
+                          ),
+                        ),
+                        key: Key(UniqueKey().toString()),
+                        onDismissed: (direction){
+                          print(direction);
+                        },
                         child: Container(
                           margin:
                           EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
@@ -702,24 +732,6 @@ class _DetailsTicketHMPageState extends State<DetailsTicketHMPage> {
                               )
                             ],
                           ),
-                        ),
-                        startActionPane: ActionPane(
-                          // A motion is a widget used to control how the pane animates.
-                          motion: const ScrollMotion(),
-
-                          // A pane can dismiss the Slidable.
-
-                          // All actions are defined in the children parameter.
-                          children: const [
-                            // A SlidableAction can have an icon and/or a label.
-                            SlidableAction(
-                              backgroundColor: Color(0xFFFE4A49),
-                              foregroundColor: Colors.white,
-                              icon: Icons.delete,
-                              label: 'Delete',
-                              onPressed:null,
-                            ),
-                          ],
                         ),
                       );
                     }),

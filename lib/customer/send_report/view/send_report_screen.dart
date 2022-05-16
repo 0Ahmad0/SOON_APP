@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:roofa/const/const_color.dart';
+import 'package:roofa/customer/home_page/view/home_screen.dart';
 
 import '../../details_problem/view/details_problem_screen.dart';
 import '../controller/send_report_controller.dart';
@@ -16,10 +17,17 @@ class SendReportScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text("تسجيل بلاغ جديد "),
           centerTitle: true,
-          leading: Icon(Icons.arrow_back_ios),
+          leading: IconButton(
+            onPressed: (){
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.off(()=>HomeScreen());
+                },
                 icon: Icon(
                   Icons.home,
                   size: 30.r,
@@ -111,7 +119,10 @@ class SendReportScreen extends StatelessWidget {
               SizedBox(height: 50.h,),
               GestureDetector(
                 onTap: (){
+                  if(contrller.check())
                   Get.off(DetalisProblemScreen(contrller.value.floor,contrller.value.building,contrller.value.headquarters,contrller.value.beneficiary,contrller.value.roomNumber,contrller.value.roomType));
+                  else
+                    Get.snackbar("Error", "complete details",backgroundColor: Colors.red,colorText: Colors.white);
                   //Get.toNamed('/details_problem_screen');
                 },
                 child: Container(

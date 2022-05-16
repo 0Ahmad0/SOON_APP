@@ -32,10 +32,17 @@ class DetalisProblemScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text("تفاصيل المشكلة "),
           centerTitle: true,
-          leading: Icon(Icons.arrow_back_ios),
+          leading: IconButton(
+            onPressed: (){
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.off(()=>HomeScreen());
+                },
                 icon: Icon(
                   Icons.home,
                   size: 30.r,
@@ -205,9 +212,16 @@ class DetalisProblemScreen extends StatelessWidget {
                       SizedBox(height: 40.h,),
                       GestureDetector(
                         onTap: () async {
-                          (await controller.sendReport())?
-                          //Get.toNamed('/rating_screen'):"";
-                          Get.off(()=>HomeScreen()):print("حاول مجددا");
+                          if(controller.check()){
+                            (
+                                await controller.sendReport()
+                            )?
+                            //Get.toNamed('/rating_screen'):"";
+                            Get.off(()=>HomeScreen()):print("حاول مجددا");
+                          }
+                          else
+                            Get.snackbar("Error", "complete details",backgroundColor: Colors.red,colorText: Colors.white);
+
                         },
                         child:
                         Container(

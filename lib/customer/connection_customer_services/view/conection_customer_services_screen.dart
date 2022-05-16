@@ -172,8 +172,10 @@ class _ConectionCustomerServicesScreenState
                                       //controller.listMessages.length,
                                       itemBuilder: (ctx, index) {
                                         return Directionality(
-                                          textDirection: (msg[index]
-                                                      .sender_type == /*"المتسفيد"*/
+                                          textDirection: (
+                                              msg[index]
+                                                      .sender_type
+                                                  == /*"المتسفيد"*/
                                                   Chatting
                                                       .TYPE_USER) //index.isEven
                                               ? TextDirection.rtl
@@ -222,7 +224,10 @@ class _ConectionCustomerServicesScreenState
                                                       height: 5,
                                                     ),
                                                     Text(
-                                                      '${intl.DateFormat().add_jm().format(msg[index].date_message!)}',
+                                                      '${
+                                                          intl.DateFormat()
+                                                              .add_jm().
+                                                          format(msg[index].date_message!)}',
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: TextStyle(
@@ -308,7 +313,8 @@ class _ConectionCustomerServicesScreenState
                                       },
                                     ),
                                     hintText: 'اكتب هنا',
-                                    hintStyle: TextStyle(color: Colors.grey)),
+                                    hintStyle: TextStyle(color: Colors.grey
+                                    )),
                               ),
                             ),
                           )

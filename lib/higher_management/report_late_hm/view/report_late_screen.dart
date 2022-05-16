@@ -37,39 +37,7 @@ class _ReportLateHMScreenState extends State<ReportLateHMScreen> {
                   Get.back();
                 },
                 icon: Icon(Icons.arrow_back_ios),),
-            actions: [
-              Stack(
-                alignment: Alignment.topLeft,
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: SvgPicture.asset(
-                        'images/notifications.svg',
-                        width: 23.w,
-                        height: 23.h,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 2,
-                    top: 2,
-                    child: CircleAvatar(
-                      radius: 10.r,
-                      backgroundColor: Colors.red,
-                      child: Text(
-                        '4',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
+
           ),
           body: Column(
             children: [

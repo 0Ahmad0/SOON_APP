@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:roofa/const/picker.dart';
+import 'package:roofa/const_pdf.dart';
 import 'package:roofa/technical/report_screen/controller/report_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Customer/details_ticket/view/details_ticket.dart';
 import '../../../const/const_color.dart';
@@ -156,7 +159,9 @@ class ReportsTeScreen extends StatelessWidget {
                     Expanded(
                         child: IconButton(
                           icon: Icon(Icons.print,color: colorShadowSearch,),
-                          onPressed: (){},
+                          onPressed: ()async{
+                            await launch(getTicketFile);
+                          },
                         )):SizedBox(),
 
                   ],
@@ -305,13 +310,17 @@ class DetailsTicketTPage extends StatelessWidget {
                                                                           .delete_forever_outlined)),
                                                               IconButton(
                                                                   onPressed:
-                                                                      () {},
+                                                                      () {
+                                                                    Picker.pickerFile();
+                                                                      },
                                                                   icon: Icon(
                                                                       Icons
                                                                           .attach_file_outlined)),
                                                               IconButton(
                                                                   onPressed:
-                                                                      () {},
+                                                                      () {
+                                                                    Picker.showChoiceDialog(context);
+                                                                      },
                                                                   icon: Icon(
                                                                       Icons
                                                                           .camera_alt_outlined)),

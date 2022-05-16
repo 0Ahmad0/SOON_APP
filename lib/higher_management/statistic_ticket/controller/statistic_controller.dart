@@ -101,12 +101,7 @@ class StatisticController extends GetxController{
   }
   var selectName = 'اسامة العوض'.obs;
   List customerNames = [
-    'اسامة العوض',
-    'أحمد متولي',
-    'رهف متولي',
-    'شهد العامودي',
-    'رزان الحربي',
-    'ايمان الأهدل',
-
+   // 'عبد العزيز الأحمدي'
+    'اسامة العوض'
   ];
 }

@@ -59,7 +59,6 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                     PopupMenuItem<String>(
                       child: GestureDetector(
                         onTap: (){
-
                           Navigator.pop(context);
                           Get.to(()=>ReportsTScreen());
                         },
@@ -76,6 +75,10 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
         body: FutureBuilder(
           future:FirebaseController.getReport(Report.reportNumber),
           builder: (context,snapShot){
+
+            bool isNew=(FirebaseController.report["الجهة"]=="الفنيين"&&
+                (FirebaseController.report["الحالة"]=="تحت الإجراء"&&
+            FirebaseController.report["tracking"].length==0));
           if(!snapShot.hasData){
           return Center(child: CircularProgressIndicator());
           }else{
@@ -100,7 +103,7 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                         Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: statusReport[Controllert.colorState("${ FirebaseController.report['الحالة']}")]['name'][1] ,//Colors.grey,
+                                  color: isNew?Colors.grey:statusReport[Controllert.colorState("${ FirebaseController.report['الحالة']}")]['name'][1] ,//Colors.grey,
                                   borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(15.r),
                                     bottomRight: Radius.circular(15.r),
@@ -408,17 +411,17 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                                             children: [
                                               CircleAvatar(
                                                 radius: 5.r,
-                                                backgroundColor:statusReport[Controllert.colorState("${ FirebaseController.report['الحالة']}")]['name'][1] ,
+                                                backgroundColor:isNew?Colors.grey:statusReport[Controllert.colorState("${ FirebaseController.report['الحالة']}")]['name'][1] ,
                                                 //Colors.grey,
                                               ),
                                               SizedBox(
                                                 width: 10.w,
                                               ),
                                               Text(
-                                                FirebaseController.report["الحالة"],
+                                                isNew?"جديدة":FirebaseController.report["الحالة"],
                                                 //'${widget.map['report_status']}',
                                                 style: TextStyle(
-                                                  color:statusReport[Controllert.colorState("${ FirebaseController.report['الحالة']}")]['name'][1] ,
+                                                  color:isNew?Colors.grey:statusReport[Controllert.colorState("${ FirebaseController.report['الحالة']}")]['name'][1] ,
                                                   //Colors.grey,
                                                 ),
                                               )
@@ -491,26 +494,7 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    children: [
-                                      Wrap(
-                                        children: [
-                                          Text(
-                                            'رقم  الجوال : ',
-                                            style: TextStyle(
-                                                color: mainColor,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.sp),
-                                          ),
-                                          Text(
-                                            '${widget.map['ticket_phone_number']}',
-                                            style: TextStyle(
-                                                color: mainColor, height: 1.5),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
@@ -651,8 +635,14 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                             )),
                       ],
                     )),
-                ...List.generate(FirebaseController.report["reply"].length, (index)  {
-                  return Slidable(
+                ...List.generate(FirebaseController.
+                report["reply"].length, (index)  {
+                  return Dismissible(
+                    key: Key(FirebaseController.
+                    report["reply"][index]),
+                    onDismissed: (val){
+                      print(index);
+                    },
                     child: Container(
                       margin:
                       EdgeInsets.symmetric(vertical: 11.h, horizontal: 11.w),
@@ -737,7 +727,12 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                                   Row(
                                     children: [
                                       Text(
-                                        'وحدةً'+'${FirebaseController.report["reply"][index]["الوحدة"]}',
+                                        'وحدةً'+'${
+                                            FirebaseController.
+                                            report["reply"]
+                                            [index]
+                                            ["الوحدة"]
+                                        }',
                                         //'وحدة خدمة الصيانةً',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
@@ -765,24 +760,6 @@ class _DetailsTicketTScreenState extends State<DetailsTicketTScreen> {
                           )
                         ],
                       ),
-                    ),
-                    startActionPane: ActionPane(
-                      // A motion is a widget used to control how the pane animates.
-                      motion: const ScrollMotion(),
-
-                      // A pane can dismiss the Slidable.
-
-                      // All actions are defined in the children parameter.
-                      children: const [
-                        // A SlidableAction can have an icon and/or a label.
-                        SlidableAction(
-                          backgroundColor: Color(0xFFFE4A49),
-                          foregroundColor: Colors.white,
-                          icon: Icons.delete,
-                          label: 'Delete',
-                          onPressed:null,
-                        ),
-                      ],
                     ),
                   );
                 }),

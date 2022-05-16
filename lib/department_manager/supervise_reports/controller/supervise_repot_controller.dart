@@ -54,7 +54,7 @@ class SuperviseReportDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+            (element["الحالة"]!="جديدة"&&element["الحالة"]!="مرفوضة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -69,7 +69,7 @@ class SuperviseReportDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+            (element["الحالة"]!="جديدة"&&element["الحالة"]!="مرفوضة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -84,7 +84,7 @@ class SuperviseReportDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+            (element["الحالة"]!="جديدة"&&element["الحالة"]!="مرفوضة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });
@@ -98,7 +98,7 @@ class SuperviseReportDMController extends GetxController{
         then((value) => {
           listReport=[],
           value.docs.forEach((element) {
-            (element["الحالة"]!="جديدة")?listReport.add(element):"";
+            (element["الحالة"]!="جديدة"&&element["الحالة"]!="مرفوضة")?listReport.add(element):"";
           }),
           print("listReport : "+"${listReport.length}"),
         });

@@ -84,7 +84,8 @@ class HomeScreenT extends StatelessWidget {
                                                 width: .5,
                                                 color: Colors.black.withOpacity(.5),
                                               ),
-                                              Expanded(child:GestureDetector(
+                                              Expanded(
+                                                child:GestureDetector(
                                                 onTap: () {
                                                   Get.to(()=>UserProfileScreen());
                                                 },
@@ -124,7 +125,9 @@ class HomeScreenT extends StatelessWidget {
                             "${controller.numberNotification}",
                             //'4',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold
+                            ,color: Colors.white
+                            ),
                           ),
                         ),
                       )
@@ -153,7 +156,9 @@ class HomeScreenT extends StatelessWidget {
                               child: ListView(
                                 children: [
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Get.to(()=>UserProfileScreen());
+                                    },
                                     child: Padding(
                                       padding: const EdgeInsets.all(12.0),
                                       child: SvgPicture.asset(
@@ -163,7 +168,7 @@ class HomeScreenT extends StatelessWidget {
                                   ),
                                   Text(
                                     controller.name,
-                                    //'عبدالعزيز الأحمدي',
+                                    // 'عبدالعزيز الأحمدي',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 15.sp,

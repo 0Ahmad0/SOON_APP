@@ -37,7 +37,7 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           appBar: AppBar(
-            title: Text("متابعة البلاغات"),
+            title: Text("متابعة البلاغات "),
             centerTitle: true,
             leading: IconButton(
               onPressed: (){
@@ -45,37 +45,7 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
               },
               icon: Icon(Icons.arrow_back_ios),
             ),
-            actions: [
-              Stack(
-                alignment: Alignment.topLeft,
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: SvgPicture.asset(
-                        'images/notifications.svg',
-                        width: 23.w,
-                        height: 23.h,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 2,
-                    top: 2,
-                    child: CircleAvatar(
-                      radius: 10.r,
-                      backgroundColor: Colors.red,
-                      child: Text(
-                        '4',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
+
           ),
           body: Column(
             children: [
@@ -417,9 +387,10 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
                                                     ),
                                                     contrller.listReport[index]['الحالة'] == "مغلقة"
                                                         ?Expanded(
-                                                      child: GestureDetector(
+                                                      child: (contrller.listReport[index]['القسم']=="")?GestureDetector(
                                                         onTap: () {
-                                                          Get.to(()=>RatingScreen());
+                                                        //  print(contrller.listReport[index].id);
+                                                          Get.to(()=>RatingScreen(id:contrller.listReport[index].id));
                                                         },
                                                         child: Container(
                                                           alignment:
@@ -447,7 +418,7 @@ class _SuperviserReportsScreenState extends State<SuperviserReportsScreen> {
                                                             ],
                                                           ),
                                                         ),
-                                                      ),
+                                                      ):SizedBox(),
                                                     )
                                                         :SizedBox()
                                                   ],

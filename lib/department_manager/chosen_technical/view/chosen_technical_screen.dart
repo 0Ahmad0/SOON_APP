@@ -5,16 +5,19 @@ import 'package:get/get.dart';
 import 'package:roofa/department_manager/chosen_techinical_for_ticket/view/chosen_technical_for_ticket.dart';
 import 'package:roofa/department_manager/chosen_technical/controller/chosen_technical_controller.dart';
 import 'package:select_dialog/select_dialog.dart';
-
+import '../../../Firebase/firebase.dart';
+import '../../../Firebase/reports.dart';
 import '../../../const/const_color.dart';
 import '../../../const/text_app.dart';
 import '../../../widgets/dialog_date_time.dart';
 import '../../home_page/view/home_page.dart';
 import 'package:intl/intl.dart' as intl;
-
-class ChosenTechnicalDMScreen extends StatelessWidget {
+class ChosenTechnicalDMScreen extends StatefulWidget {
+  @override
+  State<ChosenTechnicalDMScreen> createState() => _ChosenTechnicalDMScreenState();
+}
+class _ChosenTechnicalDMScreenState extends State<ChosenTechnicalDMScreen> {
   final controller = Get.put(ChosenTechnicalDMController());
-
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -106,7 +109,7 @@ class ChosenTechnicalDMScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
+            /*Container(
                 decoration:
                 BoxDecoration(color: Colors.white, boxShadow: [
                   BoxShadow(
@@ -140,166 +143,203 @@ class ChosenTechnicalDMScreen extends StatelessWidget {
                               items: c,
                               onChange: (selected) {
                                 controller.selectedText.value = selected.toString();
+                                //controller.update();
+                                //=======//
+                                controller.headquartersFilter="";
+                                controller.beneficiaryFilter="";
+                                switch("${statusSortDM[index]['type_sort_name']['name']}"){
+                                  case "فرز على حسب الجهة":
+                                    controller.beneficiaryFilter=selected.toString();
+                                    break;
+                                  case "فرز على حسب المقر":
+                                    controller.headquartersFilter=selected.toString();
+                                    print(controller.headquartersFilter);
+                                    break;
+                                }
+                                //await controller.fetchDataReportUser();
                                 controller.update();
+                                setState((){
+                                });
+                                //=======
                               },
                             );
                           },
-
                         );
                       },
                     );
                   },
-                )),
+                )),*/
             Expanded(
-              child: ListView.builder(
-                itemCount: ticketSelectionTechnical.length,
-                itemBuilder: (_,index)=>GestureDetector(
-                  onTap: (){
-                    Get.to(()=>ChosenTechnicalForTicketDMScreen(
-                      map: ticketSelectionTechnical[index],
-                    ));
-                  },
-                  child: Container(
-                    height: ticketSelectionTechnical
-                    [index]['report_status']?Get.width * 0.28:Get.width * 0.4,
-                    margin: EdgeInsets.all(8.r),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: colorShadowSearch.withOpacity(.34),
-                          offset: Offset(0,4),
-                          blurRadius: 10
-                        )
-                      ]
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color:  ticketSelectionTechnical
-                              [index]['report_status']
-                                  ?Color(0xff30D852).withOpacity(.5)
-                                :Color(0xffBFBFBF),
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(15.r),
-                                bottomRight: Radius.circular(15.r),
-                              )
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 18,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              children: [
+              child: FutureBuilder(
+                  future: controller.fetchDataReportUser(),
+                  builder: (context,snapShot) {
+                    if (!snapShot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    } else{
+                      return ListView.builder(
+                        itemCount: controller.listReport.length,
+                        itemBuilder: (_,index)=>GestureDetector(
+                          onTap: (){
+                            Report.reportNumber=controller.listReport[index]['رقم البلاغ'];
 
+                            setState(() {
+                              Get.to(()=>ChosenTechnicalForTicketDMScreen(
+                                map: ticketSelectionTechnical[0],
+                              ));
+                            });
+                          },
+                          child: Container(
+                            height: controller.listReport[index]["الحالة"]!="جديدة"?Get.width * 0.28:Get.width * 0.4,
+                            margin: EdgeInsets.all(8.r),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(15.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: colorShadowSearch.withOpacity(.34),
+                                      offset: Offset(0,4),
+                                      blurRadius: 10
+                                  )
+                                ]
+                            ),
+                            child: Row(
+                              children: [
                                 Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                     Row(
-                                       children: [
-                                         Text('رقم البلاغ : ',style: TextStyle(
-                                             color: mainColor,
-                                             fontSize: 15.sp,
-                                             fontWeight: FontWeight.bold
-                                         ),),
-                                         Text('${ticketSelectionTechnical
-                                         [index]['report_number']}',style: TextStyle(
-                                             color: mainColor
-                                         ),),
-                                       ],
-                                     ),
-                                      Text('${
-                                          intl.DateFormat
-                                              .yMEd()
-                                              .add_jm()
-                                              .format(
-                                              ticketSelectionTechnical
-                                              [index]['report_date_time']
-                                          )
-                                      }',style: TextStyle(
-                                        color: colorShadowSearch
-                                      ),),
-                                    ],
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      // color:  controller.listReport[index]["الحالة"]!="جديدة"
+                                        color:  (controller.listReport[index]["الحالة"]=="معتمدة")&&
+                                (controller.listReport[index]["الجهة"])!="الفنيين"
+                             //   (controller.listReport[index]["الجهة"])!="خدمة العملاء")//controller.listReport[index]["نوع الحركة"]=="إحالة التذكرة لمركز الصيانة"
+                                        // controller.listReport[index]["الحالة"]!="جديدة"
+                                        //ticketSelectionTechnical[index]['report_status']
+                                            ?Colors.orange//Color(0xffBFBFBF)
+                                            :Color(0xff30D852).withOpacity(.5)
+                                            ,
+                                        borderRadius: BorderRadius.only(
+                                          topRight: Radius.circular(15.r),
+                                          bottomRight: Radius.circular(15.r),
+                                        )
+                                    ),
                                   ),
                                 ),
                                 Expanded(
-                                  child: Row(
-                                    children: [
-                                     Text('الجهة : ',style: TextStyle(
-                                         color: mainColor,
-                                         fontSize: 15.sp,
-                                         fontWeight: FontWeight.bold
-                                     ),),
-                                     Text('${ticketSelectionTechnical
-                                     [index]['report_target']}',style: TextStyle(
-                                         color: mainColor
-                                     ),),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                     Text('المقر : ',style: TextStyle(
-                                         color: mainColor,
-                                         fontSize: 15.sp,
-                                         fontWeight: FontWeight.bold
-                                     ),),
-                                     Text('${ticketSelectionTechnical
-                                     [index]['report_position']}',style: TextStyle(
-                                         color: mainColor
-                                     ),),
-                                    ],
-                                  ),
-                                ),
-                                ticketSelectionTechnical
-                                [index]['report_status']?
-                                SizedBox() :
-                                Expanded(
-                                  flex: 2,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: (){
-                                          Get.to(()=>ChosenTechnicalForTicketDMScreen(
-                                            map: ticketSelectionTechnical[index],
-                                          ));
-                                        },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          width: Get.width * 0.35,
-                                          height: Get.width* 0.1,
-                                          decoration: BoxDecoration(
-                                            color: mainColor,
-                                            borderRadius: BorderRadius.circular(50.r),
+                                  flex: 18,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text('رقم البلاغ : ',style: TextStyle(
+                                                      color: mainColor,
+                                                      fontSize: 15.sp,
+                                                      fontWeight: FontWeight.bold
+                                                  ),),
+                                                  Text(controller.listReport[index]['رقم البلاغ']
+                                                    //'${ticketSelectionTechnical[index]['report_number']}'
+                                                    ,style: TextStyle(
+                                                        color: mainColor
+                                                    ),),
+                                                ],
+                                              ),
+                                              Text(FirebaseController.formatTimestamp(controller.listReport[index]["Time"]),
+                                                /*'${
+                                                intl.DateFormat
+                                                    .yMEd()
+                                                    .add_jm()
+                                                    .format(
+                                                    ticketSelectionTechnical
+                                                    [index]['report_date_time']
+                                                )
+                                            }'*/style: TextStyle(
+                                                    color: colorShadowSearch
+                                                ),),
+                                            ],
                                           ),
-                                          child: Text('تعيين فني',style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15.sp
-                                          ),),
                                         ),
-                                      )
-                                    ],
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              Text('الجهة : ',style: TextStyle(
+                                                  color: mainColor,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold
+                                              ),),
+                                              Text('${controller.listReport[index]['الجهة المستفيدة']}',
+                                                //'${ticketSelectionTechnical[index]['report_target']}',
+                                                style: TextStyle(
+                                                    color: mainColor
+                                                ),),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              Text('المقر : ',style: TextStyle(
+                                                  color: mainColor,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold
+                                              ),),
+                                              Text('${controller.listReport[index]['المقر']}'
+                                                ,style: TextStyle(
+                                                    color: mainColor
+                                                ),),
+                                            ],
+                                          ),
+                                        ),
+                                       // controller.listReport[index]["الحالة"]!="جديدة"?
+                                        (controller.listReport[index]["الحالة"]=="معتمدة")&&
+                                            (controller.listReport[index]["الجهة"])!="الفنيين"?
+                                     /*   ((controller.listReport[index]["الحالة"]=="جديدة")&&
+                                            (controller.listReport[index]["الجهة"])!="الفنيين"&&
+                                                (controller.listReport[index]["الجهة"])!="خدمة العملاء")*/
+                                        Expanded(
+                                          flex: 2,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: (){
+                                                  Report.reportNumber=controller.listReport[index]['رقم البلاغ'];
+                                                  Get.to(()=>ChosenTechnicalForTicketDMScreen(
+                                                    map: ticketSelectionTechnical[0],
+                                                  ));
+                                                },
+                                                child: Container(
+                                                  alignment: Alignment.center,
+                                                  width: Get.width * 0.35,
+                                                  height: Get.width* 0.1,
+                                                  decoration: BoxDecoration(
+                                                    color: mainColor,
+                                                    borderRadius: BorderRadius.circular(50.r),
+                                                  ),
+                                                  child: Text('تعيين فني',style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15.sp
+                                                  ),),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ):SizedBox()
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+                        ),
+                      );
+                    }}),
             )
           ],
         ),

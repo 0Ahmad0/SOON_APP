@@ -43,6 +43,15 @@ class SendReportController extends GetxController{
     }
     return "";
   }
+  bool check(){
+    if(value.beneficiary=="")return false;
+    else if(value.headquarters=="")return false;
+    else if(value.building=="")return false;
+    else if(value.floor=="")return false;
+    else if(value.roomType=="")return false;
+    else if(value.roomNumber=="")return false;
+    else return true;
+  }
 }
 class SendReportVal{
   String beneficiary="";
