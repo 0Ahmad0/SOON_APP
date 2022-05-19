@@ -219,7 +219,7 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
               return Column(
                 children: [
                   Container(
-                    height: Get.width * 1.3,//Get.height * 0.63,
+                    height: (FirebaseController.report["الحالة"]=="مرفوضة")?Get.width * 1.4:Get.width * 1.3,//Get.height * 0.63,
                     margin:
                     EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                     decoration: BoxDecoration(
@@ -745,6 +745,36 @@ class _DetailsTicketPageState extends State<DetailsTicketPage> {
                                                     ),
                                                   ],
                                                 ),
+                                                (FirebaseController.report["الحالة"]=="مرفوضة")?
+                                                Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.stretch,
+                                                  children: [
+                                                    Text(
+                                                      'سبب الرفض : ',
+                                                      style: TextStyle(
+                                                          color: mainColor,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 15.sp),
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                      AlignmentDirectional.center,
+                                                      padding: EdgeInsets.all(12.r),
+                                                      decoration: BoxDecoration(
+                                                          color: Color(0xffF3F3F3),
+                                                          borderRadius:
+                                                          BorderRadius.circular(15.r)),
+                                                      child: Text(
+                                                        "${FirebaseController.cuaseRefusal}",
+                                                        // '${ticketInformation['ticket_problem_description']}',
+                                                        style: TextStyle(
+                                                            color: mainColor, height: 1.5),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                                :SizedBox(),
                                               ],
                                             );
                                           }})

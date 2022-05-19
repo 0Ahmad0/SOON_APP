@@ -7,6 +7,8 @@ import 'package:roofa/const/const_color.dart';
 import 'package:roofa/language/view/language_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../sign_in/view/sign_in_screen.dart';
+
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
@@ -165,6 +167,12 @@ class SettingScreen extends StatelessWidget {
                           );
                         }
                     );
+                  },
+                ),
+                _buildItem(
+                  title: "تسجيل الخرروج",
+                  onTap: () {
+                    Get.off(()=> SignInScreen());
                   },
                 ),
 

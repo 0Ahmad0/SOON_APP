@@ -564,6 +564,7 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                       },
                     ),
                   ),
+                  (FirebaseController.report["الحالة"]!="مرفوضة")?
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -792,7 +793,8 @@ class _DetailsTicketCSScreenState extends State<DetailsTicketCSScreen> {
                         ),
                       ),
                     ],
-                  ),
+                  )
+                  :SizedBox(),
                   Column(
                     children: List.generate(FirebaseController.report["reply"].length, (index) => Container(
                       margin:

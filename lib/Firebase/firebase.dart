@@ -12,6 +12,7 @@ class FirebaseController{
   static late String typeStudent;
   static late String phoneNumber;
   static late String firstEmail,lastEmail;
+  static String cuaseRefusal="";
   static var report;
   static var notification=[
     {"notification":false,},
@@ -100,9 +101,16 @@ class FirebaseController{
       if(value.docs.isNotEmpty) {
         report=null;
         report = value.docs[0];
+        if(report["الحالة"]=="مرفوضة") getCauseRefusal(report);
         return true;
       }
     });
     return false;
+  }
+  static void getCauseRefusal(var report1){
+    List tracking =report1["tracking"];
+    tracking.forEach((element) {
+      if(element["الحالة"]=="مرفوضة") cuaseRefusal=element["الوصف"];
+    });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -367,7 +368,27 @@ class _ShowTasksTScreenState extends State<ShowTasksTScreen> {
                                                   controller.listReport[index]['المقر']
                                               }',style: TextStyle(
                                                   color: mainColor
-                                              ),)
+                                              ),),
+                                          ( controller.listReport[index]["الحالة"]!="مرفوضة"&&
+                                              controller.listReport[index]["الحالة"]!="مغلقة"&&
+                                              controller.listReport[index]["الجهة"]=="الفنيين"&&
+                                              Timestamp.now().compareTo( controller.listReport[index]["TimeFor"])==1)?
+                                              Expanded(
+                                                  child: Row(
+                                                    children: [
+                                                      SizedBox(width: 70,),
+                                                      Text(
+                                                        'التذكرة متأخرة',
+                                                        style: TextStyle(
+                                                            color: Colors.purple,
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                            fontSize: 13.sp),
+                                                      ),
+                                                    ],
+                                                  ),
+                                              ):SizedBox(),
+
                                             ],
                                           ),
                                           Row(

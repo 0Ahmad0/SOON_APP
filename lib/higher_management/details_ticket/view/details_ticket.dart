@@ -534,27 +534,7 @@ class _DetailsTicketHMPageState extends State<DetailsTicketHMPage> {
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          children: [
-                                            Wrap(
-                                              children: [
-                                                Text(
-                                                  'رقم الجوال : ',
-                                                  style: TextStyle(
-                                                      color: mainColor,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 15.sp),
-                                                ),
-                                                Text(
-                                                  '${ticketInformation['ticket_phone_number']}',
-                                                  style: TextStyle(
-                                                      color: mainColor,
-                                                      height: 1.5),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                      
                                         Column(
                                           crossAxisAlignment:
                                           CrossAxisAlignment.stretch,
